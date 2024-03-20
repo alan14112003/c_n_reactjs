@@ -1,8 +1,6 @@
 import StoryFilterBox from '@/components/StoryFilterBox'
 import StoryGrid from '@/components/StoryGrid'
 import { Button } from '@/components/ui/button'
-import { Sheet, SheetTrigger } from '@/components/ui/sheet'
-import { useEffect, useRef } from 'react'
 
 const HomePage = () => {
   return (

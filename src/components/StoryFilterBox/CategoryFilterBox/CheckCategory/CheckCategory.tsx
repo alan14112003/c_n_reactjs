@@ -1,19 +1,21 @@
-import { Check, X } from 'lucide-react'
-import { ReactNode, useState } from 'react'
-
-export type ValueCategoryType = 0 | 1 | -1
+import { CategoriesStatus, ValueCategoryStatus } from '@/types/categoryType'
+import { FC, ReactNode } from 'react'
+import CheckBox from '../CheckBox'
 
 type CheckCategoryProp = {
   children: ReactNode
-  onChange: (value: ValueCategoryType) => void
+  onChange: (category: CategoriesStatus) => void
+  category: CategoriesStatus
 }
 
-const CheckCategory = ({ children, onChange }: CheckCategoryProp) => {
-  const [value, setValue] = useState<ValueCategoryType>(0)
-
+const CheckCategory: FC<CheckCategoryProp> = ({
+  children,
+  onChange,
+  category,
+}) => {
   const changeValue = () => {
-    let newValue: ValueCategoryType
-    switch (value) {
+    let newValue: ValueCategoryStatus
+    switch (category.status) {
       case 1:
         newValue = -1
         break
@@ -24,8 +26,7 @@ const CheckCategory = ({ children, onChange }: CheckCategoryProp) => {
         newValue = 1
         break
     }
-    setValue(newValue)
-    onChange(newValue)
+    onChange({ ...category, status: newValue })
   }
 
   return (
@@ -35,13 +36,7 @@ const CheckCategory = ({ children, onChange }: CheckCategoryProp) => {
       className="flex items-center"
       tabIndex={0}
     >
-      <div
-        className={`w-6 h-6 flex justify-center items-center mr-2 bg-gray-200 dark:bg-white cursor-pointer`}
-      >
-        {value !== 0 &&
-          (value === 1 ? <Check color="#17e5e8" /> : <X color="#e81717" />)}
-      </div>
-      <span className="select-none">{children}</span>
+      <CheckBox value={category.status} label={children} />
     </div>
   )
 }

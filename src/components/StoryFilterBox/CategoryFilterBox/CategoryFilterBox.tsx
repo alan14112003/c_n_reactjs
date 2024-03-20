@@ -1,14 +1,15 @@
-import { useEffect, useState } from 'react'
-import CheckCategory, { ValueCategoryType } from './CheckCategory/CheckCategory'
-import { Category } from '@/types/categoryType'
+import { FC, memo, useEffect, useState } from 'react'
+import CheckCategory from './CheckCategory/CheckCategory'
+import {
+  CategoriesStatus,
+  Category,
+  ValueCategoryStatus,
+} from '@/types/categoryType'
 import CategoryServices, { CategoryKey } from '@/services/categoryServices'
 import { useQuery } from '@tanstack/react-query'
-import { Check, X } from 'lucide-react'
-
-type CategoriesStatusType = {
-  id: number
-  status: ValueCategoryType
-}
+import { useAppDispatch } from '@/app/hooks'
+import { updateStoryFilter } from '@/features/stories/storyFilterSlide'
+import CheckBox from './CheckBox'
 
 const INSTRUCTION_CATEGORIES = [
   { value: 1, label: 'Tìm trong những thể loại này' },
@@ -22,112 +23,118 @@ const INSTRUCTION_CATEGORIES = [
   },
 ]
 
-const CategoryFilterBox = () => {
-  const [categoriesStatus, setCategoriesStatus] = useState<
-    CategoriesStatusType[]
-  >([])
+type CategoryFilterBoxProp = {
+  categoryIn?: number[]
+  categoryNotIn?: number[]
+}
 
-  const {
-    data: categoriesResponse,
-    isLoading,
-    isPending,
-    isSuccess,
-    isError,
-    error,
-  } = useQuery({
-    queryKey: [CategoryKey],
-    queryFn: CategoryServices.all,
-  })
+const CategoryFilterBox: FC<CategoryFilterBoxProp> = memo(
+  ({ categoryIn, categoryNotIn }) => {
+    const [categoriesStatus, setCategoriesStatus] = useState<
+      CategoriesStatus[]
+    >([])
 
-  if (isError) {
-    console.log(error)
-  }
+    const {
+      data: categoriesResponse,
+      isLoading,
+      isPending,
+      isSuccess,
+      isError,
+      error,
+    } = useQuery({
+      queryKey: [CategoryKey],
+      queryFn: CategoryServices.all,
+      gcTime: 86400000,
+      refetchOnMount: false,
+    })
 
-  const categories: Category[] = categoriesResponse?.data
+    if (isError) {
+      console.log(error)
+    }
 
-  useEffect(() => {
-    if (isSuccess) {
-      setCategoriesStatus(
-        categories.map((category) => ({ id: category.id, status: 0 }))
+    const categories: Category[] = categoriesResponse?.data
+
+    const dispatch = useAppDispatch()
+
+    console.log('re render cate')
+    useEffect(() => {
+      if (isSuccess) {
+        setCategoriesStatus(
+          categories.map((category) => {
+            let statusCategory: ValueCategoryStatus = 0
+            if (categoryIn?.includes(category.id)) {
+              statusCategory = 1
+            } else if (categoryNotIn?.includes(category.id)) {
+              statusCategory = -1
+            }
+            return {
+              id: category.id,
+              status: statusCategory,
+              name: category.name,
+            }
+          })
+        )
+      }
+    }, [categories, categoryIn, categoryNotIn])
+
+    const changeCategoryStatus = (category: CategoriesStatus) => {
+      const categoriesStatusNew = categoriesStatus.filter(
+        (categoryStatus) => categoryStatus.id !== category.id
+      )
+      categoriesStatusNew.push(category)
+
+      console.log('change: ', categoriesStatusNew)
+
+      const categoryInNew = categoriesStatusNew
+        .filter((categoryStatus) => categoryStatus.status === 1)
+        .map((categoryStatus) => categoryStatus.id)
+
+      const categoryNotInNew = categoriesStatusNew
+        .filter((categoryStatus) => categoryStatus.status === -1)
+        .map((categoryStatus) => categoryStatus.id)
+
+      dispatch(
+        updateStoryFilter({
+          categoryIn: categoryInNew,
+          categoryNotIn: categoryNotInNew,
+        })
       )
     }
-  }, [isSuccess])
 
-  useEffect(() => {
-    const checkStatusChange = categoriesStatus.some(
-      (categoryStatus) => categoryStatus.status !== 0
-    )
+    return (
+      <>
+        <h3 className="my-4 font-bold">Thể loại</h3>
 
-    if (checkStatusChange) {
-      console.log('change: ', categoriesStatus)
-
-      // storiesFilter.categoryIn = categoriesStatus
-      //   .filter((categoryStatus) => categoryStatus.status === 1)
-      //   .map((categoryStatus) => categoryStatus.id)
-
-      // storiesFilter.categoryNotIn = categoriesStatus
-      //   .filter((categoryStatus) => categoryStatus.status === -1)
-      //   .map((categoryStatus) => categoryStatus.id)
-    }
-  }, [categoriesStatus])
-
-  const changeCategoryStatus = (
-    categoryId: number,
-    value: ValueCategoryType
-  ) => {
-    const categoriesStatusNew = categoriesStatus.filter(
-      (categoryStatus) => categoryStatus.id !== categoryId
-    )
-
-    setCategoriesStatus([
-      ...categoriesStatusNew,
-      { id: categoryId, status: value },
-    ])
-  }
-
-  return (
-    <>
-      <h3 className="my-4 font-bold">Thể loại</h3>
-
-      {INSTRUCTION_CATEGORIES.map((instructionsCategory) => (
-        <div
-          className="flex items-center mt-2"
-          key={instructionsCategory.value}
-        >
+        {INSTRUCTION_CATEGORIES.map((instructionsCategory) => (
           <div
-            className={`w-6 h-6 flex justify-center items-center mr-2 bg-gray-200 dark:bg-white`}
+            className="flex items-center mt-2"
+            key={instructionsCategory.value}
           >
-            {instructionsCategory.value !== 0 &&
-              (instructionsCategory.value === 1 ? (
-                <Check color="#17e5e8" />
-              ) : (
-                <X color="#e81717" />
-              ))}
+            <CheckBox
+              value={instructionsCategory.value}
+              label={instructionsCategory.label}
+            />
           </div>
-          <span className="select-none overflow-hidden w-full">
-            {instructionsCategory.label}
-          </span>
-        </div>
-      ))}
+        ))}
 
-      <div className="flex gap-4 flex-wrap mt-8">
-        {(isLoading || isPending) && <span>load</span>}
-        {isSuccess &&
-          categories.map((category) => {
-            return (
-              <CheckCategory
-                key={category.id}
-                onChange={(value) => {
-                  changeCategoryStatus(category.id, value)
-                }}
-              >
-                {category.name}
-              </CheckCategory>
-            )
-          })}
-      </div>
-    </>
-  )
-}
+        <div className="flex gap-4 flex-wrap mt-8">
+          {(isLoading || isPending) && <span>load</span>}
+          {isSuccess &&
+            categoriesStatus.map((category) => {
+              return (
+                <CheckCategory
+                  category={category}
+                  key={category.id}
+                  onChange={changeCategoryStatus}
+                >
+                  {category.name}
+                </CheckCategory>
+              )
+            })}
+        </div>
+      </>
+    )
+  }
+)
 
 export default CategoryFilterBox
