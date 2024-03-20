@@ -1,0 +1,44 @@
+{
+  "auth": {
+    "account": {
+      "exist": "Account already exists",
+      "not_exist": "Account does not exist",
+      "activated": "Account has been activated",
+      "blocked": "Account has been blocked",
+      "not_activated": "Account has not been activated"
+    },
+    "invalid_login": "Incorrect email or password",
+    "register_success": "Registration successful",
+    "code_not_match": "Security code does not match",
+    "old_pass_not_match": "Old password does not match",
+    "unauthorization": "Account restricted",
+    "token_expired": "Token expired",
+    "access_denined": "Access denied",
+    "check_email_get_code": "Please check your email to get the security code"
+  },
+  "status": {
+    "success": "Success",
+    "not_found": "Page does not exist",
+    "created": "Successfully created",
+    "server_locked": "You have been locked out due to excessive operations",
+    "server_error": "Server error 5000"
+  },
+  "upload": {
+    "please_upload": "Please upload a file",
+    "path_required": "'path' is required"
+  },
+  "story": {
+    "not_found": "Story does not exist"
+  },
+  "purchase": {
+    "balance_not_enough": "Account balance not sufficient"
+  },
+  "chapter": {
+    "need_purchase": "You need to purchase this chapter before viewing",
+    "not_private": "Chapter is not in private mode",
+    "not_found": "Chapter does not exist"
+  },
+  "comment": {
+    "parent_not_found": "The comment you are replying to no longer exists"
+  }
+}

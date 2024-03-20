@@ -1,0 +1,25 @@
+{
+  "page": {
+    "title": {
+      "home": "ZenZobs - Job Search Platform for the Youth",
+      "jobs": "ZenZobs - Find Jobs",
+      "job_detail": "ZenZobs - Job Details"
+    }
+  },
+  "header": {
+    "search_placeholder": "Search...",
+    "user_action_box": {
+      "profile": "Profile",
+      "get_coins": "Get Coins",
+      "settings": "Settings",
+      "logout": "Log Out"
+    }
+  },
+  "time_ago": {
+    "now": "Just now",
+    "minutes": "Minutes ago",
+    "hours": "Hours ago",
+    "days": "Days ago",
+    "weeks": "Weeks ago"
+  }
+}
