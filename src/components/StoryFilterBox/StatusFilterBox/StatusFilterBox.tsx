@@ -35,38 +35,35 @@ const StatusFilterBox: FC<StatusFilterBoxProp> = memo(({ isFull }) => {
 
   const [statusStory, setStatusStory] = useState(`${isFull}`)
   return (
-    <div className="flex justify-center">
-      <div className="flex justify-center items-center gap-6">
-        <span>Trạng thái: </span>
-        <Select
-          value={statusStory}
-          onValueChange={(value) => {
-            setStatusStory(value as StatusKeyType)
-            dispatch(
-              updateStoryFilter({
-                isFull: STATUS_STORY[value as StatusKeyType].value,
-              })
+    <div className="flex items-center gap-6">
+      <h3 className="font-bold">Trạng thái: </h3>
+      <Select
+        value={statusStory}
+        onValueChange={(value) => {
+          setStatusStory(value as StatusKeyType)
+          dispatch(
+            updateStoryFilter({
+              isFull: STATUS_STORY[value as StatusKeyType].value,
+            })
+          )
+        }}
+      >
+        <SelectTrigger className="w-[180px]">
+          <SelectValue
+            placeholder={STATUS_STORY[statusStory as StatusKeyType].value}
+          />
+        </SelectTrigger>
+        <SelectContent>
+          {Object.keys(STATUS_STORY).map((statusStoryKey) => {
+            const key = statusStoryKey as StatusKeyType
+            return (
+              <SelectItem value={statusStoryKey} key={statusStoryKey}>
+                {STATUS_STORY[key].label}
+              </SelectItem>
             )
-            console.log(value)
-          }}
-        >
-          <SelectTrigger className="w-[180px]">
-            <SelectValue
-              placeholder={STATUS_STORY[statusStory as StatusKeyType].value}
-            />
-          </SelectTrigger>
-          <SelectContent>
-            {Object.keys(STATUS_STORY).map((statusStoryKey) => {
-              const key = statusStoryKey as StatusKeyType
-              return (
-                <SelectItem value={statusStoryKey} key={statusStoryKey}>
-                  {STATUS_STORY[key].label}
-                </SelectItem>
-              )
-            })}
-          </SelectContent>
-        </Select>
-      </div>
+          })}
+        </SelectContent>
+      </Select>
     </div>
   )
 })

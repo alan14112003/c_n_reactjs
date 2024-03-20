@@ -13,6 +13,7 @@ import CategoryFilterBox from './CategoryFilterBox'
 import StatusFilterBox from './StatusFilterBox'
 import { useAppSelector } from '@/app/hooks'
 import { selectStoryFilter } from '@/features/stories/storyFilterSlide'
+import AuthorFilterBox from './AuthorFilterBox'
 
 const StoryFilterBox = () => {
   const storyFilter = useAppSelector(selectStoryFilter)
@@ -55,9 +56,13 @@ const StoryFilterBox = () => {
           categoryNotIn={storyFilter.categoryNotIn}
         />
 
-        {/* lọc trạng thái */}
-        <StatusFilterBox isFull={storyFilter.isFull} />
+        <div className="flex justify-between mt-6 flex-wrap">
+          {/* lọc trạng thái */}
+          <StatusFilterBox isFull={storyFilter.isFull} />
 
+          {/* lọc tác giả */}
+          <AuthorFilterBox authorId={storyFilter.authorId} />
+        </div>
         <SheetFooter>
           <SheetClose asChild>
             <Button>Lọc truyện</Button>
