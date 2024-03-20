@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef } from 'react'
 import { Button } from '../ui/button'
 import {
   Sheet,
@@ -9,15 +9,13 @@ import {
   SheetTitle,
   SheetTrigger,
 } from '../ui/sheet'
-import { StoriesQuery } from '@/types/storyType'
 import CategoryFilterBox from './CategoryFilterBox'
+import StatusFilterBox from './StatusFilterBox'
+import { useAppSelector } from '@/app/hooks'
+import { selectStoryFilter } from '@/features/stories/storyFilterSlide'
 
 const StoryFilterBox = () => {
-  const [storiesFilter, setStoriesFilter] = useState<StoriesQuery>({
-    page: 1,
-    perPage: 10,
-    key: '',
-  })
+  const storyFilter = useAppSelector(selectStoryFilter)
 
   // thao tác liên quan đến sheet
   // openSheetRef để lấy referent đến button open sheet
@@ -51,7 +49,15 @@ const StoryFilterBox = () => {
           <SheetTitle>Lọc truyện nâng cao</SheetTitle>
         </SheetHeader>
 
-        <CategoryFilterBox />
+        {/* lọc thể loại */}
+        <CategoryFilterBox
+          categoryIn={storyFilter.categoryIn}
+          categoryNotIn={storyFilter.categoryNotIn}
+        />
+
+        {/* lọc trạng thái */}
+        <StatusFilterBox isFull={storyFilter.isFull} />
+
         <SheetFooter>
           <SheetClose asChild>
             <Button>Lọc truyện</Button>
