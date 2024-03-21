@@ -4,4 +4,5 @@ export interface UserPublic {
   lastName: string
   fullName: string
   avatar: string | null
+  email?: string
 }

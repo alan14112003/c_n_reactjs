@@ -14,6 +14,7 @@ import StatusFilterBox from './StatusFilterBox'
 import { useAppSelector } from '@/app/hooks'
 import { selectStoryFilter } from '@/features/stories/storyFilterSlide'
 import AuthorFilterBox from './AuthorFilterBox'
+import UserFilterBox from './UserFilterBox/UserFilterBox'
 
 const StoryFilterBox = () => {
   const storyFilter = useAppSelector(selectStoryFilter)
@@ -62,6 +63,9 @@ const StoryFilterBox = () => {
 
           {/* lọc tác giả */}
           <AuthorFilterBox authorId={storyFilter.authorId} />
+
+          {/* lọc user đăng bài */}
+          <UserFilterBox userId={storyFilter.userId} />
         </div>
         <SheetFooter>
           <SheetClose asChild>
