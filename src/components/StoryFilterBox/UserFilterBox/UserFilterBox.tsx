@@ -43,7 +43,7 @@ const UserFilterBox: FC<UserFilterBoxProp> = memo(({ userId }) => {
     <>
       {isSuccess && (
         <div className="flex items-center gap-6">
-          <h3 className="font-bold">Người đăng: </h3>
+          <h3 className="font-bold">{t('filter_story.user.title')}: </h3>
           <Select
             value={userId ? userId.toString() : 'all'}
             onValueChange={(value) => {
@@ -63,7 +63,9 @@ const UserFilterBox: FC<UserFilterBoxProp> = memo(({ userId }) => {
               />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value={'all'}>tất cả</SelectItem>
+              <SelectItem value={'all'}>
+                {t('filter_story.filter_all')}
+              </SelectItem>
               {authors.map((author) => {
                 return (
                   <SelectItem value={author.id.toString()} key={author.id}>

@@ -4,6 +4,10 @@
     "title": "Advanced Story Filtering",
     "filter_all": "All",
     "btnTitle": "Filter Stories",
+    "type": {
+      "novel": "Novel",
+      "comic": "Comic"
+    },
     "categories": {
       "title": "Categories",
       "find_in": "Find in these categories",

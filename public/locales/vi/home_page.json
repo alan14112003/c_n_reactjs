@@ -4,6 +4,10 @@
     "title": "Tìm truyện nâng cao",
     "filter_all": "Tất cả",
     "btnTitle": "Lọc truyện",
+    "type": {
+      "novel": "Truyện chữ",
+      "comic": "Truyện tranh"
+    },
     "categories": {
       "title": "Thể loại",
       "find_in": "Tìm trong những thể loại này",

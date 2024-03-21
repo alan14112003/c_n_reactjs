@@ -11,15 +11,27 @@ import {
 } from '../ui/sheet'
 import CategoryFilterBox from './CategoryFilterBox'
 import StatusFilterBox from './StatusFilterBox'
-import { useAppSelector } from '@/app/hooks'
-import { selectStoryFilter } from '@/features/stories/storyFilterSlide'
+import { useAppDispatch, useAppSelector } from '@/app/hooks'
+import {
+  selectStoryFilter,
+  updateStoryFilter,
+} from '@/features/stories/storyFilterSlide'
 import AuthorFilterBox from './AuthorFilterBox'
 import UserFilterBox from './UserFilterBox/UserFilterBox'
 import SortFilterBox from './SortFilterBox'
 import { useTranslation } from 'react-i18next'
+import StoryTypeEnum from '@/constants/stories/StoryTypeEnum'
+
+const STORY_TYPE = {
+  novel: StoryTypeEnum.WORD,
+  comic: StoryTypeEnum.COMIC,
+}
+
+type StoryTypeKey = keyof typeof STORY_TYPE
 
 const StoryFilterBox = () => {
   const storyFilter = useAppSelector(selectStoryFilter)
+  const dispatch = useAppDispatch()
 
   const { t } = useTranslation(['home_page'])
 
@@ -44,46 +56,72 @@ const StoryFilterBox = () => {
   }, [handleUserKeyPress])
 
   return (
-    <Sheet>
-      <SheetTrigger asChild>
-        <Button variant="outline" ref={openSheetRef}>
-          {t('filter_story.btnTitle')}
+    <div className="flex justify-center gap-4">
+      {Object.keys(STORY_TYPE).map((storyTypeKey) => (
+        <Button
+          key={storyTypeKey}
+          variant={
+            STORY_TYPE[storyTypeKey as StoryTypeKey] === storyFilter.type
+              ? 'default'
+              : 'outline'
+          }
+          onClick={() => {
+            dispatch(
+              updateStoryFilter({
+                type: STORY_TYPE[storyTypeKey as StoryTypeKey],
+              })
+            )
+          }}
+        >
+          {t<any, {}, null>(`filter_story.type.${storyTypeKey}`)}
         </Button>
-      </SheetTrigger>
-      <SheetContent side={'right'} className="sm:max-w-[700px]">
-        <SheetHeader>
-          <SheetTitle>
-            <span>{t('filter_story.title')}</span>
-          </SheetTitle>
-        </SheetHeader>
+      ))}
 
-        {/* lọc thể loại */}
-        <CategoryFilterBox
-          categoryIn={storyFilter.categoryIn}
-          categoryNotIn={storyFilter.categoryNotIn}
-        />
+      <Sheet>
+        <SheetTrigger asChild>
+          <Button
+            variant="outline"
+            ref={openSheetRef}
+            className="absolute right-0"
+          >
+            {t('filter_story.btnTitle')}
+          </Button>
+        </SheetTrigger>
+        <SheetContent side={'right'} className="sm:max-w-[700px]">
+          <SheetHeader>
+            <SheetTitle>
+              <span>{t('filter_story.title')}</span>
+            </SheetTitle>
+          </SheetHeader>
 
-        <div className="flex justify-between mt-6 flex-wrap">
-          {/* lọc trạng thái */}
-          <StatusFilterBox isFull={storyFilter.isFull} />
+          {/* lọc thể loại */}
+          <CategoryFilterBox
+            categoryIn={storyFilter.categoryIn}
+            categoryNotIn={storyFilter.categoryNotIn}
+          />
 
-          {/* lọc tác giả */}
-          <AuthorFilterBox authorId={storyFilter.authorId} />
-        </div>
-        <div className="flex justify-between mt-6 flex-wrap">
-          {/* lọc user đăng bài */}
-          <UserFilterBox userId={storyFilter.userId} />
+          <div className="flex justify-between mt-6 flex-wrap">
+            {/* lọc trạng thái */}
+            <StatusFilterBox isFull={storyFilter.isFull} />
 
-          {/* sắp xếp theo */}
-          <SortFilterBox order={storyFilter.order} />
-        </div>
-        <SheetFooter className="mt-8">
-          <SheetClose asChild>
-            <Button variant={'default'}>{t('filter_story.btnTitle')}</Button>
-          </SheetClose>
-        </SheetFooter>
-      </SheetContent>
-    </Sheet>
+            {/* lọc tác giả */}
+            <AuthorFilterBox authorId={storyFilter.authorId} />
+          </div>
+          <div className="flex justify-between mt-6 flex-wrap">
+            {/* lọc user đăng bài */}
+            <UserFilterBox userId={storyFilter.userId} />
+
+            {/* sắp xếp theo */}
+            <SortFilterBox order={storyFilter.order} />
+          </div>
+          <SheetFooter className="mt-8">
+            <SheetClose asChild>
+              <Button variant={'default'}>{t('filter_story.btnTitle')}</Button>
+            </SheetClose>
+          </SheetFooter>
+        </SheetContent>
+      </Sheet>
+    </div>
   )
 }
 

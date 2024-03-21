@@ -31,7 +31,7 @@ export interface StoriesResponse {
 export interface StoriesQuery {
   page: number
   perPage?: number
-  type?: number
+  type: number
   isFull: boolean | null
   categoryIn?: number[]
   categoryNotIn?: number[]
