@@ -33,8 +33,8 @@ export interface StoriesQuery {
   perPage?: number
   type: number
   isFull: boolean | null
-  categoryIn?: number[]
-  categoryNotIn?: number[]
+  categoryIn: string
+  categoryNotIn: string
   authorId?: number
   userId?: number
   order?: string

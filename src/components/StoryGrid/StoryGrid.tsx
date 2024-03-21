@@ -1,15 +1,24 @@
-import { StoriesResponse } from '@/types/storyType'
+import { StoriesQuery, StoriesResponse } from '@/types/storyType'
 import StoryItem from './StoryItem'
 import Pagination from '../Pagination'
 import { useQuery } from '@tanstack/react-query'
 import storyServices, { StoryKey } from '@/services/storyServices'
 import { Loader2Icon } from 'lucide-react'
+import { useAppDispatch, useAppSelector } from '@/app/hooks'
+import {
+  selectStoryFilter,
+  updateStoryFilter,
+} from '@/features/stories/storyFilterSlide'
+import useFilterStory from '@/hooks/useFilterStory'
+import { useGetStoryQuery } from '@/hooks/useGetStoryQuery'
 
 const StoryGrid = () => {
-  const storyOptions = {
-    perPage: 2,
-    page: 2,
-  }
+  const storyFilter = useAppSelector(selectStoryFilter)
+  const dispatch = useAppDispatch()
+
+  const filterStoryNavigate = useFilterStory()
+
+  const storyOptions: StoriesQuery = useGetStoryQuery()
 
   const {
     data: response,
@@ -24,7 +33,12 @@ const StoryGrid = () => {
   })
 
   const onPageChange = (data: number) => {
-    console.log(data)
+    dispatch(
+      updateStoryFilter({
+        page: data,
+      })
+    )
+    filterStoryNavigate({ ...storyFilter, page: data })
   }
 
   const storiesResponse: StoriesResponse = response?.data

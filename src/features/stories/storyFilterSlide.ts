@@ -11,6 +11,8 @@ const initialState: StoriesQuery = {
   key: '',
   isFull: null,
   order: 'update',
+  categoryIn: '',
+  categoryNotIn: '',
 }
 
 export const storyFilterSlice = createSlice({
@@ -28,7 +30,6 @@ export const { updateStoryFilter } = storyFilterSlice.actions
 
 // Other code such as selectors can use the imported `RootState` type
 export const selectStoryFilter = (state: RootState) => state.storyFilter
-export const selectStoryFilterKey = (state: RootState) => state.storyFilter.key
 
 const storyFilterReducer = storyFilterSlice.reducer
 export default storyFilterReducer

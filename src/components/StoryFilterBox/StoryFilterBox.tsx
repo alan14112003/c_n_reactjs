@@ -21,6 +21,9 @@ import UserFilterBox from './UserFilterBox/UserFilterBox'
 import SortFilterBox from './SortFilterBox'
 import { useTranslation } from 'react-i18next'
 import StoryTypeEnum from '@/constants/stories/StoryTypeEnum'
+import useFilterStory from '@/hooks/useFilterStory'
+import { StoriesQuery } from '@/types/storyType'
+import { useGetStoryQuery } from '@/hooks/useGetStoryQuery'
 
 const STORY_TYPE = {
   novel: StoryTypeEnum.WORD,
@@ -32,6 +35,9 @@ type StoryTypeKey = keyof typeof STORY_TYPE
 const StoryFilterBox = () => {
   const storyFilter = useAppSelector(selectStoryFilter)
   const dispatch = useAppDispatch()
+  const filterStoryNavigate = useFilterStory()
+
+  const storyOptions: StoriesQuery = useGetStoryQuery()
 
   const { t } = useTranslation(['home_page'])
 
@@ -41,7 +47,7 @@ const StoryFilterBox = () => {
 
   // hàm xử lý xự kiện ctrl + p
   const handleUserKeyPress = (e: KeyboardEvent) => {
-    if (e.ctrlKey && e.key === 'p') {
+    if (e.ctrlKey && e.key === 'f') {
       e.preventDefault()
       openSheetRef.current?.click()
     }
@@ -54,6 +60,10 @@ const StoryFilterBox = () => {
       window.removeEventListener('keydown', handleUserKeyPress)
     }
   }, [handleUserKeyPress])
+
+  useEffect(() => {
+    dispatch(updateStoryFilter(storyOptions))
+  }, [])
 
   return (
     <div className="flex justify-center gap-4">
@@ -69,8 +79,15 @@ const StoryFilterBox = () => {
             dispatch(
               updateStoryFilter({
                 type: STORY_TYPE[storyTypeKey as StoryTypeKey],
+                page: 1,
               })
             )
+
+            filterStoryNavigate({
+              ...storyFilter,
+              type: STORY_TYPE[storyTypeKey as StoryTypeKey],
+              page: 1,
+            })
           }}
         >
           {t<any, {}, null>(`filter_story.type.${storyTypeKey}`)}
@@ -116,7 +133,14 @@ const StoryFilterBox = () => {
           </div>
           <SheetFooter className="mt-8">
             <SheetClose asChild>
-              <Button variant={'default'}>{t('filter_story.btnTitle')}</Button>
+              <Button
+                variant={'default'}
+                onClick={() => {
+                  filterStoryNavigate({ ...storyFilter, page: 1 })
+                }}
+              >
+                {t('filter_story.btnTitle')}
+              </Button>
             </SheetClose>
           </SheetFooter>
         </SheetContent>

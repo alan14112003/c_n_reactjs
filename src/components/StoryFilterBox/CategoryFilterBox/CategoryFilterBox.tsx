@@ -25,8 +25,8 @@ const INSTRUCTION_CATEGORIES = [
 ]
 
 type CategoryFilterBoxProp = {
-  categoryIn?: number[]
-  categoryNotIn?: number[]
+  categoryIn: string
+  categoryNotIn: string
 }
 
 const CategoryFilterBox: FC<CategoryFilterBoxProp> = memo(
@@ -65,9 +65,11 @@ const CategoryFilterBox: FC<CategoryFilterBoxProp> = memo(
         setCategoriesStatus(
           categories.map((category) => {
             let statusCategory: ValueCategoryStatus = 0
-            if (categoryIn?.includes(category.id)) {
+            if (categoryIn.split(',').includes(category.id.toString())) {
               statusCategory = 1
-            } else if (categoryNotIn?.includes(category.id)) {
+            } else if (
+              categoryNotIn.split(',').includes(category.id.toString())
+            ) {
               statusCategory = -1
             }
             return {
@@ -91,10 +93,12 @@ const CategoryFilterBox: FC<CategoryFilterBoxProp> = memo(
       const categoryInNew = categoriesStatusNew
         .filter((categoryStatus) => categoryStatus.status === 1)
         .map((categoryStatus) => categoryStatus.id)
+        .join(',')
 
       const categoryNotInNew = categoriesStatusNew
         .filter((categoryStatus) => categoryStatus.status === -1)
         .map((categoryStatus) => categoryStatus.id)
+        .join(',')
 
       dispatch(
         updateStoryFilter({

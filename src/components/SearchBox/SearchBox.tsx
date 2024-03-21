@@ -5,23 +5,32 @@ import { Input } from '../ui/input'
 import { useTranslation } from 'react-i18next'
 import { useAppDispatch, useAppSelector } from '@/app/hooks'
 import {
-  selectStoryFilterKey,
+  selectStoryFilter,
   updateStoryFilter,
 } from '@/features/stories/storyFilterSlide'
+import useFilterStory from '@/hooks/useFilterStory'
 
 const SearchBox = () => {
   const { t } = useTranslation('cms')
-  const storyFilterKey = useAppSelector(selectStoryFilterKey)
-  const [searchValue, setSearchValue] = useState(storyFilterKey)
+  const storyFilter = useAppSelector(selectStoryFilter)
+  const [searchValue, setSearchValue] = useState(storyFilter.key)
   const dispatch = useAppDispatch()
+  const filterStoryNavigate = useFilterStory()
 
   const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     dispatch(
       updateStoryFilter({
         key: searchValue,
+        page: 1,
       })
     )
+
+    filterStoryNavigate({
+      ...storyFilter,
+      key: searchValue,
+      page: 1,
+    })
   }
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
