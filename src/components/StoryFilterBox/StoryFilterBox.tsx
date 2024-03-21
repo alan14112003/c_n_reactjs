@@ -15,6 +15,7 @@ import { useAppSelector } from '@/app/hooks'
 import { selectStoryFilter } from '@/features/stories/storyFilterSlide'
 import AuthorFilterBox from './AuthorFilterBox'
 import UserFilterBox from './UserFilterBox/UserFilterBox'
+import SortFilterBox from './SortFilterBox'
 
 const StoryFilterBox = () => {
   const storyFilter = useAppSelector(selectStoryFilter)
@@ -46,7 +47,7 @@ const StoryFilterBox = () => {
           lọc
         </Button>
       </SheetTrigger>
-      <SheetContent side={'right'}>
+      <SheetContent side={'right'} className="sm:max-w-[700px]">
         <SheetHeader>
           <SheetTitle>Lọc truyện nâng cao</SheetTitle>
         </SheetHeader>
@@ -63,13 +64,17 @@ const StoryFilterBox = () => {
 
           {/* lọc tác giả */}
           <AuthorFilterBox authorId={storyFilter.authorId} />
-
+        </div>
+        <div className="flex justify-between mt-6 flex-wrap">
           {/* lọc user đăng bài */}
           <UserFilterBox userId={storyFilter.userId} />
+
+          {/* sắp xếp theo */}
+          <SortFilterBox order={storyFilter.order} />
         </div>
-        <SheetFooter>
+        <SheetFooter className="mt-8">
           <SheetClose asChild>
-            <Button>Lọc truyện</Button>
+            <Button variant={'outline'}>Lọc truyện</Button>
           </SheetClose>
         </SheetFooter>
       </SheetContent>

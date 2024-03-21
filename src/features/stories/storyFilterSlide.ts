@@ -10,6 +10,7 @@ const initialState: StoriesQuery = {
   type: StoryTypeEnum.WORD,
   key: '',
   isFull: null,
+  order: 'update',
 }
 
 export const storyFilterSlice = createSlice({
