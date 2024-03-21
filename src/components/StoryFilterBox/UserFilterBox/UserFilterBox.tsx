@@ -11,6 +11,7 @@ import UserServices, { UserKey } from '@/services/userServices'
 import { UserPublic } from '@/types/userType'
 import { useQuery } from '@tanstack/react-query'
 import { FC, memo } from 'react'
+import { useTranslation } from 'react-i18next'
 
 type UserFilterBoxProp = {
   userId?: number
@@ -18,6 +19,8 @@ type UserFilterBoxProp = {
 
 const UserFilterBox: FC<UserFilterBoxProp> = memo(({ userId }) => {
   const dispatch = useAppDispatch()
+
+  const { t } = useTranslation(['home_page'])
 
   const {
     data: usersResponse,

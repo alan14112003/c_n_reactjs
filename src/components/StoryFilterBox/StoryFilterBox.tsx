@@ -16,9 +16,12 @@ import { selectStoryFilter } from '@/features/stories/storyFilterSlide'
 import AuthorFilterBox from './AuthorFilterBox'
 import UserFilterBox from './UserFilterBox/UserFilterBox'
 import SortFilterBox from './SortFilterBox'
+import { useTranslation } from 'react-i18next'
 
 const StoryFilterBox = () => {
   const storyFilter = useAppSelector(selectStoryFilter)
+
+  const { t } = useTranslation(['home_page'])
 
   // thao tác liên quan đến sheet
   // openSheetRef để lấy referent đến button open sheet
@@ -44,12 +47,14 @@ const StoryFilterBox = () => {
     <Sheet>
       <SheetTrigger asChild>
         <Button variant="outline" ref={openSheetRef}>
-          lọc
+          {t('filter_story.btnTitle')}
         </Button>
       </SheetTrigger>
       <SheetContent side={'right'} className="sm:max-w-[700px]">
         <SheetHeader>
-          <SheetTitle>Lọc truyện nâng cao</SheetTitle>
+          <SheetTitle>
+            <span>{t('filter_story.title')}</span>
+          </SheetTitle>
         </SheetHeader>
 
         {/* lọc thể loại */}
@@ -74,7 +79,7 @@ const StoryFilterBox = () => {
         </div>
         <SheetFooter className="mt-8">
           <SheetClose asChild>
-            <Button variant={'outline'}>Lọc truyện</Button>
+            <Button variant={'default'}>{t('filter_story.btnTitle')}</Button>
           </SheetClose>
         </SheetFooter>
       </SheetContent>

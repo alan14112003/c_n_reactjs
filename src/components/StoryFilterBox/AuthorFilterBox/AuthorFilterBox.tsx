@@ -11,6 +11,7 @@ import AuthorServices, { AuthorKey } from '@/services/authorServices'
 import { AuthorResponse } from '@/types/authorType'
 import { useQuery } from '@tanstack/react-query'
 import { FC, memo } from 'react'
+import { useTranslation } from 'react-i18next'
 
 type AuthorFilterBoxProp = {
   authorId?: number
@@ -18,6 +19,8 @@ type AuthorFilterBoxProp = {
 
 const AuthorFilterBox: FC<AuthorFilterBoxProp> = memo(({ authorId }) => {
   const dispatch = useAppDispatch()
+
+  const { t } = useTranslation(['home_page'])
 
   const {
     data: authorsResponse,
@@ -40,7 +43,9 @@ const AuthorFilterBox: FC<AuthorFilterBoxProp> = memo(({ authorId }) => {
     <>
       {isSuccess && (
         <div className="flex items-center gap-6">
-          <h3 className="font-bold">Tác giả: </h3>
+          <h3 className="font-bold">
+            {t('home_page:filter_story.author.title')}:{' '}
+          </h3>
           <Select
             value={authorId ? authorId.toString() : 'all'}
             onValueChange={(value) => {
@@ -60,7 +65,9 @@ const AuthorFilterBox: FC<AuthorFilterBoxProp> = memo(({ authorId }) => {
               />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value={'all'}>tất cả</SelectItem>
+              <SelectItem value={'all'}>
+                {t('filter_story.filter_all')}
+              </SelectItem>
               {authors.map((author) => {
                 return (
                   <SelectItem value={author.id.toString()} key={author.id}>

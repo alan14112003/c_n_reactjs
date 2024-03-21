@@ -32,11 +32,6 @@ interface Resources {
         "job_detail": "ZenZobs - Chi tiết công việc"
       }
     },
-    "---LANG-------------------------": "----------------------------------------",
-    "lang": {
-      "vietnamese": "Tiếng Việt",
-      "english": "English(UK)"
-    },
     "header": {
       "search_placeholder": "Tìm kiếm...",
       "user_action_box": {
@@ -44,6 +39,47 @@ interface Resources {
         "get_coins": "Nhận xu",
         "settings": "Cài đặt",
         "logout": "Đăng xuất"
+      }
+    },
+    "time_ago": {
+      "now": "Vừa mới",
+      "minutes": "Phút trước",
+      "hours": "Giờ trước",
+      "days": "Ngày trước",
+      "weeks": "Tuần trước"
+    }
+  },
+  "home_page": {
+    "----------------------------filter story----------------------------------": "",
+    "filter_story": {
+      "title": "Tìm truyện nâng cao",
+      "filter_all": "Tất cả",
+      "btnTitle": "Lọc truyện",
+      "categories": {
+        "title": "Thể loại",
+        "find_in": "Tìm trong những thể loại này",
+        "find_not_in": "Loại trừ những thể loại này",
+        "find_dont_care": "Có thể thuộc hoặc không thuộc thể loại này"
+      },
+      "status": {
+        "title": "Trạng thái",
+        "false": "Đang tiến hành",
+        "true": "Hoàn thành"
+      },
+      "author": {
+        "title": "Tác giả"
+      },
+      "user": {
+        "title": "Người đăng"
+      },
+      "order": {
+        "title": "Sắp xếp theo",
+        "update": "Ngày cập nhật",
+        "views": "Lượt xem",
+        "likes": "Lượt thích",
+        "chapters": "Số lượng chương",
+        "isFull": "Đã hoàn",
+        "all": "Tất cả"
       }
     }
   },

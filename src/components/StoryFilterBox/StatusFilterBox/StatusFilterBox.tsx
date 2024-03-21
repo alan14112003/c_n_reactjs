@@ -8,18 +8,19 @@ import {
 } from '@/components/ui/select'
 import { useAppDispatch } from '@/app/hooks'
 import { updateStoryFilter } from '@/features/stories/storyFilterSlide'
+import { useTranslation } from 'react-i18next'
 
 const STATUS_STORY = {
   null: {
-    label: 'Tất cả',
+    label: 'filter_story.filter_all',
     value: null,
   },
   false: {
-    label: 'Đang tiến hành',
+    label: 'filter_story.status.false',
     value: false,
   },
   true: {
-    label: 'Hoàn thành',
+    label: 'filter_story.status.true',
     value: true,
   },
 }
@@ -33,10 +34,12 @@ const StatusFilterBox: FC<StatusFilterBoxProp> = memo(({ isFull }) => {
   console.log('re render stat')
   const dispatch = useAppDispatch()
 
+  const { t } = useTranslation(['home_page'])
+
   const [statusStory, setStatusStory] = useState(`${isFull}`)
   return (
     <div className="flex items-center gap-6">
-      <h3 className="font-bold">Trạng thái: </h3>
+      <h3 className="font-bold">{t('filter_story.status.title')}: </h3>
       <Select
         value={statusStory}
         onValueChange={(value) => {
@@ -50,7 +53,9 @@ const StatusFilterBox: FC<StatusFilterBoxProp> = memo(({ isFull }) => {
       >
         <SelectTrigger className="w-[180px]">
           <SelectValue
-            placeholder={STATUS_STORY[statusStory as StatusKeyType].value}
+            placeholder={t<any, {}, null>(
+              STATUS_STORY[statusStory as StatusKeyType].value
+            )}
           />
         </SelectTrigger>
         <SelectContent>
@@ -58,7 +63,7 @@ const StatusFilterBox: FC<StatusFilterBoxProp> = memo(({ isFull }) => {
             const key = statusStoryKey as StatusKeyType
             return (
               <SelectItem value={statusStoryKey} key={statusStoryKey}>
-                {STATUS_STORY[key].label}
+                {t<any, {}, null>(STATUS_STORY[key].label)}
               </SelectItem>
             )
           })}

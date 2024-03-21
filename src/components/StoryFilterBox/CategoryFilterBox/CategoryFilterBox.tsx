@@ -10,16 +10,17 @@ import { useQuery } from '@tanstack/react-query'
 import { useAppDispatch } from '@/app/hooks'
 import { updateStoryFilter } from '@/features/stories/storyFilterSlide'
 import CheckBox from './CheckBox'
+import { useTranslation } from 'react-i18next'
 
 const INSTRUCTION_CATEGORIES = [
-  { value: 1, label: 'Tìm trong những thể loại này' },
+  { value: 1, label: 'filter_story.categories.find_in' },
   {
     value: -1,
-    label: 'Loại trừ những thể loại này',
+    label: 'filter_story.categories.find_not_in',
   },
   {
     value: 0,
-    label: 'Có thể thuộc hoặc không thuộc thể loại này',
+    label: 'filter_story.categories.find_dont_care',
   },
 ]
 
@@ -33,6 +34,8 @@ const CategoryFilterBox: FC<CategoryFilterBoxProp> = memo(
     const [categoriesStatus, setCategoriesStatus] = useState<
       CategoriesStatus[]
     >([])
+
+    const { t } = useTranslation(['home_page'])
 
     const {
       data: categoriesResponse,
@@ -103,7 +106,7 @@ const CategoryFilterBox: FC<CategoryFilterBoxProp> = memo(
 
     return (
       <>
-        <h3 className="my-4 font-bold">Thể loại</h3>
+        <h3 className="my-4 font-bold">{t('filter_story.categories.title')}</h3>
 
         {INSTRUCTION_CATEGORIES.map((instructionsCategory) => (
           <div
@@ -112,7 +115,7 @@ const CategoryFilterBox: FC<CategoryFilterBoxProp> = memo(
           >
             <CheckBox
               value={instructionsCategory.value}
-              label={instructionsCategory.label}
+              label={t<any, {}, null>(instructionsCategory.label)}
             />
           </div>
         ))}

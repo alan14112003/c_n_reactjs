@@ -1,0 +1,34 @@
+{
+  "----------------------------filter story----------------------------------": "",
+  "filter_story": {
+    "title": "Advanced Story Filtering",
+    "filter_all": "All",
+    "btnTitle": "Filter Stories",
+    "categories": {
+      "title": "Categories",
+      "find_in": "Find in these categories",
+      "find_not_in": "Exclude these categories",
+      "find_dont_care": "May or may not belong to this category"
+    },
+    "status": {
+      "title": "Status",
+      "false": "Ongoing",
+      "true": "Completed"
+    },
+    "author": {
+      "title": "Author"
+    },
+    "user": {
+      "title": "Uploader"
+    },
+    "order": {
+      "title": "Order by",
+      "update": "Last Updated",
+      "views": "Views",
+      "likes": "Likes",
+      "chapters": "Number of Chapters",
+      "isFull": "Completed",
+      "all": "All"
+    }
+  }
+}
