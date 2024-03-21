@@ -3,29 +3,31 @@ import { useState } from 'react'
 import { Button } from '../ui/button'
 import { Input } from '../ui/input'
 import { useTranslation } from 'react-i18next'
+import { useAppDispatch, useAppSelector } from '@/app/hooks'
+import {
+  selectStoryFilterKey,
+  updateStoryFilter,
+} from '@/features/stories/storyFilterSlide'
 
-type SearchBoxProps = {
-  onSubmit: (value: string) => void
-  onInput?: (value: string) => void
-}
-
-const SearchBox = ({ onSubmit, onInput }: SearchBoxProps) => {
+const SearchBox = () => {
   const { t } = useTranslation('cms')
-  const [searchValue, setSearchValue] = useState('')
+  const storyFilterKey = useAppSelector(selectStoryFilterKey)
+  const [searchValue, setSearchValue] = useState(storyFilterKey)
+  const dispatch = useAppDispatch()
 
   const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-
-    onSubmit(searchValue)
+    dispatch(
+      updateStoryFilter({
+        key: searchValue,
+      })
+    )
   }
 
-  const handleInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value
-    setSearchValue(value)
 
-    if (onInput) {
-      onInput(value)
-    }
+    setSearchValue(value)
   }
 
   return (
@@ -35,7 +37,7 @@ const SearchBox = ({ onSubmit, onInput }: SearchBoxProps) => {
         className="flex-grow pr-12 rounded-full py-2 px-5 w-[400px] h-10"
         placeholder={t('header.search_placeholder')}
         value={searchValue}
-        onInput={handleInput}
+        onChange={handleChange}
       />
       <Button
         type="submit"

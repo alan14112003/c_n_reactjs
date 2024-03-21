@@ -11,14 +11,7 @@ const Header = () => {
         <div className="flex justify-between items-center gap-10">
           <h1>Logo</h1>
           <ModeToggle />
-          <SearchBox
-            onSubmit={(value) => {
-              console.log(value)
-            }}
-            onInput={(value) => {
-              console.log(value)
-            }}
-          />
+          <SearchBox />
         </div>
         <div className="flex justify-between items-center gap-4">
           <Button size="icon" variant="outline" className="rounded-full p-2">

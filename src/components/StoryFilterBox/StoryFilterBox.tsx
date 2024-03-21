@@ -41,8 +41,8 @@ const StoryFilterBox = () => {
 
   // hàm xử lý xự kiện ctrl + p
   const handleUserKeyPress = (e: KeyboardEvent) => {
-    e.preventDefault()
     if (e.ctrlKey && e.key === 'p') {
+      e.preventDefault()
       openSheetRef.current?.click()
     }
   }
