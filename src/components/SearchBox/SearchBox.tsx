@@ -1,5 +1,5 @@
 import { Search } from 'lucide-react'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Button } from '../ui/button'
 import { Input } from '../ui/input'
 import { useTranslation } from 'react-i18next'
@@ -32,6 +32,10 @@ const SearchBox = () => {
       page: 1,
     })
   }
+
+  useEffect(() => {
+    setSearchValue(storyFilter.key)
+  }, [storyFilter.key])
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value
