@@ -85,44 +85,47 @@ const Pagination: React.FC<PaginationProps> = ({
   const onPrevious = (): void => {
     onPageChange(currentPage - 1)
   }
+
   // Render Component Pagination
   return (
     <PaginationContainer>
-      <PaginationContent>
-        {/* Mũi tên điều hướng trái */}
-        <PaginationItem
-          className={`${currentPage === 1 && 'cursor-not-allowed'}`}
-        >
-          <PaginationPrevious
-            onClick={onPrevious}
-            disabled={currentPage === 1}
-          />
-        </PaginationItem>
-        {/* Các phần tử của phân trang */}
-        {paginationRange.map((pageNumber) => (
-          <PaginationItem key={pageNumber}>
-            {pageNumber === DOTS ? (
-              <PaginationEllipsis />
-            ) : (
-              <PaginationLink
-                isActive={currentPage == pageNumber}
-                onClick={() => onPageChange(pageNumber as number)}
-              >
-                {pageNumber}
-              </PaginationLink>
-            )}
+      {totalPage >= 2 && (
+        <PaginationContent>
+          {/* Mũi tên điều hướng trái */}
+          <PaginationItem
+            className={`${currentPage === 1 && 'cursor-not-allowed'}`}
+          >
+            <PaginationPrevious
+              onClick={onPrevious}
+              disabled={currentPage === 1}
+            />
           </PaginationItem>
-        ))}
-        {/* Mũi tên điều hướng phải */}
-        <PaginationItem
-          className={`${currentPage === totalPage && 'cursor-not-allowed'}`}
-        >
-          <PaginationNext
-            onClick={onNext}
-            disabled={currentPage === totalPage}
-          />
-        </PaginationItem>
-      </PaginationContent>
+          {/* Các phần tử của phân trang */}
+          {paginationRange.map((pageNumber) => (
+            <PaginationItem key={pageNumber}>
+              {pageNumber === DOTS ? (
+                <PaginationEllipsis />
+              ) : (
+                <PaginationLink
+                  isActive={currentPage == pageNumber}
+                  onClick={() => onPageChange(pageNumber as number)}
+                >
+                  {pageNumber}
+                </PaginationLink>
+              )}
+            </PaginationItem>
+          ))}
+          {/* Mũi tên điều hướng phải */}
+          <PaginationItem
+            className={`${currentPage === totalPage && 'cursor-not-allowed'}`}
+          >
+            <PaginationNext
+              onClick={onNext}
+              disabled={currentPage === totalPage}
+            />
+          </PaginationItem>
+        </PaginationContent>
+      )}
     </PaginationContainer>
   )
 }
