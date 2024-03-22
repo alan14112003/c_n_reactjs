@@ -88,7 +88,7 @@ const Pagination: React.FC<PaginationProps> = ({
 
   // Render Component Pagination
   return (
-    <PaginationContainer>
+    <PaginationContainer className="mt-9">
       {totalPage >= 2 && (
         <PaginationContent>
           {/* Mũi tên điều hướng trái */}
@@ -107,7 +107,8 @@ const Pagination: React.FC<PaginationProps> = ({
                 <PaginationEllipsis />
               ) : (
                 <PaginationLink
-                  isActive={currentPage == pageNumber}
+                  isActive={currentPage === pageNumber}
+                  disabled={currentPage === pageNumber}
                   onClick={() => onPageChange(pageNumber as number)}
                 >
                   {pageNumber}

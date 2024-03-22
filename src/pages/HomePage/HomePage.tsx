@@ -1,11 +1,13 @@
-import StoryFilterBox from '@/components/StoryFilterBox'
-import StoryGrid from '@/components/StoryGrid'
+import StoryFilterBox from '@/components/HomePage/StoryFilterBox'
+import StoryListBox from '@/components/HomePage/StoryListBox/StoryListBox'
 
 const HomePage = () => {
   return (
-    <div className="container relative">
+    <div className="container">
       <StoryFilterBox />
-      <StoryGrid />
+      <div className="mt-10">
+        <StoryListBox />
+      </div>
     </div>
   )
 }

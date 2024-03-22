@@ -1,14 +1,5 @@
 import { useEffect, useRef } from 'react'
-import { Button } from '../ui/button'
-import {
-  Sheet,
-  SheetClose,
-  SheetContent,
-  SheetFooter,
-  SheetHeader,
-  SheetTitle,
-  SheetTrigger,
-} from '../ui/sheet'
+
 import CategoryFilterBox from './CategoryFilterBox'
 import StatusFilterBox from './StatusFilterBox'
 import { useAppDispatch, useAppSelector } from '@/app/hooks'
@@ -24,6 +15,16 @@ import StoryTypeEnum from '@/constants/stories/StoryTypeEnum'
 import useFilterStory from '@/hooks/useFilterStory'
 import { StoriesQuery } from '@/types/storyType'
 import { useGetStoryQuery } from '@/hooks/useGetStoryQuery'
+import { Button } from '@/components/ui/button'
+import {
+  Sheet,
+  SheetClose,
+  SheetContent,
+  SheetFooter,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from '@/components/ui/sheet'
 
 const STORY_TYPE = {
   novel: StoryTypeEnum.WORD,

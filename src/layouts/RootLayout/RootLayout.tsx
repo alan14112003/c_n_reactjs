@@ -5,7 +5,7 @@ const RootLayout = () => {
   return (
     <div className="container">
       <Header />
-      <main className="mt-14">
+      <main className="mt-20 relative">
         <Outlet />
       </main>
     </div>

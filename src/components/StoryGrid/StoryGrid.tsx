@@ -1,68 +1,28 @@
-import { StoriesQuery, StoriesResponse } from '@/types/storyType'
+import { StoriesList } from '@/types/storyType'
 import StoryItem from './StoryItem'
-import Pagination from '../Pagination'
-import { useQuery } from '@tanstack/react-query'
-import storyServices, { StoryKey } from '@/services/storyServices'
-import { Loader2Icon } from 'lucide-react'
-import { useAppDispatch, useAppSelector } from '@/app/hooks'
-import {
-  selectStoryFilter,
-  updateStoryFilter,
-} from '@/features/stories/storyFilterSlide'
-import useFilterStory from '@/hooks/useFilterStory'
-import { useGetStoryQuery } from '@/hooks/useGetStoryQuery'
+import { cn } from '@/utils/utils'
+import StorySkeleton from './StorySkeleton'
 
-const StoryGrid = () => {
-  const storyFilter = useAppSelector(selectStoryFilter)
-  const dispatch = useAppDispatch()
+type StoryGridProp = {
+  stories: StoriesList[]
+  isLoad?: boolean
+  className?: React.HTMLAttributes<HTMLDivElement>['className']
+}
 
-  const filterStoryNavigate = useFilterStory()
-
-  const storyOptions: StoriesQuery = useGetStoryQuery()
-
-  const {
-    data: response,
-    isLoading,
-    isPending,
-    isSuccess,
-  } = useQuery({
-    queryKey: [StoryKey, storyOptions],
-    queryFn: () => {
-      return storyServices.all(storyOptions)
-    },
-  })
-
-  const onPageChange = (data: number) => {
-    dispatch(
-      updateStoryFilter({
-        page: data,
-      })
-    )
-    filterStoryNavigate({ ...storyFilter, page: data })
-  }
-
-  const storiesResponse: StoriesResponse = response?.data
+const StoryGrid = ({ stories, isLoad = false, className }: StoryGridProp) => {
   return (
-    <>
-      {(isLoading || isPending) && <Loader2Icon />}
-      {isSuccess && (
-        <>
-          <div className="grid gap-4 grid-cols-5">
-            {storiesResponse.data.map((story) => (
-              <StoryItem key={story.id} story={story} />
-            ))}
-          </div>
-          <div>
-            {Pagination({
-              total: storiesResponse.total,
-              pageSize: storiesResponse.perPage,
-              currentPage: storiesResponse.curPage,
-              onPageChange: onPageChange,
-            })}
-          </div>
-        </>
+    <div
+      className={cn(
+        `grid gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4  xl:grid-cols-5`,
+        className
       )}
-    </>
+    >
+      {isLoad
+        ? Array.from({ length: 20 }).map((val, index) => {
+            return <StorySkeleton key={`${val}-${index}`} />
+          })
+        : stories.map((story) => <StoryItem key={story.id} story={story} />)}
+    </div>
   )
 }
 

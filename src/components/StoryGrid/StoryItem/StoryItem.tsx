@@ -15,7 +15,7 @@ type StoryItemProp = {
 
 const StoryItem = ({ story }: StoryItemProp) => {
   return (
-    <Card>
+    <Card className="border-none">
       <CardContent className="relative">
         <Badge variant="success" className="absolute top-3 left-2">
           <TimeAgo time={story.updatedAt.toString()} />
