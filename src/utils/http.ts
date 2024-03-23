@@ -31,7 +31,7 @@ http.interceptors.response.use(
         return Promise.reject(error)
       }
 
-      if (error.response?.data === 'token expired') {
+      if (error.response?.data?.code === 'auth.token_expired') {
         try {
           const res = await AuthService.refresh()
           const data = res.data

@@ -2,7 +2,7 @@ import { useAppDispatch, useAppSelector } from '@/app/hooks'
 import { initAuth, selectAuth, updateAuth } from '@/features/auth/authSlice'
 import { getUserLS } from '@/utils/authLS'
 import { listenEvent } from '@/utils/event'
-import { ReactNode, useEffect } from 'react'
+import { ReactNode, useEffect, useLayoutEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Outlet, useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
@@ -36,7 +36,8 @@ export const AuthGuard = ({ children }: AuthGuardProp) => {
   const { t } = useTranslation('authentication')
   const auth = useAppSelector(selectAuth)
   const navigate = useNavigate()
-  useEffect(() => {
+
+  useLayoutEffect(() => {
     if (!auth.isAuthenticated && auth.isInitialized) {
       navigate('/login')
       toast.error(t('need_login'))

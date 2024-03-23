@@ -7,7 +7,7 @@ import { setAuthLS } from '@/utils/authLS'
 import { useMutation } from '@tanstack/react-query'
 import { isAxiosError } from 'axios'
 import { useTranslation } from 'react-i18next'
-import { useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
 
 const LoginWithGoogle = () => {
@@ -18,6 +18,8 @@ const LoginWithGoogle = () => {
   })
 
   const navigate = useNavigate()
+  const historyState = useLocation().state
+
   const { t } = useTranslation('authentication')
 
   const callback = async (
@@ -41,7 +43,12 @@ const LoginWithGoogle = () => {
       setTimeout(() => {
         console.log('redirect')
 
-        navigate('/')
+        if (historyState?.dontBack) {
+          navigate('/')
+          return
+        }
+
+        navigate(-1)
       }, 1000)
     } catch (error) {
       if (isAxiosError(error)) {
