@@ -1,15 +1,11 @@
-import {
-  Home,
-  LayoutList,
-  MessageCircleMore,
-  ScrollText,
-} from 'lucide-react'
+import { Home, LayoutList, MessageCircleMore, ScrollText } from 'lucide-react'
 
 export const CREATOR_ROUTES_NAVIGATE = [
   {
     icon: <Home />,
     name: 'Trang chủ',
     link: '/creator-center',
+    isIndex: true,
   },
   {
     icon: <LayoutList />,

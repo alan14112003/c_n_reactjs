@@ -8,7 +8,11 @@ const CreatorCenterLayout = () => {
       <Header />
       <main className="flex justify-between">
         <Aside />
-        <Outlet />
+        <section className="flex-1 bg-secondary p-6 px-10">
+          <div className="bg-background w-full h-full p-4 rounded">
+            <Outlet />
+          </div>
+        </section>
       </main>
     </div>
   )

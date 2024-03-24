@@ -5,7 +5,15 @@ import {
   CommandList,
 } from '@/components/ui/command'
 import { CREATOR_ROUTES_NAVIGATE } from '@/constants/routes/RoutesNavigate'
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
+
+const checkActiveRoute = (route: string, isIndex?: boolean) => {
+  const location = useLocation()
+  if (!isIndex) {
+    return location.pathname.includes(route)
+  }
+  return location.pathname + location.hash === route
+}
 
 const Aside = () => {
   return (
@@ -19,10 +27,10 @@ const Aside = () => {
         <CommandList>
           <CommandEmpty>No results found.</CommandEmpty>
           {CREATOR_ROUTES_NAVIGATE.map((routeNavigate) => {
-            let isActive = false
-            if (routeNavigate.link === '/creator-center') {
-              isActive = true
-            }
+            let isActive = checkActiveRoute(
+              routeNavigate.link,
+              routeNavigate.isIndex
+            )
             return (
               <CommandItem
                 key={routeNavigate.link}

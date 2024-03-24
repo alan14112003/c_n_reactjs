@@ -1,6 +1,7 @@
 import { createBrowserRouter } from 'react-router-dom'
 import RootLayout from '@/layouts/RootLayout'
 import HomePage from '@/pages/HomePage'
+import CreatorHomePage from '@/pages/CreatorCenter/HomePage'
 import AuthenticationLayout from '@/layouts/AuthenticationLayout'
 import LoginPage from '@/pages/LoginPage'
 import NotFoundPage from '@/pages/NotFoundPage'
@@ -9,6 +10,7 @@ import RegisterPage from '@/pages/RegisterPage'
 import ActiveAccountPage from '@/pages/ActiveAccountPage'
 import HandleAccountLayout from '@/layouts/HandleAccountLayout'
 import CreatorCenterLayout from '@/layouts/CreatorCenterLayout'
+import CreatorStoriesPage from '@/pages/CreatorCenter/StoriesPage'
 
 const router = createBrowserRouter([
   {
@@ -34,7 +36,16 @@ const router = createBrowserRouter([
       {
         path: 'creator-center',
         element: <CreatorCenterLayout />,
-        children: [],
+        children: [
+          {
+            index: true,
+            element: <CreatorHomePage />,
+          },
+          {
+            path: 'stories',
+            element: <CreatorStoriesPage />,
+          },
+        ],
       },
     ],
   },
