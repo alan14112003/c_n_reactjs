@@ -8,6 +8,7 @@ import { AuthEvent, AuthGuard } from '@/providers/AuthProvider'
 import RegisterPage from '@/pages/RegisterPage'
 import ActiveAccountPage from '@/pages/ActiveAccountPage'
 import HandleAccountLayout from '@/layouts/HandleAccountLayout'
+import CreatorCenterLayout from '@/layouts/CreatorCenterLayout'
 
 const router = createBrowserRouter([
   {
@@ -15,20 +16,25 @@ const router = createBrowserRouter([
     element: <NotFoundPage />,
   },
   {
-    element: <AuthEvent />,
+    element: (
+      <AuthGuard>
+        <AuthEvent />
+      </AuthGuard>
+    ),
     children: [
       {
         element: <RootLayout />,
         children: [
           {
             index: true,
-            element: (
-              <AuthGuard>
-                <HomePage />
-              </AuthGuard>
-            ),
+            element: <HomePage />,
           },
         ],
+      },
+      {
+        path: 'creator-center',
+        element: <CreatorCenterLayout />,
+        children: [],
       },
     ],
   },

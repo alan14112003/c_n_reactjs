@@ -3,7 +3,7 @@ import StoryListBox from '@/components/HomePage/StoryListBox/StoryListBox'
 
 const HomePage = () => {
   return (
-    <div className="container">
+    <div>
       <StoryFilterBox />
       <div className="mt-10">
         <StoryListBox />
