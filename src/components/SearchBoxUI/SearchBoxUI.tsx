@@ -6,16 +6,23 @@ import { useTranslation } from 'react-i18next'
 
 type SearchBoxUIProp = {
   searchKey: string
-  onSearch: (searChValue: string) => void
+  onSearch?: (searChValue: string) => void
+  onChange?: (searChValue: string) => void
 }
 
-const SearchBoxUI: FC<SearchBoxUIProp> = ({ searchKey, onSearch }) => {
+const SearchBoxUI: FC<SearchBoxUIProp> = ({
+  searchKey,
+  onSearch,
+  onChange,
+}) => {
   const { t } = useTranslation('cms')
   const [searchValue, setSearchValue] = useState(searchKey)
 
   const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    onSearch(searchValue)
+    if (onSearch) {
+      onSearch(searchValue)
+    }
   }
 
   useEffect(() => {
@@ -23,7 +30,11 @@ const SearchBoxUI: FC<SearchBoxUIProp> = ({ searchKey, onSearch }) => {
   }, [searchKey])
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchValue(e.target.value)
+    const value = e.target.value
+    setSearchValue(value)
+    if (onChange) {
+      onChange(value)
+    }
   }
 
   return (

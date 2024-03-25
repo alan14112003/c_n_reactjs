@@ -9,15 +9,24 @@ import {
 } from '@/components/ui/select'
 
 type SortFilterBoxUIProps = {
-  order: string
-  ORDER_LIST: { [key: string]: string }
+  order?: string
   onValueChange: (value: string) => void
   translate: (key: any) => string
 }
 
+const ORDER_LIST = {
+  update: 'filter_story.order.update',
+  views: 'filter_story.order.views',
+  likes: 'filter_story.order.likes',
+  chapters: 'filter_story.order.chapters',
+  isFull: 'filter_story.order.isFull',
+  all: 'filter_story.order.all',
+}
+
+type OrderKeyType = keyof typeof ORDER_LIST
+
 const SortFilterBoxUI: FC<SortFilterBoxUIProps> = ({
-  order,
-  ORDER_LIST,
+  order = ORDER_LIST.update,
   onValueChange,
   translate,
 }) => {
@@ -26,12 +35,14 @@ const SortFilterBoxUI: FC<SortFilterBoxUIProps> = ({
       <h3 className="font-bold">{translate('filter_story.order.title')}: </h3>
       <Select value={order} onValueChange={onValueChange}>
         <SelectTrigger className="w-[180px]">
-          <SelectValue placeholder={translate(ORDER_LIST[order])} />
+          <SelectValue
+            placeholder={translate(ORDER_LIST[order as OrderKeyType])}
+          />
         </SelectTrigger>
         <SelectContent>
           {Object.keys(ORDER_LIST).map((key) => (
             <SelectItem value={key} key={key}>
-              {translate(ORDER_LIST[key])}
+              {translate(ORDER_LIST[key as OrderKeyType])}
             </SelectItem>
           ))}
         </SelectContent>

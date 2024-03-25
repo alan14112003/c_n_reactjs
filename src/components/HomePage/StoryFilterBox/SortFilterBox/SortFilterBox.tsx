@@ -2,19 +2,10 @@ import { FC, memo } from 'react'
 import { useAppDispatch } from '@/app/hooks'
 import { updateStoryFilter } from '@/features/stories/storyFilterSlide'
 import { useTranslation } from 'react-i18next'
-import SortFilterBoxUI from '@/components/FilterBoxUI/SortFilterBoxUI/SortFilterBoxUi'
+import SortFilterBoxUI from '@/components/FilterBoxUI/SortFilterBoxUI'
 
 type SortFilterBoxProp = {
   order?: string
-}
-
-const ORDER_LIST = {
-  update: 'filter_story.order.update',
-  views: 'filter_story.order.views',
-  likes: 'filter_story.order.likes',
-  chapters: 'filter_story.order.chapters',
-  isFull: 'filter_story.order.isFull',
-  all: 'filter_story.order.all',
 }
 
 const SortFilterBox: FC<SortFilterBoxProp> = memo(({ order }) => {
@@ -28,8 +19,7 @@ const SortFilterBox: FC<SortFilterBoxProp> = memo(({ order }) => {
 
   return (
     <SortFilterBoxUI
-      order={order ?? ORDER_LIST.update}
-      ORDER_LIST={ORDER_LIST}
+      order={order}
       onValueChange={handleValueChange}
       translate={t<any, {}, string>}
     />
