@@ -4,13 +4,16 @@ import StoryTypeEnum from '@/constants/stories/StoryTypeEnum'
 
 export const useGetStoryQuery = (): StoriesQuery => {
   const queryParam = useQueryParams()
+  let isFull = null
+
+  if (queryParam.isFull && queryParam.isFull !== 'null') {
+    isFull = queryParam.isFull === 'true'
+  }
+
   return {
     perPage: 2,
     page: queryParam.page ? +queryParam.page : 1,
-    isFull:
-      queryParam.isFull && queryParam.isFull !== 'null'
-        ? Boolean(queryParam.isFull)
-        : null,
+    isFull: isFull,
     key: queryParam.key ?? '',
     type: queryParam.type ? +queryParam.type : StoryTypeEnum.WORD,
     authorId: queryParam.authorId ? +queryParam.authorId : undefined,
