@@ -1,46 +1,29 @@
 import { Search } from 'lucide-react'
-import { useEffect, useState } from 'react'
+import { FC, useEffect, useState } from 'react'
 import { Button } from '../ui/button'
 import { Input } from '../ui/input'
 import { useTranslation } from 'react-i18next'
-import { useAppDispatch, useAppSelector } from '@/app/hooks'
-import {
-  selectStoryFilter,
-  updateStoryFilter,
-} from '@/features/stories/storyFilterSlide'
-import useFilterStory from '@/hooks/useFilterStory'
 
-const SearchBox = () => {
+type SearchBoxUIProp = {
+  searchKey: string
+  onSearch: (searChValue: string) => void
+}
+
+const SearchBoxUI: FC<SearchBoxUIProp> = ({ searchKey, onSearch }) => {
   const { t } = useTranslation('cms')
-  const storyFilter = useAppSelector(selectStoryFilter)
-  const [searchValue, setSearchValue] = useState(storyFilter.key)
-  const dispatch = useAppDispatch()
-  const filterStoryNavigate = useFilterStory()
+  const [searchValue, setSearchValue] = useState(searchKey)
 
   const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    dispatch(
-      updateStoryFilter({
-        key: searchValue,
-        page: 1,
-      })
-    )
-
-    filterStoryNavigate({
-      ...storyFilter,
-      key: searchValue,
-      page: 1,
-    })
+    onSearch(searchValue)
   }
 
   useEffect(() => {
-    setSearchValue(storyFilter.key)
-  }, [storyFilter.key])
+    setSearchValue(searchKey)
+  }, [searchKey])
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value
-
-    setSearchValue(value)
+    setSearchValue(e.target.value)
   }
 
   return (
@@ -64,4 +47,4 @@ const SearchBox = () => {
   )
 }
 
-export default SearchBox
+export default SearchBoxUI

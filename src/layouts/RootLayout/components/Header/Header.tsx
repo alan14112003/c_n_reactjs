@@ -1,8 +1,8 @@
 import { Bell } from 'lucide-react'
 import ModeToggle from '@/components/ModeToggle'
 import { Button } from '@/components/ui/button'
-import SearchBox from '@/components/SearchBox/SearchBox'
 import UserActionBox from '@/components/UserActionBox'
+import SearchBox from '@/components/HomePage/StoryFilterBox/SearchBox'
 
 const Header = () => {
   return (
