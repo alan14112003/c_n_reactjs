@@ -15,7 +15,7 @@ type StatusFilterBoxUIProp = {
 
 const STATUS_STORY = {
   null: {
-    label: 'filter_story.filter_all',
+    label: 'filter_story.status.all',
     value: null,
   },
   false: {
@@ -39,27 +39,24 @@ const StatusFilterBoxUI: FC<StatusFilterBoxUIProp> = ({
     onStatusChange(STATUS_STORY[value as StatusKeyType].value)
   }
   return (
-    <div className="flex items-center gap-6">
-      <h3 className="font-bold">{translate('filter_story.status.title')}: </h3>
-      <Select value={statusStory} onValueChange={handleStatusChange}>
-        <SelectTrigger className="w-[180px]">
-          <SelectValue
-            placeholder={translate(
-              STATUS_STORY[statusStory as StatusKeyType].label
-            )}
-          />
-        </SelectTrigger>
-        <SelectContent>
-          {Object.keys(STATUS_STORY).map((statusStoryKey) => {
-            return (
-              <SelectItem value={statusStoryKey} key={statusStoryKey}>
-                {translate(STATUS_STORY[statusStoryKey as StatusKeyType].label)}
-              </SelectItem>
-            )
-          })}
-        </SelectContent>
-      </Select>
-    </div>
+    <Select value={statusStory} onValueChange={handleStatusChange}>
+      <SelectTrigger className="w-[180px]">
+        <SelectValue
+          placeholder={translate(
+            STATUS_STORY[statusStory as StatusKeyType].label
+          )}
+        />
+      </SelectTrigger>
+      <SelectContent>
+        {Object.keys(STATUS_STORY).map((statusStoryKey) => {
+          return (
+            <SelectItem value={statusStoryKey} key={statusStoryKey}>
+              {translate(STATUS_STORY[statusStoryKey as StatusKeyType].label)}
+            </SelectItem>
+          )
+        })}
+      </SelectContent>
+    </Select>
   )
 }
 

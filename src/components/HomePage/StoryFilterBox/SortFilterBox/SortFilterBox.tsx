@@ -18,11 +18,14 @@ const SortFilterBox: FC<SortFilterBoxProp> = memo(({ order }) => {
   }
 
   return (
-    <SortFilterBoxUI
-      order={order}
-      onValueChange={handleValueChange}
-      translate={t<any, {}, string>}
-    />
+    <div className="flex items-center gap-6">
+      <h3 className="font-bold">{t('filter_story.order.title')}: </h3>
+      <SortFilterBoxUI
+        order={order}
+        onValueChange={handleValueChange}
+        translate={t<any, {}, string>}
+      />
+    </div>
   )
 })
 

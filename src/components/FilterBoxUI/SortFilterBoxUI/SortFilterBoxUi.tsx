@@ -11,7 +11,7 @@ import {
 type SortFilterBoxUIProps = {
   order?: string
   onValueChange: (value: string) => void
-  translate: (key: any) => string
+  translate: (key: string) => string
 }
 
 const ORDER_LIST = {
@@ -31,23 +31,20 @@ const SortFilterBoxUI: FC<SortFilterBoxUIProps> = ({
   translate,
 }) => {
   return (
-    <div className="flex items-center gap-6">
-      <h3 className="font-bold">{translate('filter_story.order.title')}: </h3>
-      <Select value={order} onValueChange={onValueChange}>
-        <SelectTrigger className="w-[180px]">
-          <SelectValue
-            placeholder={translate(ORDER_LIST[order as OrderKeyType])}
-          />
-        </SelectTrigger>
-        <SelectContent>
-          {Object.keys(ORDER_LIST).map((key) => (
-            <SelectItem value={key} key={key}>
-              {translate(ORDER_LIST[key as OrderKeyType])}
-            </SelectItem>
-          ))}
-        </SelectContent>
-      </Select>
-    </div>
+    <Select value={order} onValueChange={onValueChange}>
+      <SelectTrigger className="w-[180px]">
+        <SelectValue
+          placeholder={translate(ORDER_LIST[order as OrderKeyType])}
+        />
+      </SelectTrigger>
+      <SelectContent>
+        {Object.keys(ORDER_LIST).map((key) => (
+          <SelectItem value={key} key={key}>
+            {translate(ORDER_LIST[key as OrderKeyType])}
+          </SelectItem>
+        ))}
+      </SelectContent>
+    </Select>
   )
 }
 

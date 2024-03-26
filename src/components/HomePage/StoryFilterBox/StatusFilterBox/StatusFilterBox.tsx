@@ -22,11 +22,14 @@ const StatusFilterBox: FC<StatusFilterBoxProp> = memo(({ isFull }) => {
     )
   }
   return (
-    <StatusFilterBoxUI
-      onStatusChange={handleStatusChange}
-      statusStory={`${isFull}`}
-      translate={t<any, {}, string>}
-    />
+    <div className="flex items-center gap-6">
+      <h3 className="font-bold">{t('filter_story.status.title')}: </h3>
+      <StatusFilterBoxUI
+        onStatusChange={handleStatusChange}
+        statusStory={`${isFull}`}
+        translate={t<any, {}, string>}
+      />
+    </div>
   )
 })
 
