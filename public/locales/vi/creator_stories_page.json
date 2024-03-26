@@ -1,7 +1,7 @@
 {
+  "page_title": "Quản lý truyện của bạn",
   "----------------------------filter story----------------------------------": "",
   "filter_story": {
-    "title": "Tìm truyện nâng cao",
     "status": {
       "false": "Đang tiến hành",
       "true": "Hoàn thành",

@@ -6,6 +6,12 @@
       "job_detail": "ZenZobs - Job Details"
     }
   },
+  "creator_navigation": {
+    "home": "Home",
+    "stories": "Stories",
+    "chapters": "Chapters",
+    "comments": "Comments"
+  },
   "header": {
     "search_placeholder": "Search...",
     "user_action_box": {

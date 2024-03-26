@@ -32,6 +32,12 @@ interface Resources {
         "job_detail": "ZenZobs - Chi tiết công việc"
       }
     },
+    "creator_navigation": {
+      "home": "Trang chủ",
+      "stories": "Truyện",
+      "chapters": "Chương",
+      "comments": "Bình luận"
+    },
     "header": {
       "search_placeholder": "Tìm kiếm...",
       "user_action_box": {
@@ -50,9 +56,9 @@ interface Resources {
     }
   },
   "creator_stories_page": {
+    "page_title": "Quản lý truyện của bạn",
     "----------------------------filter story----------------------------------": "",
     "filter_story": {
-      "title": "Tìm truyện nâng cao",
       "status": {
         "false": "Đang tiến hành",
         "true": "Hoàn thành",

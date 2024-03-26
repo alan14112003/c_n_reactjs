@@ -5,6 +5,7 @@ import {
   CommandList,
 } from '@/components/ui/command'
 import { CREATOR_ROUTES_NAVIGATE } from '@/constants/routes/RoutesNavigate'
+import { useTranslation } from 'react-i18next'
 import { Link, useLocation } from 'react-router-dom'
 
 const checkActiveRoute = (route: string, isIndex?: boolean) => {
@@ -16,6 +17,7 @@ const checkActiveRoute = (route: string, isIndex?: boolean) => {
 }
 
 const Aside = () => {
+  const { t } = useTranslation(['cms'])
   return (
     <div
       className="w-[300px] border shadow-md pt-6 p-2"
@@ -44,7 +46,9 @@ const Aside = () => {
                   }`}
                 >
                   {routeNavigate.icon}
-                  <span className="ml-3">{routeNavigate.name}</span>
+                  <span className="ml-3">
+                    {t<any, {}, string>(routeNavigate.name)}
+                  </span>
                 </Link>
               </CommandItem>
             )
