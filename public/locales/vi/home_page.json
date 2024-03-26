@@ -16,6 +16,7 @@
     },
     "status": {
       "title": "Trạng thái",
+      "all": "Tất cả",
       "false": "Đang tiến hành",
       "true": "Hoàn thành"
     },

@@ -16,6 +16,7 @@
     },
     "status": {
       "title": "Status",
+      "all": "All",
       "false": "Ongoing",
       "true": "Completed"
     },

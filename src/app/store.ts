@@ -1,4 +1,5 @@
 import authReducer from '@/features/auth/authSlice'
+import creatorStoryFilterReducer from '@/features/stories/creator/storyFilterSlide'
 import storyFilterReducer from '@/features/stories/storyFilterSlide'
 import { configureStore } from '@reduxjs/toolkit'
 
@@ -6,6 +7,7 @@ export const store = configureStore({
   reducer: {
     auth: authReducer,
     storyFilter: storyFilterReducer,
+    creatorStoryFilter: creatorStoryFilterReducer,
   },
 })
 

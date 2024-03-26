@@ -49,12 +49,35 @@ interface Resources {
       "weeks": "Tuần trước"
     }
   },
+  "creator_stories_page": {
+    "----------------------------filter story----------------------------------": "",
+    "filter_story": {
+      "title": "Tìm truyện nâng cao",
+      "status": {
+        "false": "Đang tiến hành",
+        "true": "Hoàn thành",
+        "all": "Tất cả trạng thái"
+      },
+      "order": {
+        "update": "Ngày cập nhật",
+        "views": "Lượt xem",
+        "likes": "Lượt thích",
+        "chapters": "Số lượng chương",
+        "isFull": "Đã hoàn",
+        "all": "Tất cả lựa chọn"
+      }
+    }
+  },
   "home_page": {
     "----------------------------filter story----------------------------------": "",
     "filter_story": {
       "title": "Tìm truyện nâng cao",
       "filter_all": "Tất cả",
       "btnTitle": "Lọc truyện",
+      "type": {
+        "novel": "Truyện chữ",
+        "comic": "Truyện tranh"
+      },
       "categories": {
         "title": "Thể loại",
         "find_in": "Tìm trong những thể loại này",
@@ -63,6 +86,7 @@ interface Resources {
       },
       "status": {
         "title": "Trạng thái",
+        "all": "Tất cả",
         "false": "Đang tiến hành",
         "true": "Hoàn thành"
       },

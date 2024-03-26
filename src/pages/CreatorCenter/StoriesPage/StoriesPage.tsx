@@ -1,14 +1,12 @@
-import SearchBoxUI from '@/components/SearchBoxUI'
-import { toast } from 'react-toastify'
+import StoryFilterBox from '@/components/CreatorCenTer/StoriesPage/StoryFilterBox'
+import { useTranslation } from 'react-i18next'
 
 const StoriesPage = () => {
+  const { t } = useTranslation('creator_stories_page')
   return (
     <div>
       <h2 className="text-2xl font-bold">Quản lý truyện của bạn</h2>
-      <div className="mt-4">
-        <SearchBoxUI searchKey="" onChange={(value) => {}} />
-        <div className="flex gap-4"></div>
-      </div>
+      <StoryFilterBox />
     </div>
   )
 }

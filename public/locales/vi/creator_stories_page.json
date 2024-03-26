@@ -1,0 +1,19 @@
+{
+  "----------------------------filter story----------------------------------": "",
+  "filter_story": {
+    "title": "Tìm truyện nâng cao",
+    "status": {
+      "false": "Đang tiến hành",
+      "true": "Hoàn thành",
+      "all": "Tất cả trạng thái"
+    },
+    "order": {
+      "update": "Ngày cập nhật",
+      "views": "Lượt xem",
+      "likes": "Lượt thích",
+      "chapters": "Số lượng chương",
+      "isFull": "Đã hoàn",
+      "all": "Tất cả lựa chọn"
+    }
+  }
+}
