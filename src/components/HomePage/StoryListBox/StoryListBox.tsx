@@ -50,12 +50,12 @@ const StoryListBox = () => {
         <>
           <StoryGrid stories={storiesResponse.data} />
           <div>
-            {Pagination({
-              total: storiesResponse.total,
-              pageSize: storiesResponse.perPage,
-              currentPage: storiesResponse.curPage,
-              onPageChange: onPageChange,
-            })}
+            <Pagination
+              total={storiesResponse.total}
+              pageSize={storiesResponse.perPage}
+              currentPage={storiesResponse.curPage}
+              onPageChange={onPageChange}
+            />
           </div>
         </>
       )}

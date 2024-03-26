@@ -13,6 +13,12 @@ const storyServices = {
       params: options,
     })
   },
+  allByAuth: async (options: any) => {
+    await delay(2000)
+    return http.get(PREV_URL + '/auth', {
+      params: options,
+    })
+  },
 }
 
 export default storyServices

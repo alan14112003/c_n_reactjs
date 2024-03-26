@@ -11,7 +11,7 @@ export const useGetStoryQuery = (): StoriesQuery => {
   }
 
   return {
-    perPage: 2,
+    perPage: queryParam.perPage ? +queryParam.perPage : 2,
     page: queryParam.page ? +queryParam.page : 1,
     isFull: isFull,
     key: queryParam.key ?? '',
