@@ -5,8 +5,6 @@ import {
   TableBody,
   TableCaption,
   TableCell,
-  TableHead,
-  TableHeader,
   TableRow,
 } from '@/components/ui/table'
 import {
@@ -18,8 +16,13 @@ import { useGetStoryQuery } from '@/hooks/useGetStoryQuery'
 import storyServices, { StoryKey } from '@/services/storyServices'
 import { StoriesQuery, StoriesResponse } from '@/types/storyType'
 import { useQuery } from '@tanstack/react-query'
+import TableHeaderBox from './TableHeaderBox'
+import StoryAccessEnum from '@/constants/stories/StoryAccessEnum'
+import { useTranslation } from 'react-i18next'
+import StoryStatusEnum from '@/constants/stories/StoryStatusEnum'
 
 const StoryTableBox = () => {
+  const { t } = useTranslation(['cms'])
   const storyFilter = useAppSelector(selectCreatorStoryFilter)
   const dispatch = useAppDispatch()
 
@@ -33,7 +36,7 @@ const StoryTableBox = () => {
     isPending,
     isSuccess,
   } = useQuery({
-    queryKey: [StoryKey, storyOptions, 'auth'],
+    queryKey: [StoryKey, 'auth', storyOptions],
     queryFn: () => {
       return storyServices.allByAuth(storyOptions)
     },
@@ -51,14 +54,7 @@ const StoryTableBox = () => {
   const storiesResponse: StoriesResponse = response?.data
   return (
     <Table>
-      <TableHeader>
-        <TableRow>
-          <TableHead className="w-[100px]">Invoice</TableHead>
-          <TableHead>Status</TableHead>
-          <TableHead>Method</TableHead>
-          <TableHead className="text-right">Amount</TableHead>
-        </TableRow>
-      </TableHeader>
+      <TableHeaderBox />
       {(isLoading || isPending) && (
         <TableBody>
           <TableRow>
@@ -69,12 +65,22 @@ const StoryTableBox = () => {
       {isSuccess && (
         <>
           <TableBody>
-            <TableRow>
-              <TableCell className="font-medium">INV001</TableCell>
-              <TableCell>Paid</TableCell>
-              <TableCell>Credit Card</TableCell>
-              <TableCell className="text-right">$250.00</TableCell>
-            </TableRow>
+            {storiesResponse.data.map((story) => (
+              <TableRow key={story.id}>
+                <TableCell className="font-medium">{story.name}</TableCell>
+                <TableCell>Paid</TableCell>
+                <TableCell>
+                  {t<any, {}, string>(
+                    StoryStatusEnum.getNameByValue(story.isFull)
+                  )}
+                </TableCell>
+                <TableCell>
+                  {t<any, {}, string>(
+                    StoryAccessEnum.getNameByValue(story.access)
+                  )}
+                </TableCell>
+              </TableRow>
+            ))}
           </TableBody>
           <TableCaption>
             <Pagination

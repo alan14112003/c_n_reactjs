@@ -27,5 +27,15 @@
     "hours": "Giờ trước",
     "days": "Ngày trước",
     "weeks": "Tuần trước"
+  },
+  "stories": {
+    "status": {
+      "ongoing": "Đang tiến hành",
+      "completed": "Đã hoàn thành"
+    },
+    "access": {
+      "private": "Riêng tư",
+      "public": "Công khai"
+    }
   }
 }

@@ -27,5 +27,15 @@
     "hours": "Hours ago",
     "days": "Days ago",
     "weeks": "Weeks ago"
+  },
+  "stories": {
+    "status": {
+      "ongoing": "Ongoing",
+      "completed": "Completed"
+    },
+    "access": {
+      "private": "Private",
+      "public": "Public"
+    }
   }
 }
