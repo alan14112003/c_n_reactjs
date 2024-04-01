@@ -14,7 +14,10 @@ const http = axios.create({
 http.interceptors.request.use((request) => {
   const accessToken = getTokenLS()
 
-  request.headers['Content-Type'] = 'application/json'
+  if (!request.headers['Content-Type']) {
+    request.headers['Content-Type'] = 'application/json'
+  }
+
   request.headers.Authorization = 'Bearer ' + accessToken
   return request
 })
