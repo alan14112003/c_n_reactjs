@@ -1,3 +1,4 @@
+import { StoryCreate } from '@/types/storyType'
 import http from '@/utils/http'
 
 const PREV_URL = '/stories'
@@ -18,6 +19,10 @@ const storyServices = {
     return http.get(PREV_URL + '/auth', {
       params: options,
     })
+  },
+
+  create: async (data: StoryCreate) => {
+    return http.post(PREV_URL, data)
   },
 }
 

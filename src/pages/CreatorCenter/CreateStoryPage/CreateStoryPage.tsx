@@ -8,7 +8,6 @@ import { Button } from '@/components/ui/button'
 
 import {
   Form,
-  FormControl,
   FormField,
   FormItem,
   FormLabel,
@@ -18,10 +17,16 @@ import { Input } from '@/components/ui/input'
 
 import StoryTypeEnum from '@/constants/stories/StoryTypeEnum'
 import { StoryStorePath } from '@/constants/uploads/uploadPath'
+import storyServices from '@/services/storyServices'
+import { StoryHandleResponse } from '@/types/storyType'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { useMutation } from '@tanstack/react-query'
+import { isAxiosError } from 'axios'
 import { Image } from 'lucide-react'
 import { Helmet, HelmetProvider } from 'react-helmet-async'
 import { useForm } from 'react-hook-form'
+import { useTranslation } from 'react-i18next'
+import { toast } from 'react-toastify'
 import { z } from 'zod'
 
 const FormSchema = z.object({
@@ -37,6 +42,8 @@ const FormSchema = z.object({
 })
 
 const CreateStoryPage = () => {
+  const { t } = useTranslation(['response_code'])
+
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
@@ -45,8 +52,36 @@ const CreateStoryPage = () => {
     },
   })
 
-  function onSubmit(data: z.infer<typeof FormSchema>) {
-    console.log('data: ', data)
+  const mutation = useMutation({
+    mutationFn: storyServices.create,
+  })
+
+  const onSubmit = async (body: z.infer<typeof FormSchema>) => {
+    console.log('body: ', body)
+    try {
+      const res = await mutation.mutateAsync({
+        ...body,
+        avatar: JSON.stringify(body.avatar),
+      })
+
+      const data: StoryHandleResponse = res.data
+
+      toast.success('tạo truyện thành công')
+
+      console.log(data)
+    } catch (error) {
+      if (isAxiosError(error)) {
+        toast.error(
+          `${
+            error.response?.data?.code
+              ? t<any, {}, null>(`response_code:${error.response.data.code}`)
+              : error.response?.statusText
+          }`
+        )
+        return
+      }
+      console.log(error)
+    }
   }
 
   return (

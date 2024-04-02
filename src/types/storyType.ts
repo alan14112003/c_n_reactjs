@@ -40,3 +40,22 @@ export interface StoriesQuery {
   order?: string
   key: string
 }
+
+export interface StoryCreate {
+  name: string
+  descriptions: string
+  avatar: string
+  type: number
+  AuthorId: number
+  categories: number[]
+}
+
+export interface StoryHandleResponse {
+  id: number
+  name: string
+  descriptions: string
+  avatar: string
+  type: number
+  AuthorId: number
+  categories: number[]
+}
