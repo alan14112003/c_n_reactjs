@@ -11,6 +11,7 @@ import ActiveAccountPage from '@/pages/ActiveAccountPage'
 import HandleAccountLayout from '@/layouts/HandleAccountLayout'
 import CreatorCenterLayout from '@/layouts/CreatorCenterLayout'
 import CreatorStoriesPage from '@/pages/CreatorCenter/StoriesPage'
+import CreatorCreateStoryPage from '@/pages/CreatorCenter/CreateStoryPage'
 
 const router = createBrowserRouter([
   {
@@ -43,7 +44,16 @@ const router = createBrowserRouter([
           },
           {
             path: 'stories',
-            element: <CreatorStoriesPage />,
+            children: [
+              {
+                index: true,
+                element: <CreatorStoriesPage />,
+              },
+              {
+                path: 'create',
+                element: <CreatorCreateStoryPage />,
+              },
+            ],
           },
         ],
       },

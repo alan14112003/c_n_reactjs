@@ -14,13 +14,14 @@ type SingleFileUploadProp = {
   pathUpload: string
   onUpload: (data: FileUploadResponse) => void
   onDelete: () => void
+  fileUpload?: FileUploadResponse
 }
 
 export const SingleFileUpload: FC<SingleFileUploadProp> = memo(
-  ({ pathUpload, onUpload, onDelete, children }) => {
+  ({ pathUpload, onUpload, onDelete, children, fileUpload }) => {
     const [file, setFile] = useState<File | null>(null)
     const [fileUploaded, setFileUploaded] = useState<FileUploadResponse | null>(
-      null
+      fileUpload ?? null
     )
     const [isUpload, setIsUpload] = useState(false)
 
@@ -98,9 +99,25 @@ export const SingleFileUpload: FC<SingleFileUploadProp> = memo(
     }
 
     return (
-      <div className="border-dashed border-2 max-w-full max-h-full">
+      <div className="border-dashed border-2 max-w-full max-h-full flex justify-center items-center">
         {!file && (
-          <FileUploader handleChange={handleChange}>
+          <FileUploader
+            handleChange={handleChange}
+            types={[
+              'apng',
+              'avif',
+              'gif',
+              'jpeg',
+              'png',
+              'svg+xml',
+              'webp',
+              'bmp',
+              'x-icon',
+              'tiff',
+              'heif',
+              'heic',
+            ]}
+          >
             <div className="p-4">{children ?? 'upload file here'}</div>
           </FileUploader>
         )}
@@ -113,6 +130,7 @@ export const SingleFileUpload: FC<SingleFileUploadProp> = memo(
                 className="max-w-full max-h-full object-cover"
               />
               <Button
+                type="button"
                 size={'icon'}
                 variant={'destructive'}
                 className="rounded-full absolute top-0 right-0 translate-x-1/3 -translate-y-1/3"
@@ -121,6 +139,7 @@ export const SingleFileUpload: FC<SingleFileUploadProp> = memo(
                 <X className="" />
               </Button>
               <Button
+                type="button"
                 variant="success"
                 onClick={handleUpload}
                 disabled={!!fileUploaded}
