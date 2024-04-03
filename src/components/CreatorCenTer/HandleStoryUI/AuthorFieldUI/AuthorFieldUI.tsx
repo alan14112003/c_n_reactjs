@@ -57,7 +57,6 @@ const AuthorFieldUI: FC<AuthorFieldUIProp> = memo(({ form }) => {
     queryKey: [AuthorKey],
     queryFn: AuthorServices.all,
     gcTime: 86400000,
-    refetchOnMount: false,
   })
 
   if (isError) {

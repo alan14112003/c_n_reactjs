@@ -31,7 +31,6 @@ const UserFilterBox: FC<UserFilterBoxProp> = memo(({ userId }) => {
     queryKey: [UserKey],
     queryFn: UserServices.all,
     gcTime: 86400000,
-    refetchOnMount: false,
   })
 
   if (isError) {

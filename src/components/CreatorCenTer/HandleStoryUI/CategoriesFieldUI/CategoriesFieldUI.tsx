@@ -48,7 +48,6 @@ const CategoriesFieldUI: FC<CategoriesFieldUIProp> = memo(({ form }) => {
     queryKey: [CategoryKey],
     queryFn: CategoryServices.all,
     gcTime: 86400000,
-    refetchOnMount: false,
   })
 
   if (isError) {

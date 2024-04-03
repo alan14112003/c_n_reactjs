@@ -31,7 +31,6 @@ const AuthorFilterBox: FC<AuthorFilterBoxProp> = memo(({ authorId }) => {
     queryKey: [AuthorKey],
     queryFn: AuthorServices.all,
     gcTime: 86400000,
-    refetchOnMount: false,
   })
 
   if (isError) {

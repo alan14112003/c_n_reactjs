@@ -48,7 +48,6 @@ const CategoryFilterBox: FC<CategoryFilterBoxProp> = memo(
       queryKey: [CategoryKey],
       queryFn: CategoryServices.all,
       gcTime: 86400000,
-      refetchOnMount: false,
     })
 
     if (isError) {
