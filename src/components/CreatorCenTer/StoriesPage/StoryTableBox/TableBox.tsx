@@ -28,7 +28,7 @@ const StoryTableBox = () => {
 
   const filterStoryNavigate = useFilterStory()
 
-  const storyOptions: StoriesQuery = useGetStoryQuery()
+  const storyOptions: StoriesQuery = useGetStoryQuery({ withType: false })
 
   const {
     data: response,

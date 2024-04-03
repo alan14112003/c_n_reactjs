@@ -16,7 +16,7 @@ import { Button } from '@/components/ui/button'
 const StoryFilterBox = () => {
   const creatorStoryFilter = useAppSelector(selectCreatorStoryFilter)
   const filterStoryNavigate = useFilterStory()
-  const storyOptions: StoriesQuery = useGetStoryQuery()
+  const storyOptions: StoriesQuery = useGetStoryQuery({ withType: false })
   const dispatch = useAppDispatch()
 
   const handleFetch = (options?: { [key in keyof StoriesQuery]?: any }) => {

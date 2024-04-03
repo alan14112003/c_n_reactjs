@@ -38,7 +38,7 @@ const StoryFilterBox = () => {
   const dispatch = useAppDispatch()
   const filterStoryNavigate = useFilterStory()
 
-  const storyOptions: StoriesQuery = useGetStoryQuery()
+  const storyOptions: StoriesQuery = useGetStoryQuery({ withType: true })
 
   const { t } = useTranslation(['home_page'])
 
