@@ -1,1 +1,1 @@
-export { default } from './TableBox'
+export { default } from './StoryTableBox'

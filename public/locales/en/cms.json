@@ -37,5 +37,16 @@
       "private": "Private",
       "public": "Public"
     }
+  },
+  "chapters": {
+    "number": "Chapter",
+    "status": {
+      "is_free": "Free",
+      "is_not_free": "Paid"
+    },
+    "access": {
+      "private": "Private",
+      "public": "Public"
+    }
   }
 }

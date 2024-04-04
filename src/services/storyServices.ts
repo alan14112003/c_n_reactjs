@@ -1,3 +1,4 @@
+import { ChapterQuery } from '@/types/chapterType'
 import { StoryCreate } from '@/types/storyType'
 import http from '@/utils/http'
 
@@ -14,11 +15,28 @@ const storyServices = {
       params: options,
     })
   },
+
   allByAuth: async (options: any) => {
     await delay(2000)
     return http.get(PREV_URL + '/auth', {
       params: options,
     })
+  },
+
+  getByAuth: async (slug: string, id: string) => {
+    await delay(2000)
+    return http.get(PREV_URL + `/auth/${slug}.-.${id}`)
+  },
+
+  chaptersByAuth: async ({
+    storySlug,
+    storyId,
+    order = 'desc',
+  }: ChapterQuery) => {
+    await delay(2000)
+    return http.get(
+      PREV_URL + `/auth/${storySlug}.-.${storyId}/chapters?order=${order}`
+    )
   },
 
   create: async (data: StoryCreate) => {

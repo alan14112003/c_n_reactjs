@@ -12,6 +12,8 @@ import HandleAccountLayout from '@/layouts/HandleAccountLayout'
 import CreatorCenterLayout from '@/layouts/CreatorCenterLayout'
 import CreatorStoriesPage from '@/pages/CreatorCenter/StoriesPage'
 import CreatorCreateStoryPage from '@/pages/CreatorCenter/CreateStoryPage'
+import ChaptersPage from '@/pages/CreatorCenter/ChaptersPage'
+import ChapterLayout from '@/layouts/CreatorCenterLayout/ChapterLayout'
 
 const router = createBrowserRouter([
   {
@@ -52,6 +54,25 @@ const router = createBrowserRouter([
               {
                 path: 'create',
                 element: <CreatorCreateStoryPage />,
+              },
+            ],
+          },
+          {
+            path: 'chapters',
+            element: <ChapterLayout />,
+            children: [
+              {
+                path: ':slugId',
+                children: [
+                  {
+                    index: true,
+                    element: <ChaptersPage />,
+                  },
+                  {
+                    path: 'create',
+                    element: <span>create</span>,
+                  },
+                ],
               },
             ],
           },

@@ -53,6 +53,27 @@ interface Resources {
       "hours": "Giờ trước",
       "days": "Ngày trước",
       "weeks": "Tuần trước"
+    },
+    "stories": {
+      "status": {
+        "ongoing": "Đang tiến hành",
+        "completed": "Đã hoàn thành"
+      },
+      "access": {
+        "private": "Riêng tư",
+        "public": "Công khai"
+      }
+    },
+    "chapters": {
+      "number": "Chương",
+      "status": {
+        "is_free": "Miễn phí",
+        "is_not_free": "Trả phí"
+      },
+      "access": {
+        "private": "Riêng tư",
+        "public": "Công khai"
+      }
     }
   },
   "creator_stories_page": {
