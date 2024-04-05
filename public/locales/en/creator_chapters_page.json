@@ -1,0 +1,11 @@
+{
+  "page_title": "Chapter List: ",
+  "add_btn": "Add",
+  "table_head": {
+    "number": "Chapter",
+    "name": "Name",
+    "info": "Info",
+    "privacy": "Privacy",
+    "actions": "Actions"
+  }
+}

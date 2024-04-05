@@ -65,6 +65,8 @@ interface Resources {
       }
     },
     "chapters": {
+      "coin": "Xu",
+      "paid_end": "Ngừng trả phí",
       "number": "Chương",
       "status": {
         "is_free": "Miễn phí",
@@ -73,7 +75,22 @@ interface Resources {
       "access": {
         "private": "Riêng tư",
         "public": "Công khai"
+      },
+      "sort": {
+        "first": "Cũ nhất",
+        "last": "Mới nhất"
       }
+    }
+  },
+  "creator_chapters_page": {
+    "page_title": "Danh sách chương truyện: ",
+    "add_btn": "Thêm",
+    "table_head": {
+      "number": "Chương",
+      "name": "Tên",
+      "info": "Thông tin",
+      "privacy": "Quyền riêng tư",
+      "actions": "Hành động"
     }
   },
   "creator_stories_page": {

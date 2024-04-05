@@ -39,6 +39,8 @@
     }
   },
   "chapters": {
+    "coin": "Xu",
+    "paid_end": "Ngừng trả phí",
     "number": "Chương",
     "status": {
       "is_free": "Miễn phí",
@@ -47,6 +49,10 @@
     "access": {
       "private": "Riêng tư",
       "public": "Công khai"
+    },
+    "sort": {
+      "first": "Cũ nhất",
+      "last": "Mới nhất"
     }
   }
 }

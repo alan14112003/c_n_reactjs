@@ -1,0 +1,11 @@
+{
+  "page_title": "Danh sách chương truyện: ",
+  "add_btn": "Thêm",
+  "table_head": {
+    "number": "Chương",
+    "name": "Tên",
+    "info": "Thông tin",
+    "privacy": "Quyền riêng tư",
+    "actions": "Hành động"
+  }
+}

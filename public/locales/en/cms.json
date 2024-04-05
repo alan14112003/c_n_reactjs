@@ -39,6 +39,8 @@
     }
   },
   "chapters": {
+    "coin": "Coins",
+    "paid_end": "End of Payment",
     "number": "Chapter",
     "status": {
       "is_free": "Free",
@@ -47,6 +49,10 @@
     "access": {
       "private": "Private",
       "public": "Public"
+    },
+    "sort": {
+      "first": "Oldest",
+      "last": "Newest"
     }
   }
 }

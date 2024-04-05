@@ -1,10 +1,10 @@
+import ChapterSortEnum from '@/constants/chapters/ChapterSortEnum'
 import StoryTypeEnum from '@/constants/stories/StoryTypeEnum'
 
-export type ChapterOrderType = 'asc' | 'desc'
 export interface ChapterQuery {
   storySlug: string
   storyId: string
-  order: ChapterOrderType
+  order: ChapterSortEnum
 }
 
 export interface ChapterResponse {
