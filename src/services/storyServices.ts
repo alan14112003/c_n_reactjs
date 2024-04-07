@@ -1,3 +1,4 @@
+import ChapterSortEnum from '@/constants/chapters/ChapterSortEnum'
 import { ChapterQuery } from '@/types/chapterType'
 import { StoryCreate } from '@/types/storyType'
 import http from '@/utils/http'
@@ -31,7 +32,7 @@ const storyServices = {
   chaptersByAuth: async ({
     storySlug,
     storyId,
-    order = 'desc',
+    order = ChapterSortEnum.LAST,
   }: ChapterQuery) => {
     await delay(2000)
     return http.get(

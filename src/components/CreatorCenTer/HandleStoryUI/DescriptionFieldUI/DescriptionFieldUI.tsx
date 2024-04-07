@@ -7,6 +7,7 @@ import {
   FormMessage,
 } from '@/components/ui/form'
 import ReactQuill from 'react-quill'
+import textEditorModules from '@/config/textEditorModules'
 
 type DescriptionFieldUIProp = {
   form: UseFormReturn<
@@ -38,26 +39,7 @@ const DescriptionFieldUI: FC<DescriptionFieldUIProp> = memo(({ form }) => {
             theme="snow"
             value={field.value}
             onChange={field.onChange}
-            modules={{
-              toolbar: [
-                ['bold', 'italic', 'underline', 'strike'], // toggled buttons
-                ['blockquote', 'link', 'formula'],
-
-                [{ list: 'ordered' }, { list: 'bullet' }, { list: 'check' }],
-                [{ script: 'sub' }, { script: 'super' }], // superscript/subscript
-                [{ indent: '-1' }, { indent: '+1' }], // outdent/indent
-                [{ direction: 'rtl' }], // text direction
-
-                [{ size: ['small', false, 'large', 'huge'] }], // custom dropdown
-                [{ header: [1, 2, 3, 4, 5, 6, false] }],
-
-                [{ font: [] }],
-                [{ align: [] }],
-                [{ color: [] }, { background: [] }], // dropdown with defaults from theme
-
-                ['clean'], // remove formatting button
-              ],
-            }}
+            modules={textEditorModules}
           />
 
           <FormMessage />

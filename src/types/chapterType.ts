@@ -18,3 +18,14 @@ export interface ChapterResponse {
   type: StoryTypeEnum
   StoryId: number
 }
+
+export interface ChapterCreate {
+  name: string
+  number: number
+  isFree: boolean
+  price?: number
+  privateEnd?: Date
+  type: StoryTypeEnum
+  StoryId: number
+  content: string
+}

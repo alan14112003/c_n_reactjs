@@ -1,11 +1,12 @@
+import { ChapterCreate } from '@/types/chapterType'
 import http from '@/utils/http'
 
 const PREV_URL = '/chapters'
 export const ChapterKey = 'chapters'
 
 const ChapterServices = {
-  all: () => {
-    return http.get(PREV_URL)
+  create: (data: ChapterCreate) => {
+    return http.post(PREV_URL, data)
   },
 }
 

@@ -14,6 +14,7 @@ import CreatorStoriesPage from '@/pages/CreatorCenter/StoriesPage'
 import CreatorCreateStoryPage from '@/pages/CreatorCenter/CreateStoryPage'
 import ChaptersPage from '@/pages/CreatorCenter/ChaptersPage'
 import ChapterLayout from '@/layouts/CreatorCenterLayout/ChapterLayout'
+import CreateChapterPage from '@/pages/CreatorCenter/CreateChapterPage'
 
 const router = createBrowserRouter([
   {
@@ -70,7 +71,7 @@ const router = createBrowserRouter([
                   },
                   {
                     path: 'create',
-                    element: <span>create</span>,
+                    element: <CreateChapterPage />,
                   },
                 ],
               },
