@@ -24,7 +24,7 @@ export const useGetStoryQuery = (
   }
 
   return {
-    perPage: queryParam.perPage ? +queryParam.perPage : 2,
+    // perPage: queryParam.perPage ? +queryParam.perPage : 10,
     page: queryParam.page ? +queryParam.page : 1,
     isFull: isFull,
     key: queryParam.key ?? '',

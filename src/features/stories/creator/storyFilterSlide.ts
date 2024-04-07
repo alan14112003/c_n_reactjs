@@ -11,6 +11,7 @@ const initialState: StoriesQuery = {
   order: 'all',
   categoryIn: '',
   categoryNotIn: '',
+  perPage: 10,
 }
 
 export const creatorstoryFilterSlice = createSlice({

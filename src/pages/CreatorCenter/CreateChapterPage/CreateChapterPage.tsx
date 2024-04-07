@@ -1,6 +1,6 @@
 import storyServices, { StoryKey } from '@/services/storyServices'
 import { StoriesList } from '@/types/storyType'
-import { cn, getLocateDate, toTitleCase } from '@/utils/utils'
+import { toTitleCase } from '@/utils/utils'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { Helmet, HelmetProvider } from 'react-helmet-async'
@@ -8,40 +8,20 @@ import { useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 import { useNavigate, useParams } from 'react-router-dom'
 import { z } from 'zod'
-import {
-  Form,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from '@/components/ui/form'
+import { Form } from '@/components/ui/form'
 import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from '@/components/ui/popover'
-import { format } from 'date-fns'
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select'
-import ChapterStatusEnum from '@/constants/chapters/ChapterStatusEnum'
 import { useEffect, useState } from 'react'
-import { CalendarIcon } from 'lucide-react'
-import { Calendar } from '@/components/ui/calendar'
-import ReactQuill from 'react-quill'
-import textEditorModules from '@/config/textEditorModules'
 import StoryTypeEnum from '@/constants/stories/StoryTypeEnum'
-import ChapterServices from '@/services/chapterServices'
+import ChapterServices, { ChapterKey } from '@/services/chapterServices'
 import { toast } from 'react-toastify'
 import { isAxiosError } from 'axios'
 import { ChapterCreate } from '@/types/chapterType'
-import ChapterSortEnum from '@/constants/chapters/ChapterSortEnum'
+import ChapterContentTextField from '@/components/CreatorCenTer/HandleChapterUI/ChapterContentTextField'
+import ChapterNumberField from '@/components/CreatorCenTer/HandleChapterUI/ChapterNumberField'
+import ChapterNameField from '@/components/CreatorCenTer/HandleChapterUI/ChapterNameField'
+import ChapterIsFreeField from '@/components/CreatorCenTer/HandleChapterUI/ChapterIsFreeField'
+import ChapterPriceField from '@/components/CreatorCenTer/HandleChapterUI/ChapterPriceField'
+import ChapterPrivateEndField from '@/components/CreatorCenTer/HandleChapterUI/ChapterPrivateEndField'
 
 const FormSchema = z.object({
   name: z.string().min(1),
@@ -67,7 +47,7 @@ const CreateChapterPage = () => {
   const navigate = useNavigate()
 
   const { data: storyResponse, isSuccess } = useQuery({
-    queryKey: [StoryKey, 'auth'],
+    queryKey: [StoryKey, 'auth', 'get', id],
     queryFn: () => {
       return storyServices.getByAuth(slug, id)
     },
@@ -111,7 +91,7 @@ const CreateChapterPage = () => {
       console.log(result)
 
       queryClient.removeQueries({
-        queryKey: ['chapters', 'auth'],
+        queryKey: [ChapterKey, 'auth'],
       })
 
       navigate(-1)
@@ -145,149 +125,22 @@ const CreateChapterPage = () => {
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
             <div className="mt-6 flex gap-6 justify-between">
               <div className="w-3/12">
-                <FormField
-                  control={form.control}
-                  name="number"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Chương số</FormLabel>
-                      <Input
-                        type="number"
-                        placeholder="Chương số"
-                        {...field}
-                        onChange={(e) => {
-                          form.setValue('number', Number(e.target.value))
-                        }}
-                      />
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
+                <ChapterNumberField form={form} />
               </div>
               <div className="w-6/12">
-                <FormField
-                  control={form.control}
-                  name="name"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Tên</FormLabel>
-                      <Input placeholder="tên" {...field} />
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
+                <ChapterNameField form={form} />
               </div>
               <div className="w-3/12">
-                <FormField
-                  control={form.control}
-                  name="isFree"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Loại</FormLabel>
-                      <Select
-                        onValueChange={(value) => {
-                          const isFreeVal = value === 'true'
-                          form.setValue('isFree', isFreeVal)
-                          setIsFree(isFreeVal)
-                        }}
-                        value={`${field.value}`}
-                      >
-                        <SelectTrigger>
-                          <SelectValue
-                            placeholder={t<any, {}, null>(
-                              ChapterStatusEnum.allNames()[
-                                `${ChapterStatusEnum.IS_FREE}`
-                              ]
-                            )}
-                          />
-                        </SelectTrigger>
-                        <SelectContent>
-                          {Object.keys(ChapterStatusEnum.allNames()).map(
-                            (chapterStatusKey) => (
-                              <SelectItem
-                                value={chapterStatusKey}
-                                key={chapterStatusKey}
-                              >
-                                {t<any, {}, null>(
-                                  ChapterStatusEnum.allNames()[chapterStatusKey]
-                                )}
-                              </SelectItem>
-                            )
-                          )}
-                        </SelectContent>
-                      </Select>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
+                <ChapterIsFreeField form={form} setIsFree={setIsFree} />
               </div>
             </div>
             {isFree === false && (
               <div className="mt-4 flex gap-4">
                 <div className="w-6/12">
-                  <FormField
-                    control={form.control}
-                    name="price"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Xu</FormLabel>
-                        <Input
-                          placeholder="Xu"
-                          type="number"
-                          {...field}
-                          onChange={(e) => {
-                            form.setValue('price', Number(e.target.value))
-                          }}
-                          required
-                        />
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
+                  <ChapterPriceField form={form} />
                 </div>
                 <div className="w-6/12">
-                  <FormField
-                    control={form.control}
-                    name="privateEnd"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>
-                          Ngày kết thúc(để trống nếu vĩnh viễn)
-                        </FormLabel>
-                        <Popover>
-                          <PopoverTrigger asChild>
-                            <Button
-                              variant={'outline'}
-                              className={cn(
-                                'w-full pl-3 text-left font-normal flex',
-                                !field.value && 'text-muted-foreground'
-                              )}
-                            >
-                              {field.value ? (
-                                format(field.value, 'PPP', {
-                                  locale: getLocateDate(),
-                                })
-                              ) : (
-                                <span>Pick a date</span>
-                              )}
-                              <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
-                            </Button>
-                          </PopoverTrigger>
-                          <PopoverContent className="w-auto p-0" align="start">
-                            <Calendar
-                              mode="single"
-                              selected={field.value}
-                              onSelect={field.onChange}
-                              disabled={(date: Date) => date < new Date()}
-                              initialFocus
-                              locale={getLocateDate()}
-                            />
-                          </PopoverContent>
-                        </Popover>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
+                  <ChapterPrivateEndField form={form} />
                 </div>
               </div>
             )}
@@ -296,23 +149,7 @@ const CreateChapterPage = () => {
               {isSuccess && (
                 <>
                   {story.type === StoryTypeEnum.WORD && (
-                    <FormField
-                      control={form.control}
-                      name="content"
-                      render={({ field }) => (
-                        <FormItem className="mt-8">
-                          <FormLabel>Nội dung</FormLabel>
-                          <ReactQuill
-                            theme="snow"
-                            value={field.value}
-                            onChange={field.onChange}
-                            modules={textEditorModules}
-                          />
-
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
+                    <ChapterContentTextField form={form} />
                   )}
                 </>
               )}

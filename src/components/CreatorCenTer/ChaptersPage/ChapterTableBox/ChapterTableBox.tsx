@@ -47,7 +47,7 @@ const ChapterTableBox: FC<ChapterTableBoxProp> = memo(
     const chapters: ChapterResponse[] = chaptersResponse?.data
 
     return (
-      <ScrollArea className="h-full rounded-md border">
+      <ScrollArea className="h-[27rem] rounded-md border">
         <Table>
           <TableHeaderBox />
           {(isLoading || isPending) && (

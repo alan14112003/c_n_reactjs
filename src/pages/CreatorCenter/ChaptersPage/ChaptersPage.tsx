@@ -27,7 +27,7 @@ const ChaptersPage = () => {
   const navigate = useNavigate()
 
   const { data: storyResponse, isSuccess } = useQuery({
-    queryKey: [StoryKey, 'auth'],
+    queryKey: [StoryKey, 'auth', 'get', id],
     queryFn: () => {
       return storyServices.getByAuth(slug, id)
     },
