@@ -20,6 +20,7 @@ import TableHeaderBox from './TableHeaderBox'
 import StoryAccessEnum from '@/constants/stories/StoryAccessEnum'
 import { useTranslation } from 'react-i18next'
 import StoryStatusEnum from '@/constants/stories/StoryStatusEnum'
+import { Link } from 'react-router-dom'
 
 const StoryTableBox = () => {
   const { t } = useTranslation(['cms'])
@@ -68,7 +69,15 @@ const StoryTableBox = () => {
             {storiesResponse.data.map((story) => (
               <TableRow key={story.id}>
                 <TableCell className="font-medium">{story.name}</TableCell>
-                <TableCell>Paid</TableCell>
+                <TableCell>
+                  <div className="flex">
+                    <Link
+                      to={`/creator-center/chapters/${story.slug}.${story.id}`}
+                    >
+                      chapters
+                    </Link>
+                  </div>
+                </TableCell>
                 <TableCell>
                   {t<any, {}, string>(
                     StoryStatusEnum.getNameByValue(story.isFull)

@@ -17,15 +17,16 @@ import { Input } from '@/components/ui/input'
 
 import StoryTypeEnum from '@/constants/stories/StoryTypeEnum'
 import { StoryStorePath } from '@/constants/uploads/uploadPath'
-import storyServices from '@/services/storyServices'
+import storyServices, { StoryKey } from '@/services/storyServices'
 import { StoryHandleResponse } from '@/types/storyType'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { useMutation } from '@tanstack/react-query'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { isAxiosError } from 'axios'
 import { Image } from 'lucide-react'
 import { Helmet, HelmetProvider } from 'react-helmet-async'
 import { useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
+import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import { z } from 'zod'
 
@@ -43,6 +44,9 @@ const FormSchema = z.object({
 
 const CreateStoryPage = () => {
   const { t } = useTranslation(['response_code'])
+
+  const queryClient = useQueryClient()
+  const navigate = useNavigate()
 
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
@@ -69,6 +73,12 @@ const CreateStoryPage = () => {
       toast.success('tạo truyện thành công')
 
       console.log(data)
+
+      queryClient.removeQueries({
+        queryKey: [StoryKey, 'auth'],
+      })
+
+      navigate(`/creator-center/chapters/${data.slug}.${data.id}/create`)
     } catch (error) {
       if (isAxiosError(error)) {
         toast.error(

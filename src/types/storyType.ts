@@ -56,6 +56,7 @@ export interface StoryHandleResponse {
   descriptions: string
   avatar: string
   type: number
+  slug: string
   AuthorId: number
   categories: number[]
 }

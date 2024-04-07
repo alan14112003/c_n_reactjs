@@ -110,25 +110,10 @@ const CreateChapterPage = () => {
 
       console.log(result)
 
-      const chapterOptions = {
-        order: ChapterSortEnum.LAST,
-        storyId: id,
-        storySlug: slug,
-      }
-
       queryClient.removeQueries({
-        queryKey: ['chapters', 'auth', chapterOptions],
+        queryKey: ['chapters', 'auth'],
       })
 
-      queryClient.removeQueries({
-        queryKey: [
-          'chapters',
-          'auth',
-          { ...chapterOptions, order: ChapterSortEnum.FIRST },
-        ],
-      })
-
-      // navigate(`/creator-center/chapters/${slugId}`)
       navigate(-1)
     } catch (error) {
       if (isAxiosError(error)) {
