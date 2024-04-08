@@ -16,10 +16,28 @@ const UploadServices = {
       },
     })
   },
+
+  uploadMultiple: (path: string, files: { index: number; url: string }[]) => {
+    console.log(files)
+
+    return http.post(PREV_URL + '/multiple', {
+      path: path,
+      files: files,
+    })
+  },
+
   deleteSingle: (path: string) => {
     return http.delete(PREV_URL + '/single', {
       data: {
         path: path,
+      },
+    })
+  },
+
+  deleteMultiple: (paths: string[]) => {
+    return http.delete(PREV_URL + '/multiple', {
+      data: {
+        paths: paths,
       },
     })
   },

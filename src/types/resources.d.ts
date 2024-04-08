@@ -84,6 +84,7 @@ interface Resources {
   },
   "creator_chapters_page": {
     "page_title": "Danh sách chương truyện: ",
+    "page_create_title": "Thêm chương mới cho truyện ",
     "add_btn": "Thêm",
     "table_head": {
       "number": "Chương",

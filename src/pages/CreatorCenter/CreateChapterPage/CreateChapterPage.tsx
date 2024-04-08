@@ -22,6 +22,7 @@ import ChapterNameField from '@/components/CreatorCenTer/HandleChapterUI/Chapter
 import ChapterIsFreeField from '@/components/CreatorCenTer/HandleChapterUI/ChapterIsFreeField'
 import ChapterPriceField from '@/components/CreatorCenTer/HandleChapterUI/ChapterPriceField'
 import ChapterPrivateEndField from '@/components/CreatorCenTer/HandleChapterUI/ChapterPrivateEndField'
+import ChapterContentImageField from '@/components/CreatorCenTer/HandleChapterUI/ChapterContentImageField'
 
 const FormSchema = z.object({
   name: z.string().min(1),
@@ -94,7 +95,7 @@ const CreateChapterPage = () => {
         queryKey: [ChapterKey, 'auth'],
       })
 
-      navigate(-1)
+      navigate(`/creator-center/chapters/${slugId}`)
     } catch (error) {
       if (isAxiosError(error)) {
         toast.error(
@@ -116,11 +117,17 @@ const CreateChapterPage = () => {
       <Helmet>
         {isSuccess && (
           <title>
-            {toTitleCase(t('creator_chapters_page:page_title') + story.name)}
+            {toTitleCase(
+              t('creator_chapters_page:page_create_title') + story.name
+            )}
           </title>
         )}
       </Helmet>
       <div>
+        <h2 className="text-2xl font-bold">
+          {isSuccess &&
+            t('creator_chapters_page:page_create_title') + `: ${story.name}`}
+        </h2>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
             <div className="mt-6 flex gap-6 justify-between">
@@ -150,6 +157,10 @@ const CreateChapterPage = () => {
                 <>
                   {story.type === StoryTypeEnum.WORD && (
                     <ChapterContentTextField form={form} />
+                  )}
+
+                  {story.type === StoryTypeEnum.COMIC && (
+                    <ChapterContentImageField form={form} />
                   )}
                 </>
               )}
