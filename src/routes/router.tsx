@@ -12,9 +12,10 @@ import HandleAccountLayout from '@/layouts/HandleAccountLayout'
 import CreatorCenterLayout from '@/layouts/CreatorCenterLayout'
 import CreatorStoriesPage from '@/pages/CreatorCenter/StoriesPage'
 import CreatorCreateStoryPage from '@/pages/CreatorCenter/CreateStoryPage'
-import ChaptersPage from '@/pages/CreatorCenter/ChaptersPage'
-import ChapterLayout from '@/layouts/CreatorCenterLayout/ChapterLayout'
-import CreateChapterPage from '@/pages/CreatorCenter/CreateChapterPage'
+import CreatorUpdateStoryPage from '@/pages/CreatorCenter/UpdateStoryPage'
+import CreatorChapterLayout from '@/layouts/CreatorCenterLayout/ChapterLayout'
+import CreatorChaptersPage from '@/pages/CreatorCenter/ChaptersPage'
+import CreatorCreateChapterPage from '@/pages/CreatorCenter/CreateChapterPage'
 
 const router = createBrowserRouter([
   {
@@ -56,22 +57,31 @@ const router = createBrowserRouter([
                 path: 'create',
                 element: <CreatorCreateStoryPage />,
               },
+              {
+                path: ':slugId',
+                children: [
+                  {
+                    path: 'update',
+                    element: <CreatorUpdateStoryPage />,
+                  },
+                ],
+              },
             ],
           },
           {
             path: 'chapters',
-            element: <ChapterLayout />,
+            element: <CreatorChapterLayout />,
             children: [
               {
                 path: ':slugId',
                 children: [
                   {
                     index: true,
-                    element: <ChaptersPage />,
+                    element: <CreatorChaptersPage />,
                   },
                   {
                     path: 'create',
-                    element: <CreateChapterPage />,
+                    element: <CreatorCreateChapterPage />,
                   },
                 ],
               },

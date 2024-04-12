@@ -43,6 +43,10 @@ const storyServices = {
   create: async (data: StoryCreate) => {
     return http.post(PREV_URL, data)
   },
+
+  update: async (storyId: string, data: StoryCreate) => {
+    return http.put(`${PREV_URL}/${storyId}`, data)
+  },
 }
 
 export default storyServices

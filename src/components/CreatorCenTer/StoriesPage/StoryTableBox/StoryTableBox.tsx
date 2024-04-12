@@ -76,6 +76,13 @@ const StoryTableBox = () => {
                     >
                       chapters
                     </Link>
+
+                    <Link
+                      className="ml-2"
+                      to={`/creator-center/stories/${story.slug}.${story.id}/update`}
+                    >
+                      update
+                    </Link>
                   </div>
                 </TableCell>
                 <TableCell>

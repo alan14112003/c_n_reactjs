@@ -1,5 +1,5 @@
 import { FileUploadResponse } from '@/types/fileUploadType'
-import { FC, memo, ReactNode, useState } from 'react'
+import { FC, memo, ReactNode, useEffect, useState } from 'react'
 import { FileUploader } from 'react-drag-drop-files'
 import { Button } from '../ui/button'
 import { Loader, X } from 'lucide-react'
@@ -21,7 +21,7 @@ export const SingleFileUpload: FC<SingleFileUploadProp> = memo(
   ({ pathUpload, onUpload, onDelete, children, fileUpload }) => {
     const [file, setFile] = useState<File | null>(null)
     const [fileUploaded, setFileUploaded] = useState<FileUploadResponse | null>(
-      fileUpload ?? null
+      null
     )
     const [isUpload, setIsUpload] = useState(false)
 
@@ -38,6 +38,12 @@ export const SingleFileUpload: FC<SingleFileUploadProp> = memo(
         return UploadServices.deleteSingle(fileUploaded?.public_id!)
       },
     })
+
+    useEffect(() => {
+      if (fileUpload) {
+        setFileUploaded(fileUpload)
+      }
+    }, [fileUpload])
 
     const handleChange = (file: File) => {
       setFile(file)
@@ -100,7 +106,7 @@ export const SingleFileUpload: FC<SingleFileUploadProp> = memo(
 
     return (
       <div className="border-dashed border-2 max-w-full max-h-full flex justify-center items-center">
-        {!file && (
+        {!file && !fileUploaded && (
           <FileUploader
             handleChange={handleChange}
             types={[
@@ -121,11 +127,11 @@ export const SingleFileUpload: FC<SingleFileUploadProp> = memo(
             <div className="p-4">{children ?? 'upload file here'}</div>
           </FileUploader>
         )}
-        {file && (
+        {(file || fileUploaded) && (
           <div className="relative p-4">
             <div className="relative">
               <img
-                src={URL.createObjectURL(file)}
+                src={file ? URL.createObjectURL(file) : fileUploaded?.url}
                 alt="for upload"
                 className="max-w-full max-h-full object-cover"
               />

@@ -94,6 +94,7 @@ const CategoriesFieldUI: FC<CategoriesFieldUIProp> = memo(({ form }) => {
                               handleChangeCategories(checked, category.id)
                             }
                             checked={field.value?.includes(category.id)}
+                            className="rounded"
                           />
                           <label
                             htmlFor={`category-${category.id}`}

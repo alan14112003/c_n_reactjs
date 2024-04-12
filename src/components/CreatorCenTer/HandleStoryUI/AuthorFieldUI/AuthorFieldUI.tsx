@@ -71,13 +71,14 @@ const AuthorFieldUI: FC<AuthorFieldUIProp> = memo(({ form }) => {
       name="AuthorId"
       render={({ field }) => (
         <FormItem className=" w-1/3">
-          <FormLabel className="block">Author</FormLabel>
+          <FormLabel>Author</FormLabel>
           {isSuccess && (
             <Popover>
               <PopoverTrigger asChild>
                 <FormControl>
                   <Button
                     variant="outline"
+                    size={'sm'}
                     role="combobox"
                     className={cn(
                       'w-full justify-between font-normal',
