@@ -13,17 +13,26 @@ import {
 } from '@/features/stories/creator/storyFilterSlide'
 import useFilterStory from '@/hooks/useFilterStory'
 import { useGetStoryQuery } from '@/hooks/useGetStoryQuery'
-import storyServices, { StoryKey } from '@/services/storyServices'
 import { StoriesQuery, StoriesResponse } from '@/types/storyType'
-import { useQuery } from '@tanstack/react-query'
+import { useMutation, useQuery } from '@tanstack/react-query'
 import TableHeaderBox from './TableHeaderBox'
 import StoryAccessEnum from '@/constants/stories/StoryAccessEnum'
 import { useTranslation } from 'react-i18next'
 import StoryStatusEnum from '@/constants/stories/StoryStatusEnum'
 import { Link } from 'react-router-dom'
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from '@/components/ui/tooltip'
+import { BookUp, ScrollText, SquarePen } from 'lucide-react'
+import { Button } from '@/components/ui/button'
+import StoryServices, { StoryKey } from '@/services/storyServices'
+import { alertErrorAxios } from '@/utils/alert'
 
 const StoryTableBox = () => {
-  const { t } = useTranslation(['cms'])
+  const { t } = useTranslation(['cms', 'response_code'])
   const storyFilter = useAppSelector(selectCreatorStoryFilter)
   const dispatch = useAppDispatch()
 
@@ -39,8 +48,12 @@ const StoryTableBox = () => {
   } = useQuery({
     queryKey: [StoryKey, 'auth', storyOptions],
     queryFn: () => {
-      return storyServices.allByAuth(storyOptions)
+      return StoryServices.allByAuth(storyOptions)
     },
+  })
+
+  const publicStoryMutation = useMutation({
+    mutationFn: StoryServices.public,
   })
 
   const onPageChange = (page: number) => {
@@ -50,6 +63,14 @@ const StoryTableBox = () => {
       })
     )
     filterStoryNavigate({ ...storyFilter, page: page })
+  }
+
+  const handlePublicStory = async (storyId: number) => {
+    try {
+      await publicStoryMutation.mutateAsync(storyId)
+    } catch (error) {
+      alertErrorAxios(error, t)
+    }
   }
 
   const storiesResponse: StoriesResponse = response?.data
@@ -74,15 +95,55 @@ const StoryTableBox = () => {
                     <Link
                       to={`/creator-center/chapters/${story.slug}.${story.id}`}
                     >
-                      chapters
+                      <TooltipProvider delayDuration={400}>
+                        <Tooltip>
+                          <TooltipTrigger>
+                            <ScrollText size={20} />
+                          </TooltipTrigger>
+                          <TooltipContent side={'bottom'}>
+                            chapters
+                          </TooltipContent>
+                        </Tooltip>
+                      </TooltipProvider>
                     </Link>
 
                     <Link
                       className="ml-2"
                       to={`/creator-center/stories/${story.slug}.${story.id}/update`}
                     >
-                      update
+                      <TooltipProvider delayDuration={400}>
+                        <Tooltip>
+                          <TooltipTrigger>
+                            <SquarePen size={20} />
+                          </TooltipTrigger>
+                          <TooltipContent side={'bottom'}>
+                            update
+                          </TooltipContent>
+                        </Tooltip>
+                      </TooltipProvider>
                     </Link>
+
+                    {story.access === StoryAccessEnum.PRIVATE && (
+                      <TooltipProvider delayDuration={400}>
+                        <Tooltip>
+                          <TooltipTrigger asChild>
+                            <Button
+                              className="ml-2 w-fit h-fit"
+                              variant={'ghost'}
+                              size={'icon'}
+                              onClick={() => {
+                                handlePublicStory(story.id)
+                              }}
+                            >
+                              <BookUp size={20} />
+                            </Button>
+                          </TooltipTrigger>
+                          <TooltipContent side={'bottom'}>
+                            Public
+                          </TooltipContent>
+                        </Tooltip>
+                      </TooltipProvider>
+                    )}
                   </div>
                 </TableCell>
                 <TableCell>

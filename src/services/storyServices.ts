@@ -9,7 +9,7 @@ export const StoryKey = 'stories'
 const delay = (ms: number): Promise<void> =>
   new Promise((resolve) => setTimeout(resolve, ms))
 
-const storyServices = {
+const StoryServices = {
   all: async (options: any) => {
     await delay(2000)
     return http.get(PREV_URL, {
@@ -47,6 +47,10 @@ const storyServices = {
   update: async (storyId: string, data: StoryCreate) => {
     return http.put(`${PREV_URL}/${storyId}`, data)
   },
+
+  public: async (storyId: number) => {
+    return http.put(`${PREV_URL}/${storyId}/public`)
+  },
 }
 
-export default storyServices
+export default StoryServices

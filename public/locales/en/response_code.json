@@ -28,6 +28,9 @@
     "path_required": "'path' is required"
   },
   "story": {
+    "access_denined": "Access denied",
+    "not_private": "The story is not in private mode",
+    "min_chapter_public": "The story must have at least one chapter that is public",
     "not_found": "Story does not exist"
   },
   "purchase": {

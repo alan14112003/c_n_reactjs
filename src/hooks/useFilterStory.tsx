@@ -23,7 +23,10 @@ export default function useFilterStory() {
               index < arr.length - 1 ? '&' : ''
             }`
         )
-        .join('')}`
+        .join('')}`,
+      {
+        replace: true,
+      }
     )
   }
 }
