@@ -5,8 +5,16 @@ const PREV_URL = '/chapters'
 export const ChapterKey = 'chapters'
 
 const ChapterServices = {
+  getByAuth: (chapterId: string) => {
+    return http.get(`${PREV_URL}/auth/${chapterId}`)
+  },
+
   create: (data: ChapterCreate) => {
     return http.post(PREV_URL, data)
+  },
+
+  update: (chapterId: string, data: ChapterCreate) => {
+    return http.put(`${PREV_URL}/${chapterId}`, data)
   },
 
   public: (chapterIds: number[]) => {

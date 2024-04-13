@@ -7,6 +7,18 @@ export interface ChapterQuery {
   order: ChapterSortEnum
 }
 
+export interface ChaptersResponse {
+  id: number
+  number: number
+  name: string
+  isFree: boolean
+  privateEnd: null | Date
+  price: null | number
+  access: number
+  type: StoryTypeEnum
+  StoryId: number
+}
+
 export interface ChapterResponse {
   id: number
   number: number
@@ -17,6 +29,7 @@ export interface ChapterResponse {
   access: number
   type: StoryTypeEnum
   StoryId: number
+  content: string
 }
 
 export interface ChapterCreate {

@@ -16,6 +16,7 @@ import CreatorUpdateStoryPage from '@/pages/CreatorCenter/UpdateStoryPage'
 import CreatorChapterLayout from '@/layouts/CreatorCenterLayout/ChapterLayout'
 import CreatorChaptersPage from '@/pages/CreatorCenter/ChaptersPage'
 import CreatorCreateChapterPage from '@/pages/CreatorCenter/CreateChapterPage'
+import CreatorUpdateChapterPage from '@/pages/CreatorCenter/UpdateChapterPage'
 
 const router = createBrowserRouter([
   {
@@ -82,6 +83,10 @@ const router = createBrowserRouter([
                   {
                     path: 'create',
                     element: <CreatorCreateChapterPage />,
+                  },
+                  {
+                    path: 'update/:id',
+                    element: <CreatorUpdateChapterPage />,
                   },
                 ],
               },

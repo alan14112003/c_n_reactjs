@@ -4,7 +4,7 @@ import {
   ChapterImageUploadResponse,
 } from '@/types/fileUploadType'
 import { useMutation } from '@tanstack/react-query'
-import { FC, useState } from 'react'
+import { FC, useEffect, useState } from 'react'
 import { FileUploader } from 'react-drag-drop-files'
 import { useTranslation } from 'react-i18next'
 import { read as XLSX_read, utils as XLSX_utils } from 'xlsx'
@@ -27,7 +27,7 @@ const ChapterImageUpload: FC<ChapterImageUploadProp> = ({
   const [chapter, setChapter] = useState<ChapterImageUploadJson[] | null>(null)
   const [chapterImageUploaded, setChapterImageUploaded] = useState<
     ChapterImageUploadResponse[] | null
-  >(chapterImageUpload ?? null)
+  >(null)
   const [isUpload, setIsUpload] = useState(false)
 
   const { t } = useTranslation(['cms', 'response_code'])
@@ -66,6 +66,12 @@ const ChapterImageUpload: FC<ChapterImageUploadProp> = ({
       )
     },
   })
+
+  useEffect(() => {
+    if (chapterImageUpload) {
+      setChapterImageUploaded(chapterImageUpload)
+    }
+  }, [chapterImageUpload])
 
   const handleChange = (file: File) => {
     const reader = new FileReader()
@@ -142,7 +148,7 @@ const ChapterImageUpload: FC<ChapterImageUploadProp> = ({
 
   return (
     <div className="border-dashed border-2 max-w-full max-h-full flex justify-center items-center">
-      {!chapter && (
+      {!(chapter || chapterImageUploaded) && (
         <FileUploader
           className="w-full"
           handleChange={handleChange}
@@ -163,11 +169,13 @@ const ChapterImageUpload: FC<ChapterImageUploadProp> = ({
           </div>
         </FileUploader>
       )}
-      {chapter && (
+      {(chapter || chapterImageUploaded) && (
         <div className="relative p-4 w-full">
           <div className="relative">
             <div className="flex justify-center items-center">
-              <p>{chapter.length} ảnh</p>
+              <p>
+                {chapter ? chapter.length : chapterImageUploaded?.length} ảnh
+              </p>
             </div>
             <Button
               type="button"

@@ -12,7 +12,7 @@ import {
   TooltipTrigger,
 } from '@/components/ui/tooltip'
 import TableHeaderBox from './TableHeaderBox'
-import { ChapterQuery, ChapterResponse } from '@/types/chapterType'
+import { ChapterQuery, ChaptersResponse } from '@/types/chapterType'
 import { FC, memo } from 'react'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import ChapterServices, { ChapterKey } from '@/services/chapterServices'
@@ -23,9 +23,10 @@ import ChapterAccessEnum from '@/constants/chapters/ChapterAccessEnum'
 import ChapterStatusEnum from '@/constants/chapters/ChapterStatusEnum'
 import ChapterSortEnum from '@/constants/chapters/ChapterSortEnum'
 import { Button } from '@/components/ui/button'
-import { BookUp } from 'lucide-react'
+import { BookUp, SquarePen } from 'lucide-react'
 import { alertErrorAxios } from '@/utils/alert'
 import { toast } from 'react-toastify'
+import { Link } from 'react-router-dom'
 
 type ChapterTableBoxProp = {
   sortKey: ChapterSortEnum
@@ -54,7 +55,7 @@ const ChapterTableBox: FC<ChapterTableBoxProp> = memo(
         return storyServices.chaptersByAuth(storyOptions)
       },
     })
-    const chapters: ChapterResponse[] = chaptersResponse?.data
+    const chapters: ChaptersResponse[] = chaptersResponse?.data
 
     const queryClient = useQueryClient()
     const publicChaptersMutation = useMutation({
@@ -124,6 +125,22 @@ const ChapterTableBox: FC<ChapterTableBoxProp> = memo(
                       </TableCell>
                       <TableCell>
                         <div className="flex">
+                          <Link
+                            className="ml-2"
+                            to={`/creator-center/chapters/${slug}.${id}/update/${chapter.id}`}
+                          >
+                            <TooltipProvider delayDuration={400}>
+                              <Tooltip>
+                                <TooltipTrigger>
+                                  <SquarePen size={20} />
+                                </TooltipTrigger>
+                                <TooltipContent side={'bottom'}>
+                                  update
+                                </TooltipContent>
+                              </Tooltip>
+                            </TooltipProvider>
+                          </Link>
+
                           {chapter.access === ChapterAccessEnum.PRIVATE && (
                             <TooltipProvider delayDuration={400}>
                               <Tooltip>
