@@ -1,18 +1,22 @@
 import { Outlet, useNavigate } from 'react-router-dom'
 import Aside from './components/Aside/Aside'
 import Header from './components/Header'
-import { ArrowLeft, ArrowLeftCircle } from 'lucide-react'
+import { ArrowLeftCircle } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 
 const CreatorCenterLayout = () => {
   const navigate = useNavigate()
 
   return (
-    <div className="">
+    <div className="h-screen overflow-hidden">
       <Header />
-      <main className="flex justify-between">
+      <main className="flex justify-between h-full">
         <Aside />
-        <section className="flex-1 bg-secondary p-6 px-10">
+        <section
+          className={`flex-1 bg-secondary 
+          p-6 px-10 h-full overflow-y-auto 
+          `}
+        >
           <div className="bg-background w-full h-full p-4 rounded">
             <Button
               variant={'link'}
