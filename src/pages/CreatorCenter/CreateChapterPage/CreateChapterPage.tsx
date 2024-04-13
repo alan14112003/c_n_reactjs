@@ -30,7 +30,7 @@ const FormSchema = z.object({
   content: z.string().min(10),
   isFree: z.boolean(),
   privateEnd: z.date().optional(),
-  price: z.number().min(1).optional(),
+  price: z.number().optional(),
   StoryId: z.number(),
   type: z.number(),
 })

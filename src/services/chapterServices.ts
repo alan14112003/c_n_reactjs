@@ -8,6 +8,10 @@ const ChapterServices = {
   create: (data: ChapterCreate) => {
     return http.post(PREV_URL, data)
   },
+
+  public: (chapterIds: number[]) => {
+    return http.put(PREV_URL + '/public', { ids: chapterIds })
+  },
 }
 
 export default ChapterServices

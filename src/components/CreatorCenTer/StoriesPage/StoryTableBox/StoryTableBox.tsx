@@ -14,7 +14,7 @@ import {
 import useFilterStory from '@/hooks/useFilterStory'
 import { useGetStoryQuery } from '@/hooks/useGetStoryQuery'
 import { StoriesQuery, StoriesResponse } from '@/types/storyType'
-import { useMutation, useQuery } from '@tanstack/react-query'
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import TableHeaderBox from './TableHeaderBox'
 import StoryAccessEnum from '@/constants/stories/StoryAccessEnum'
 import { useTranslation } from 'react-i18next'
@@ -30,6 +30,7 @@ import { BookUp, ScrollText, SquarePen } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import StoryServices, { StoryKey } from '@/services/storyServices'
 import { alertErrorAxios } from '@/utils/alert'
+import { toast } from 'react-toastify'
 
 const StoryTableBox = () => {
   const { t } = useTranslation(['cms', 'response_code'])
@@ -52,6 +53,8 @@ const StoryTableBox = () => {
     },
   })
 
+  const queryClient = useQueryClient()
+
   const publicStoryMutation = useMutation({
     mutationFn: StoryServices.public,
   })
@@ -68,6 +71,11 @@ const StoryTableBox = () => {
   const handlePublicStory = async (storyId: number) => {
     try {
       await publicStoryMutation.mutateAsync(storyId)
+      queryClient.refetchQueries({
+        queryKey: [StoryKey, 'auth'],
+      })
+
+      toast.success('Truyện đã được công khai ')
     } catch (error) {
       alertErrorAxios(error, t)
     }
@@ -139,7 +147,7 @@ const StoryTableBox = () => {
                             </Button>
                           </TooltipTrigger>
                           <TooltipContent side={'bottom'}>
-                            Public
+                            {t('stories.access.public')}
                           </TooltipContent>
                         </Tooltip>
                       </TooltipProvider>
