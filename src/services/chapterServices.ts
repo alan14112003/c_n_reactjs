@@ -17,6 +17,10 @@ const ChapterServices = {
     return http.put(`${PREV_URL}/${chapterId}`, data)
   },
 
+  delete: (chapterId: number) => {
+    return http.delete(`${PREV_URL}/${chapterId}`)
+  },
+
   public: (chapterIds: number[]) => {
     return http.put(PREV_URL + '/public', { ids: chapterIds })
   },

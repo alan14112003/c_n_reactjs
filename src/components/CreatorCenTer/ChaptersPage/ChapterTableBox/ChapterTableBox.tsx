@@ -11,9 +11,20 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from '@/components/ui/tooltip'
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from '@/components/ui/alert-dialog'
 import TableHeaderBox from './TableHeaderBox'
 import { ChapterQuery, ChaptersResponse } from '@/types/chapterType'
-import { FC, memo } from 'react'
+import { FC, memo, useState } from 'react'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import ChapterServices, { ChapterKey } from '@/services/chapterServices'
 import storyServices from '@/services/storyServices'
@@ -23,7 +34,7 @@ import ChapterAccessEnum from '@/constants/chapters/ChapterAccessEnum'
 import ChapterStatusEnum from '@/constants/chapters/ChapterStatusEnum'
 import ChapterSortEnum from '@/constants/chapters/ChapterSortEnum'
 import { Button } from '@/components/ui/button'
-import { BookUp, SquarePen } from 'lucide-react'
+import { BookUp, BookX, SquarePen } from 'lucide-react'
 import { alertErrorAxios } from '@/utils/alert'
 import { toast } from 'react-toastify'
 import { Link } from 'react-router-dom'
@@ -37,6 +48,10 @@ type ChapterTableBoxProp = {
 const ChapterTableBox: FC<ChapterTableBoxProp> = memo(
   ({ id, slug, sortKey }) => {
     const { t } = useTranslation(['cms', 'response_code'])
+
+    const [isAlertChapterList, setIsAlertChapterList] = useState<{
+      [key: number]: boolean
+    }>({})
 
     const storyOptions: ChapterQuery = {
       order: sortKey,
@@ -62,6 +77,10 @@ const ChapterTableBox: FC<ChapterTableBoxProp> = memo(
       mutationFn: ChapterServices.public,
     })
 
+    const deleteChaptersMutation = useMutation({
+      mutationFn: ChapterServices.delete,
+    })
+
     const handlePublicChapter = async (chapterId: number) => {
       try {
         await publicChaptersMutation.mutateAsync([chapterId])
@@ -69,6 +88,18 @@ const ChapterTableBox: FC<ChapterTableBoxProp> = memo(
           queryKey: [ChapterKey, 'auth'],
         })
         toast.success('Chương đã được công khai ')
+      } catch (error) {
+        alertErrorAxios(error, t)
+      }
+    }
+
+    const handleDeleteChapter = async (chapterId: number) => {
+      try {
+        await deleteChaptersMutation.mutateAsync(chapterId)
+        queryClient.refetchQueries({
+          queryKey: [ChapterKey, 'auth'],
+        })
+        toast.success('Đã xóa chương')
       } catch (error) {
         alertErrorAxios(error, t)
       }
@@ -142,25 +173,88 @@ const ChapterTableBox: FC<ChapterTableBoxProp> = memo(
                           </Link>
 
                           {chapter.access === ChapterAccessEnum.PRIVATE && (
-                            <TooltipProvider delayDuration={400}>
-                              <Tooltip>
-                                <TooltipTrigger asChild>
-                                  <Button
-                                    className="ml-2 w-fit h-fit"
-                                    variant={'ghost'}
-                                    size={'icon'}
-                                    onClick={() => {
-                                      handlePublicChapter(chapter.id)
-                                    }}
-                                  >
-                                    <BookUp size={20} />
-                                  </Button>
-                                </TooltipTrigger>
-                                <TooltipContent side={'bottom'}>
-                                  {t('stories.access.public')}
-                                </TooltipContent>
-                              </Tooltip>
-                            </TooltipProvider>
+                            <>
+                              <TooltipProvider delayDuration={400}>
+                                <Tooltip>
+                                  <TooltipTrigger asChild>
+                                    <Button
+                                      className="ml-2 w-fit h-fit"
+                                      variant={'ghost'}
+                                      size={'icon'}
+                                      onClick={() => {
+                                        handlePublicChapter(chapter.id)
+                                      }}
+                                    >
+                                      <BookUp size={20} />
+                                    </Button>
+                                  </TooltipTrigger>
+                                  <TooltipContent side={'bottom'}>
+                                    {t('stories.access.public')}
+                                  </TooltipContent>
+                                </Tooltip>
+                              </TooltipProvider>
+
+                              <TooltipProvider delayDuration={400}>
+                                <Tooltip>
+                                  <TooltipTrigger asChild>
+                                    <Button
+                                      className="ml-2 w-fit h-fit"
+                                      variant={'ghost'}
+                                      size={'icon'}
+                                      onClick={() => {
+                                        setIsAlertChapterList({
+                                          ...isAlertChapterList,
+                                          [chapter.id]: true,
+                                        })
+                                      }}
+                                    >
+                                      <BookX size={20} />
+                                    </Button>
+                                  </TooltipTrigger>
+                                  <TooltipContent side={'bottom'}>
+                                    Xóa
+                                  </TooltipContent>
+                                </Tooltip>
+                              </TooltipProvider>
+                              <AlertDialog
+                                open={isAlertChapterList[chapter.id]}
+                              >
+                                <AlertDialogContent>
+                                  <AlertDialogHeader>
+                                    <AlertDialogTitle>
+                                      Xác nhận xóa chương
+                                    </AlertDialogTitle>
+                                    <AlertDialogDescription>
+                                      Bạn có muốn xóa chương truyện "
+                                      {chapter.name}" không
+                                    </AlertDialogDescription>
+                                  </AlertDialogHeader>
+                                  <AlertDialogFooter>
+                                    <AlertDialogCancel
+                                      onClick={() => {
+                                        setIsAlertChapterList({
+                                          ...isAlertChapterList,
+                                          [chapter.id]: false,
+                                        })
+                                      }}
+                                    >
+                                      Cancel
+                                    </AlertDialogCancel>
+                                    <AlertDialogAction
+                                      onClick={() => {
+                                        handleDeleteChapter(chapter.id)
+                                        setIsAlertChapterList({
+                                          ...isAlertChapterList,
+                                          [chapter.id]: false,
+                                        })
+                                      }}
+                                    >
+                                      Continue
+                                    </AlertDialogAction>
+                                  </AlertDialogFooter>
+                                </AlertDialogContent>
+                              </AlertDialog>
+                            </>
                           )}
                         </div>
                       </TableCell>
