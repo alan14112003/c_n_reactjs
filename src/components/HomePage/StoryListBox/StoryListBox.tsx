@@ -1,4 +1,4 @@
-import { StoriesQuery, StoriesResponse } from '@/types/storyType'
+import { StoriesQuery, StoriesPaginate } from '@/types/storyType'
 import { useQuery } from '@tanstack/react-query'
 import storyServices, { StoryKey } from '@/services/storyServices'
 import { useAppDispatch, useAppSelector } from '@/app/hooks'
@@ -40,20 +40,20 @@ const StoryListBox = () => {
     filterStoryNavigate({ ...storyFilter, page: data })
   }
 
-  const storiesResponse: StoriesResponse = response?.data
+  const StoriesPaginate: StoriesPaginate = response?.data
   return (
     <>
       {(isLoading || isPending) && (
-        <StoryGrid stories={storiesResponse?.data} isLoad={true} />
+        <StoryGrid stories={StoriesPaginate?.data} isLoad={true} />
       )}
       {isSuccess && (
         <>
-          <StoryGrid stories={storiesResponse.data} />
+          <StoryGrid stories={StoriesPaginate.data} />
           <div>
             <Pagination
-              total={storiesResponse.total}
-              pageSize={storiesResponse.perPage}
-              currentPage={storiesResponse.curPage}
+              total={StoriesPaginate.total}
+              pageSize={StoriesPaginate.perPage}
+              currentPage={StoriesPaginate.curPage}
               onPageChange={onPageChange}
             />
           </div>

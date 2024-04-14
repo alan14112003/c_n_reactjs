@@ -1,15 +1,24 @@
 import { useAppDispatch } from '@/app/hooks'
+import { Button } from '@/components/ui/button'
 import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select'
+  Command,
+  CommandEmpty,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+  CommandList,
+} from '@/components/ui/command'
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from '@/components/ui/popover'
 import { updateStoryFilter } from '@/features/stories/storyFilterSlide'
 import AuthorServices, { AuthorKey } from '@/services/authorServices'
 import { AuthorResponse } from '@/types/authorType'
+import { cn } from '@/utils/utils'
 import { useQuery } from '@tanstack/react-query'
+import { CheckIcon, ChevronsUpDown } from 'lucide-react'
 import { FC, memo } from 'react'
 import { useTranslation } from 'react-i18next'
 
@@ -45,37 +54,69 @@ const AuthorFilterBox: FC<AuthorFilterBoxProp> = memo(({ authorId }) => {
           <h3 className="font-bold">
             {t('home_page:filter_story.author.title')}:{' '}
           </h3>
-          <Select
-            value={authorId ? authorId.toString() : 'all'}
-            onValueChange={(value) => {
-              dispatch(
-                updateStoryFilter({
-                  authorId: value !== 'all' ? Number(value) : undefined,
-                })
-              )
-            }}
-          >
-            <SelectTrigger className="w-[180px]">
-              <SelectValue
-                placeholder={
-                  authorId &&
-                  authors.find((author) => author.id === authorId)?.name
-                }
-              />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value={'all'}>
-                {t('filter_story.filter_all')}
-              </SelectItem>
-              {authors.map((author) => {
-                return (
-                  <SelectItem value={author.id.toString()} key={author.id}>
-                    {author.name}
-                  </SelectItem>
-                )
-              })}
-            </SelectContent>
-          </Select>
+          <Popover>
+            <PopoverTrigger asChild>
+              <Button
+                variant="outline"
+                size={'sm'}
+                role="combobox"
+                className={'w-[180px] justify-between font-normal'}
+              >
+                {authorId
+                  ? authors.find((author) => author.id === authorId)?.name
+                  : t('filter_story.filter_all')}
+                <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+              </Button>
+            </PopoverTrigger>
+            <PopoverContent className="w-full p-0">
+              <Command>
+                <CommandInput />
+                <CommandList>
+                  <CommandEmpty>No results found.</CommandEmpty>
+
+                  <CommandGroup>
+                    <CommandItem
+                      onSelect={() => {
+                        dispatch(
+                          updateStoryFilter({
+                            authorId: undefined,
+                          })
+                        )
+                      }}
+                    >
+                      {t('filter_story.filter_all')}
+                      <CheckIcon
+                        className={cn(
+                          'ml-auto h-4 w-4',
+                          !authorId ? 'opacity-100' : 'opacity-0'
+                        )}
+                      />
+                    </CommandItem>
+                    {authors.map((author) => (
+                      <CommandItem
+                        key={author.id}
+                        onSelect={() => {
+                          dispatch(
+                            updateStoryFilter({
+                              authorId: author.id,
+                            })
+                          )
+                        }}
+                      >
+                        {author.name}
+                        <CheckIcon
+                          className={cn(
+                            'ml-auto h-4 w-4',
+                            author.id === authorId ? 'opacity-100' : 'opacity-0'
+                          )}
+                        />
+                      </CommandItem>
+                    ))}
+                  </CommandGroup>
+                </CommandList>
+              </Command>
+            </PopoverContent>
+          </Popover>
         </div>
       )}
     </>

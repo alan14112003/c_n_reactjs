@@ -1,5 +1,5 @@
 import storyServices, { StoryKey } from '@/services/storyServices'
-import { StoriesList, StoryCreate } from '@/types/storyType'
+import { StoriesResponse, StoryCreate } from '@/types/storyType'
 import { useQuery } from '@tanstack/react-query'
 import { useParams } from 'react-router-dom'
 import AuthorFieldUI from '@/components/CreatorCenTer/HandleStoryUI/AuthorFieldUI'
@@ -69,7 +69,7 @@ const UpdateStoryPage = () => {
     },
   })
 
-  const story: StoriesList = storyResponse?.data
+  const story: StoriesResponse = storyResponse?.data
 
   useEffect(() => {
     if (isSuccess) {

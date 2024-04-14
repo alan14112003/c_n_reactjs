@@ -13,7 +13,7 @@ import {
 } from '@/features/stories/creator/storyFilterSlide'
 import useFilterStory from '@/hooks/useFilterStory'
 import { useGetStoryQuery } from '@/hooks/useGetStoryQuery'
-import { StoriesQuery, StoriesResponse } from '@/types/storyType'
+import { StoriesQuery, StoriesPaginate } from '@/types/storyType'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import TableHeaderBox from './TableHeaderBox'
 import StoryAccessEnum from '@/constants/stories/StoryAccessEnum'
@@ -81,7 +81,7 @@ const StoryTableBox = () => {
     }
   }
 
-  const storiesResponse: StoriesResponse = response?.data
+  const StoriesPaginate: StoriesPaginate = response?.data
   return (
     <Table>
       <TableHeaderBox />
@@ -95,7 +95,7 @@ const StoryTableBox = () => {
       {isSuccess && (
         <>
           <TableBody>
-            {storiesResponse.data.map((story) => (
+            {StoriesPaginate.data.map((story) => (
               <TableRow key={story.id}>
                 <TableCell className="font-medium">{story.name}</TableCell>
                 <TableCell>
@@ -169,9 +169,9 @@ const StoryTableBox = () => {
           </TableBody>
           <TableCaption>
             <Pagination
-              total={storiesResponse.total}
-              pageSize={storiesResponse.perPage}
-              currentPage={storiesResponse.curPage}
+              total={StoriesPaginate.total}
+              pageSize={StoriesPaginate.perPage}
+              currentPage={StoriesPaginate.curPage}
               onPageChange={onPageChange}
             />
           </TableCaption>

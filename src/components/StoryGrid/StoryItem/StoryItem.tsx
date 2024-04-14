@@ -7,10 +7,10 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card'
-import { StoriesList } from '@/types/storyType'
+import { StoriesResponse } from '@/types/storyType'
 
 type StoryItemProp = {
-  story: StoriesList
+  story: StoriesResponse
 }
 
 const StoryItem = ({ story }: StoryItemProp) => {

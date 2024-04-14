@@ -1,7 +1,7 @@
 import { Category } from './categoryType'
 import { UserPublic } from './userType'
 
-export interface StoriesList {
+export interface StoriesResponse {
   id: number
   name: string
   slug: string
@@ -21,11 +21,12 @@ export interface StoriesList {
   User: UserPublic
   Categories: Category[]
 }
-export interface StoriesResponse {
+
+export interface StoriesPaginate {
   curPage: number
   perPage: number
   total: number
-  data: StoriesList[]
+  data: StoriesResponse[]
 }
 
 export interface StoriesQuery {

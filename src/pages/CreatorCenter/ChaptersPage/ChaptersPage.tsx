@@ -1,7 +1,7 @@
 import ChapterTableBox from '@/components/CreatorCenTer/ChaptersPage/ChapterTableBox'
 import { Button } from '@/components/ui/button'
 import storyServices, { StoryKey } from '@/services/storyServices'
-import { StoriesList } from '@/types/storyType'
+import { StoriesResponse } from '@/types/storyType'
 import { useQuery } from '@tanstack/react-query'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 import {
@@ -33,7 +33,7 @@ const ChaptersPage = () => {
     },
   })
 
-  const story: StoriesList = storyResponse?.data
+  const story: StoriesResponse = storyResponse?.data
 
   return (
     <HelmetProvider>

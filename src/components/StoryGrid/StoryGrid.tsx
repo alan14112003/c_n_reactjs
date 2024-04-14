@@ -1,10 +1,10 @@
-import { StoriesList } from '@/types/storyType'
+import { StoriesResponse } from '@/types/storyType'
 import StoryItem from './StoryItem'
 import { cn } from '@/utils/utils'
 import StorySkeleton from './StorySkeleton'
 
 type StoryGridProp = {
-  stories: StoriesList[]
+  stories: StoriesResponse[]
   isLoad?: boolean
   className?: React.HTMLAttributes<HTMLDivElement>['className']
 }

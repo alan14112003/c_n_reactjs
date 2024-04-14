@@ -20,7 +20,6 @@ import {
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
-  AlertDialogTrigger,
 } from '@/components/ui/alert-dialog'
 import TableHeaderBox from './TableHeaderBox'
 import { ChapterQuery, ChaptersResponse } from '@/types/chapterType'

@@ -1,5 +1,5 @@
 import storyServices, { StoryKey } from '@/services/storyServices'
-import { StoriesList } from '@/types/storyType'
+import { StoriesResponse } from '@/types/storyType'
 import { toTitleCase } from '@/utils/utils'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
@@ -56,7 +56,7 @@ const CreateChapterPage = () => {
 
   const queryClient = useQueryClient()
 
-  const story: StoriesList = storyResponse?.data
+  const story: StoriesResponse = storyResponse?.data
 
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
