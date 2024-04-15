@@ -16,7 +16,10 @@ export interface StoriesResponse {
   likeCount: number
   viewCount: number
   isFull: boolean
-  lastChapter: number
+  lastChapter: {
+    id: number
+    number: number
+  }
   updatedAt: string | Date
   User: UserPublic
   Categories: Category[]

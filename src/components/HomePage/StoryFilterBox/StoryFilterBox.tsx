@@ -53,6 +53,21 @@ const StoryFilterBox = () => {
       openSheetRef.current?.click()
     }
   }
+
+  const handleChangeStoryType = (storyTypeKey: StoryTypeKey) => {
+    const storyFilterNew: StoriesQuery = {
+      type: STORY_TYPE[storyTypeKey],
+      page: 1,
+      categoryIn: '',
+      categoryNotIn: '',
+      isFull: null,
+      key: '',
+    }
+    dispatch(updateStoryFilter(storyFilterNew))
+
+    filterStoryNavigate(storyFilterNew)
+  }
+
   // hàm này để set sự kiện windown on keydown
   useEffect(() => {
     window.addEventListener('keydown', handleUserKeyPress)
@@ -77,18 +92,7 @@ const StoryFilterBox = () => {
               : 'outline'
           }
           onClick={() => {
-            dispatch(
-              updateStoryFilter({
-                type: STORY_TYPE[storyTypeKey as StoryTypeKey],
-                page: 1,
-              })
-            )
-
-            filterStoryNavigate({
-              ...storyFilter,
-              type: STORY_TYPE[storyTypeKey as StoryTypeKey],
-              page: 1,
-            })
+            handleChangeStoryType(storyTypeKey as StoryTypeKey)
           }}
         >
           {t<any, {}, null>(`filter_story.type.${storyTypeKey}`)}

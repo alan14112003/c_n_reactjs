@@ -30,6 +30,7 @@
   },
   "stories": {
     "status": {
+      "title": "Status",
       "ongoing": "Ongoing",
       "completed": "Completed"
     },

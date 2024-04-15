@@ -56,6 +56,7 @@ interface Resources {
     },
     "stories": {
       "status": {
+        "title": "Trạng thái",
         "ongoing": "Đang tiến hành",
         "completed": "Đã hoàn thành"
       },
@@ -182,6 +183,9 @@ interface Resources {
       "path_required": "'path' là bắt buộc"
     },
     "story": {
+      "access_denined": "Không có quyền truy cập",
+      "not_private": "Truyện không ở chế độ riêng tư",
+      "min_chapter_public": "Truyện phải có ít nhất một chương được công khai",
       "not_found": "Truyện không tồn tại"
     },
     "purchase": {

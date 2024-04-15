@@ -1,6 +1,6 @@
 import { Button } from '@/components/ui/button'
 import { useEffect } from 'react'
-import LogoGoogleImg from '@/assets/images/logo-google.png'
+import { LogoGoogleImage } from '@/assets/images'
 
 // Tạo interface cho props của hook
 interface GoogleLoginProps {
@@ -78,7 +78,7 @@ const useGoogleLogin = ({ clientId, callback }: GoogleLoginProps) => {
     <>
       <button className="hidden" id={`${buttonLoginId}`}></button>
       <Button variant="outline" className="py-6" onClick={onclick}>
-        <img src={LogoGoogleImg} alt="logo google" />
+        <img src={LogoGoogleImage} alt="logo google" />
         <span className="ml-2">Google</span>
       </Button>
     </>

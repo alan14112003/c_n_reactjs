@@ -30,6 +30,7 @@
   },
   "stories": {
     "status": {
+      "title": "Trạng thái",
       "ongoing": "Đang tiến hành",
       "completed": "Đã hoàn thành"
     },
