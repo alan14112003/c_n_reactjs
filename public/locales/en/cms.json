@@ -29,6 +29,7 @@
     "weeks": "Weeks ago"
   },
   "stories": {
+    "title": "Story",
     "status": {
       "title": "Status",
       "ongoing": "Ongoing",

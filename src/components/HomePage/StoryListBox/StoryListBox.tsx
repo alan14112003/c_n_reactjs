@@ -10,8 +10,13 @@ import useFilterStory from '@/hooks/useFilterStory'
 import { useGetStoryQuery } from '@/hooks/useGetStoryQuery'
 import StoryGrid from '@/components/StoryGrid'
 import Pagination from '@/components/Pagination'
+import CategoryServices, { CategoryKey } from '@/services/categoryServices'
+import { Helmet, HelmetProvider } from 'react-helmet-async'
+import { Category } from '@/types/categoryType'
+import { useTranslation } from 'react-i18next'
 
 const StoryListBox = () => {
+  const { t } = useTranslation(['cms'])
   const storyFilter = useAppSelector(selectStoryFilter)
   const dispatch = useAppDispatch()
 
@@ -31,6 +36,14 @@ const StoryListBox = () => {
     },
   })
 
+  const { data: categoriesResponse } = useQuery({
+    queryKey: [CategoryKey],
+    queryFn: CategoryServices.all,
+    gcTime: 86400000,
+  })
+
+  const categories: Category[] = categoriesResponse?.data
+
   const onPageChange = (data: number) => {
     dispatch(
       updateStoryFilter({
@@ -42,7 +55,22 @@ const StoryListBox = () => {
 
   const StoriesPaginate: StoriesPaginate = response?.data
   return (
-    <>
+    <HelmetProvider>
+      <Helmet>
+        {categories && storyFilter.categoryIn !== '' ? (
+          <title>
+            {`${t('cms:stories.title')} `}
+            {categories
+              .filter((category) =>
+                storyFilter.categoryIn.split(',').includes(`${category.id}`)
+              )
+              .map((category) => category.name)
+              .join(', ')}
+          </title>
+        ) : (
+          <title>Truyện chữ và truyện tranh</title>
+        )}
+      </Helmet>
       {(isLoading || isPending) && (
         <StoryGrid stories={StoriesPaginate?.data} isLoad={true} />
       )}
@@ -59,7 +87,7 @@ const StoryListBox = () => {
           </div>
         </>
       )}
-    </>
+    </HelmetProvider>
   )
 }
 

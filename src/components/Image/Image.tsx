@@ -22,7 +22,7 @@ const Image = forwardRef<HTMLImageElement, ImageProp>(
 
     return (
       <img
-        className={cn('overflow-hidden', className)}
+        className={cn('overflow-hidden object-cover', className)}
         ref={ref}
         src={fallback || src}
         alt={alt}

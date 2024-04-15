@@ -26,7 +26,7 @@ const CategoryItem: FC<CategoryItemProp> = memo(({ category }) => {
 
   return (
     <Link
-      className="border border-primary rounded px-2 py-0.5"
+      className="border border-primary rounded-md px-2 py-0.5"
       onClick={handleClick}
       to={`/?categoryIn=${category.id}&type=${storyFilter.type}`}
     >

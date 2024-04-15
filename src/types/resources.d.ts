@@ -55,6 +55,7 @@ interface Resources {
       "weeks": "Tuần trước"
     },
     "stories": {
+      "title": "Truyện",
       "status": {
         "title": "Trạng thái",
         "ongoing": "Đang tiến hành",
