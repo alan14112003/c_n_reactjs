@@ -1,3 +1,4 @@
+import { AuthorResponse } from './authorType'
 import { Category } from './categoryType'
 import { UserPublic } from './userType'
 
@@ -23,6 +24,26 @@ export interface StoriesResponse {
   updatedAt: string | Date
   User: UserPublic
   Categories: Category[]
+}
+
+export interface Story {
+  id: number
+  name: string
+  slug: string
+  isFull: boolean
+  access: number
+  descriptions: string
+  avatar: string
+  type: number
+  viewCount: number
+  likeCount: number
+  followCount: number
+  Author: AuthorResponse
+  Categories: Category[]
+  User: UserPublic
+  UserId: number
+  createdAt: string | Date
+  updatedAt: string | Date
 }
 
 export interface StoriesPaginate {

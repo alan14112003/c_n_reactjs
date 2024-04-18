@@ -17,6 +17,7 @@ export interface ChaptersResponse {
   access: number
   type: StoryTypeEnum
   StoryId: number
+  seen: boolean
 }
 
 export interface ChapterResponse {

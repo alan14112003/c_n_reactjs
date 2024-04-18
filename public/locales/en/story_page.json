@@ -1,0 +1,16 @@
+{
+  "tabs": {
+    "chapters": "Chapters",
+    "comments": "Comments"
+  },
+  "buttons": {
+    "like": {
+      "true": "Like",
+      "false": "Unlike"
+    },
+    "follow": {
+      "true": "Follow",
+      "false": "Unfollow"
+    }
+  }
+}

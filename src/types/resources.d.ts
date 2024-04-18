@@ -56,6 +56,15 @@ interface Resources {
     },
     "stories": {
       "title": "Truyện",
+      "views": "Lượt xem",
+      "likes": "Lượt thích",
+      "follows": "Lượt theo dõi",
+      "descriptions": "Giới thiệu",
+      "type": {
+        "title": "Loại",
+        "novel": "Tiểu thuyết",
+        "comic": "Chuyện tranh"
+      },
       "status": {
         "title": "Trạng thái",
         "ongoing": "Đang tiến hành",
@@ -65,6 +74,9 @@ interface Resources {
         "private": "Riêng tư",
         "public": "Công khai"
       }
+    },
+    "authors": {
+      "title": "Tác giả"
     },
     "chapters": {
       "coin": "Xu",
@@ -199,6 +211,22 @@ interface Resources {
     },
     "comment": {
       "parent_not_found": "Bình luận mà bạn trả lời không còn nữa"
+    }
+  },
+  "story_page": {
+    "tabs": {
+      "chapters": "Chương",
+      "comments": "Bình luận"
+    },
+    "buttons": {
+      "like": {
+        "true": "Thích",
+        "false": "Bỏ thích"
+      },
+      "follow": {
+        "true": "Theo dõi",
+        "false": "Bỏ theo dõi"
+      }
     }
   }
 }

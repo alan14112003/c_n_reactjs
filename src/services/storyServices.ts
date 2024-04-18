@@ -24,6 +24,10 @@ const StoryServices = {
     })
   },
 
+  get: async (slug: string, id: string) => {
+    return http.get(PREV_URL + `/${slug}.-.${id}`)
+  },
+
   getByAuth: async (slug: string, id: string) => {
     await delay(2000)
     return http.get(PREV_URL + `/auth/${slug}.-.${id}`)
@@ -37,6 +41,16 @@ const StoryServices = {
     await delay(2000)
     return http.get(
       PREV_URL + `/auth/${storySlug}.-.${storyId}/chapters?order=${order}`
+    )
+  },
+
+  chapters: async ({
+    storySlug,
+    storyId,
+    order = ChapterSortEnum.LAST,
+  }: ChapterQuery) => {
+    return http.get(
+      PREV_URL + `/${storySlug}.-.${storyId}/chapters?order=${order}`
     )
   },
 

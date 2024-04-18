@@ -30,6 +30,15 @@
   },
   "stories": {
     "title": "Truyện",
+    "views": "Lượt xem",
+    "likes": "Lượt thích",
+    "follows": "Lượt theo dõi",
+    "descriptions": "Giới thiệu",
+    "type": {
+      "title": "Loại",
+      "novel": "Tiểu thuyết",
+      "comic": "Chuyện tranh"
+    },
     "status": {
       "title": "Trạng thái",
       "ongoing": "Đang tiến hành",
@@ -39,6 +48,9 @@
       "private": "Riêng tư",
       "public": "Công khai"
     }
+  },
+  "authors": {
+    "title": "Tác giả"
   },
   "chapters": {
     "coin": "Xu",

@@ -17,6 +17,7 @@ import CreatorChapterLayout from '@/layouts/CreatorCenterLayout/ChapterLayout'
 import CreatorChaptersPage from '@/pages/CreatorCenter/ChaptersPage'
 import CreatorCreateChapterPage from '@/pages/CreatorCenter/CreateChapterPage'
 import CreatorUpdateChapterPage from '@/pages/CreatorCenter/UpdateChapterPage'
+import StoryPage from '@/pages/StoryPage'
 
 const router = createBrowserRouter([
   {
@@ -36,6 +37,15 @@ const router = createBrowserRouter([
           {
             index: true,
             element: <HomePage />,
+          },
+          {
+            path: 'stories',
+            children: [
+              {
+                path: ':slugId',
+                element: <StoryPage />,
+              },
+            ],
           },
         ],
       },

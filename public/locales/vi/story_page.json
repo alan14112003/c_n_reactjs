@@ -1,0 +1,16 @@
+{
+  "tabs": {
+    "chapters": "Chương",
+    "comments": "Bình luận"
+  },
+  "buttons": {
+    "like": {
+      "true": "Thích",
+      "false": "Bỏ thích"
+    },
+    "follow": {
+      "true": "Theo dõi",
+      "false": "Bỏ theo dõi"
+    }
+  }
+}

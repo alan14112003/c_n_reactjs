@@ -9,8 +9,8 @@ namespace StoryTypeEnum {
   // Phương thức trả về tất cả tên
   export function allNames(): { [key: number]: string } {
     return {
-      [StoryTypeEnum.WORD]: 'truyện chữ',
-      [StoryTypeEnum.COMIC]: 'truyện tranh',
+      [StoryTypeEnum.WORD]: 'cms:stories.type.novel',
+      [StoryTypeEnum.COMIC]: 'cms:stories.type.comic',
       [StoryTypeEnum.SPEECH]: 'truyện nói',
     }
   }

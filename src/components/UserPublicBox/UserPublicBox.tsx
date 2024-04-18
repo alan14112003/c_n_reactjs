@@ -13,7 +13,7 @@ const UserPublicBox: FC<UserPublicBoxProp> = ({ user }) => {
       <Image
         className="h-6 rounded-full"
         alt={`avatar ${user.fullName}`}
-        src={user.avatar ?? ''}
+        src={user.avatar ? JSON.parse(user.avatar).url : NoAvatar}
         fallback={NoAvatar}
       />
       <h3 className="font-bold">{user.fullName}</h3>

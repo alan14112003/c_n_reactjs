@@ -30,7 +30,7 @@ const StoryItem: FC<StoryItemProp> = memo(({ story }) => {
   const { t } = useTranslation(['cms'])
   return (
     <Card className="">
-      <Link to={''}>
+      <Link to={`/stories/${story.slug}.${story.id}`}>
         <CardContent className="relative h-[220px] border-b">
           <Badge variant="success" className="absolute top-3 left-2">
             <TimeAgo time={story.updatedAt.toString()} />
@@ -67,7 +67,7 @@ const StoryItem: FC<StoryItemProp> = memo(({ story }) => {
       <HoverCard openDelay={400}>
         <HoverCardTrigger asChild>
           <CardHeader className="p-3">
-            <Link to={''}>
+            <Link to={`/stories/${story.slug}.${story.id}`}>
               <CardTitle className="capitalize">{story.name}</CardTitle>
             </Link>
             <CardDescription>

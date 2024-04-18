@@ -30,6 +30,15 @@
   },
   "stories": {
     "title": "Story",
+    "views": "Views",
+    "likes": "Likes",
+    "follows": "Follows",
+    "descriptions": "Descriptions",
+    "type": {
+      "title": "Type",
+      "novel": "Novel",
+      "comic": "Comic"
+    },
     "status": {
       "title": "Status",
       "ongoing": "Ongoing",
@@ -39,6 +48,9 @@
       "private": "Private",
       "public": "Public"
     }
+  },
+  "authors": {
+    "title": "Author"
   },
   "chapters": {
     "coin": "Coins",

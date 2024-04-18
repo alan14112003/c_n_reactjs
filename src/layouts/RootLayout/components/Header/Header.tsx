@@ -6,7 +6,7 @@ import SearchBox from '@/components/HomePage/StoryFilterBox/SearchBox'
 
 const Header = () => {
   return (
-    <header className="fixed h-12 top-2 left-0 right-0 container">
+    <header className="fixed h-16 top-0 pt-2 p-4 left-0 right-0 container z-50 bg-background">
       <div className="flex justify-between items-center">
         <div className="flex justify-between items-center gap-10">
           <h1>Logo</h1>
