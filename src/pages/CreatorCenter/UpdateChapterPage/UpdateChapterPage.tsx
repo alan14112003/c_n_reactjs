@@ -169,9 +169,9 @@ const UpdateChapterPage = () => {
               )}
             </div>
 
-            <Button variant="success" className="mt-8 float-end">
-              Sửa chương
-            </Button>
+            <div className="flex justify-end mt-8">
+              <Button variant="success">Sửa chương</Button>
+            </div>
           </form>
         </Form>
       </div>

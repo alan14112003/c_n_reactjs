@@ -8,16 +8,16 @@ const CreatorCenterLayout = () => {
   const navigate = useNavigate()
 
   return (
-    <div className="h-screen overflow-hidden">
+    <div className="h-screen">
       <Header />
       <main className="flex justify-between h-full">
         <Aside />
         <section
           className={`flex-1 bg-secondary 
-          p-6 px-10 h-full overflow-y-auto 
+          p-6 px-10 h-fit 
           `}
         >
-          <div className="bg-background w-full h-full p-4 rounded">
+          <div className="bg-background w-full h-fit p-4 rounded">
             <Button
               variant={'link'}
               size={'icon'}

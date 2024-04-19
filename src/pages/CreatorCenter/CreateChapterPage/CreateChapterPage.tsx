@@ -166,9 +166,9 @@ const CreateChapterPage = () => {
               )}
             </div>
 
-            <Button variant="success" className="mt-8 float-end">
-              thêm chương
-            </Button>
+            <div className="flex justify-end mt-8">
+              <Button variant="success">thêm chương</Button>
+            </div>
           </form>
         </Form>
       </div>

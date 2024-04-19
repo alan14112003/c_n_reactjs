@@ -66,7 +66,7 @@ const ChaptersList: FC<ChaptersListProp> = memo(({ story }) => {
         {isSuccess &&
           chapters.map((chapter) => (
             <Link
-              to={'/'}
+              to={`/stories/${story.slug}.${story.id}/chapter-${chapter.id}`}
               key={chapter.id}
               className={` p-2 px-4 border rounded-sm mt-2
                   cursor-pointer flex justify-between

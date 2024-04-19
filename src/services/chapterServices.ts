@@ -9,6 +9,10 @@ const ChapterServices = {
     return http.get(`${PREV_URL}/auth/${chapterId}`)
   },
 
+  get: (chapterId: string) => {
+    return http.get(`${PREV_URL}/${chapterId}`)
+  },
+
   create: (data: ChapterCreate) => {
     return http.post(PREV_URL, data)
   },

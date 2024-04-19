@@ -14,7 +14,7 @@ import {
   PopoverTrigger,
 } from '@/components/ui/popover'
 import { format } from 'date-fns'
-import { FC } from 'react'
+import { FC, useEffect } from 'react'
 import { UseFormReturn } from 'react-hook-form'
 import { Button } from '@/components/ui/button'
 
@@ -36,6 +36,12 @@ type ChapterPrivateEndFieldProp = {
 }
 
 const ChapterPrivateEndField: FC<ChapterPrivateEndFieldProp> = ({ form }) => {
+  useEffect(() => {
+    if (typeof form.getValues('privateEnd') === 'string') {
+      form.setValue('privateEnd', new Date(`${form.getValues('privateEnd')}`))
+    }
+  }, [form])
+
   return (
     <FormField
       control={form.control}
