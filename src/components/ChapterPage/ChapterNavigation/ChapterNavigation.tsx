@@ -29,7 +29,7 @@ import {
   ChevronLeftCircle,
   ChevronRightCircle,
 } from 'lucide-react'
-import { cn } from '@/utils/utils'
+import { cn, toTitleCase } from '@/utils/utils'
 
 type ChapterNavigationProp = {
   chapter: ChapterResponse
@@ -80,13 +80,17 @@ const ChapterNavigation: FC<ChapterNavigationProp> = ({ chapter }) => {
     <HelmetProvider>
       <Helmet>
         {storyQuery.isSuccess && (
-          <title>{`${story.name} - ${t('cms:chapters.number')} ${
-            chapter.number
-          }`}</title>
+          <title>
+            {toTitleCase(
+              `${story.name} - ${t('cms:chapters.number')} ${chapter.number}`
+            )}
+          </title>
         )}
       </Helmet>
 
-      <div className={`mb-5 flex ${chapter.name && 'flex-col'}`}>
+      <div
+        className={`mb-10 flex ${chapter.name && 'flex-col'} justify-center`}
+      >
         <h1 className="text-2xl font-semibold pb-1 uppercase flex justify-center">
           {storyQuery.isSuccess && (
             <Link to={`/stories/${story.slug}.${story.id}`}>
@@ -94,10 +98,14 @@ const ChapterNavigation: FC<ChapterNavigationProp> = ({ chapter }) => {
             </Link>
           )}
         </h1>
-        <h2 className="text-lg flex justify-center">
-          {chapter.name
-            ? `${t('cms:chapters.number')} ${chapter.number} - ${chapter.name}`
-            : ` - ${t('cms:chapters.number')} ${chapter.number}`}
+        <h2 className="text-lg flex justify-center items-center">
+          {chapter.name ? (
+            `${t('cms:chapters.number')} ${chapter.number} - ${chapter.name}`
+          ) : (
+            <span className="ml-1">
+              - {t('cms:chapters.number')} {chapter.number}
+            </span>
+          )}
         </h2>
       </div>
       <div className="fixed bottom-0 left-0 right-0 h-fit z-50 bg-black">
@@ -122,12 +130,17 @@ const ChapterNavigation: FC<ChapterNavigationProp> = ({ chapter }) => {
                     role="combobox"
                     className={'w-[180px] justify-between font-normal'}
                   >
-                    {t('cms:chapters.number')}
-                    {
-                      chapters.find(
-                        (chapterItem) => chapterItem.id === chapter.id
-                      )?.number
-                    }
+                    <span className="flex gap-1">
+                      <span>{t('cms:chapters.number')}</span>
+                      <span>
+                        {
+                          chapters.find(
+                            (chapterItem) => chapterItem.id === chapter.id
+                          )?.number
+                        }
+                      </span>
+                    </span>
+
                     <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
                   </Button>
                 </PopoverTrigger>

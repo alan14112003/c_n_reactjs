@@ -34,7 +34,7 @@ export interface ChapterResponse {
 }
 
 export interface ChapterCreate {
-  name: string
+  name?: string
   number: number
   isFree: boolean
   price?: number

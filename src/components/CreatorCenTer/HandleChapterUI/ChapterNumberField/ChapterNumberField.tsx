@@ -14,7 +14,7 @@ type ChapterNumberFieldProp = {
       number: number
       type: number
       content: string
-      name: string
+      name?: string
       isFree: boolean
       StoryId: number
       privateEnd?: Date

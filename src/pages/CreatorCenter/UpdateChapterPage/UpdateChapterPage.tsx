@@ -23,7 +23,7 @@ import ChapterPrivateEndField from '@/components/CreatorCenTer/HandleChapterUI/C
 import ChapterContentImageField from '@/components/CreatorCenTer/HandleChapterUI/ChapterContentImageField'
 
 const FormSchema = z.object({
-  name: z.string().min(1),
+  name: z.string().optional(),
   number: z.number().min(0),
   content: z.string().min(10),
   isFree: z.boolean(),
