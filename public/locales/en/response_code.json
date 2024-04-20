@@ -34,7 +34,8 @@
     "not_found": "Story does not exist"
   },
   "purchase": {
-    "balance_not_enough": "Account balance not sufficient"
+    "balance_not_enough": "Account balance not sufficient",
+    "success": "Chapter purchased successfully"
   },
   "chapter": {
     "need_purchase": "You need to purchase this chapter before viewing",

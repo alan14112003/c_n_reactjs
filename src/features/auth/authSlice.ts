@@ -47,10 +47,14 @@ export const authSlice = createSlice({
     initAuth: (state) => {
       state.isInitialized = true
     },
+    updateBalanceUser: (state, actions: PayloadAction<number>) => {
+      state.user.accountBalance = actions.payload
+    },
   },
 })
 
-export const { updateAuth, resetAuth, initAuth } = authSlice.actions
+export const { updateAuth, resetAuth, initAuth, updateBalanceUser } =
+  authSlice.actions
 
 // Other code such as selectors can use the imported `RootState` type
 export const selectAuth = (state: RootState) => state.auth

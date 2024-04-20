@@ -13,12 +13,12 @@ import CreatorCenterLayout from '@/layouts/CreatorCenterLayout'
 import CreatorStoriesPage from '@/pages/CreatorCenter/StoriesPage'
 import CreatorCreateStoryPage from '@/pages/CreatorCenter/CreateStoryPage'
 import CreatorUpdateStoryPage from '@/pages/CreatorCenter/UpdateStoryPage'
-import CreatorChapterLayout from '@/layouts/CreatorCenterLayout/ChapterLayout'
 import CreatorChaptersPage from '@/pages/CreatorCenter/ChaptersPage'
 import CreatorCreateChapterPage from '@/pages/CreatorCenter/CreateChapterPage'
 import CreatorUpdateChapterPage from '@/pages/CreatorCenter/UpdateChapterPage'
 import StoryPage from '@/pages/StoryPage'
 import ChapterPage from '@/pages/ChapterPage'
+import CoinInPage from '@/pages/Auth/CoinInPage'
 
 const router = createBrowserRouter([
   {
@@ -49,6 +49,20 @@ const router = createBrowserRouter([
               {
                 path: ':slugId/:chapterId',
                 element: <ChapterPage />,
+              },
+            ],
+          },
+          {
+            path: 'auth',
+            children: [
+              {
+                path: 'coin',
+                children: [
+                  {
+                    path: 'in',
+                    element: <CoinInPage />,
+                  },
+                ],
               },
             ],
           },

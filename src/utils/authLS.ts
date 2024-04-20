@@ -24,6 +24,16 @@ export const setAuthLS = (authResponse: AuthResponse) => {
   localStorage.setItem(AUTH_LS_KEY.user, JSON.stringify(user))
 }
 
+export const setBalanceUserLS = (balance: number) => {
+  const user = getUserLS()
+  if (!user) {
+    return
+  }
+  user.accountBalance = balance
+
+  localStorage.setItem(AUTH_LS_KEY.user, JSON.stringify(user))
+}
+
 export const resetAuthLS = () => {
   localStorage.removeItem(AUTH_LS_KEY.accessToken)
   localStorage.removeItem(AUTH_LS_KEY.user)

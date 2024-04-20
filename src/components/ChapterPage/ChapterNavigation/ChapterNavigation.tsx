@@ -3,7 +3,7 @@ import { ChapterKey } from '@/services/chapterServices'
 import StoryServices, { StoryKey } from '@/services/storyServices'
 import { ChapterResponse, ChaptersResponse } from '@/types/chapterType'
 import { Story } from '@/types/storyType'
-import { useQuery } from '@tanstack/react-query'
+import { useQuery, useQueryClient } from '@tanstack/react-query'
 import { id } from 'date-fns/locale'
 import { FC, useEffect, useState } from 'react'
 import { Helmet, HelmetProvider } from 'react-helmet-async'
@@ -34,6 +34,7 @@ import { cn, toTitleCase } from '@/utils/utils'
 type ChapterNavigationProp = {
   chapter: ChapterResponse
 }
+
 const ChapterNavigation: FC<ChapterNavigationProp> = ({ chapter }) => {
   const [prevChapter, setPrevChapter] = useState<ChaptersResponse>()
   const [nextChapter, setNextChapter] = useState<ChaptersResponse>()
@@ -48,6 +49,8 @@ const ChapterNavigation: FC<ChapterNavigationProp> = ({ chapter }) => {
       return StoryServices.get(storySlug, storyId)
     },
   })
+
+  const queryClient = useQueryClient()
 
   const chaptersQuery = useQuery({
     queryKey: [ChapterKey, storySlug, Number(storyId), ChapterSortEnum.LAST],
@@ -75,6 +78,12 @@ const ChapterNavigation: FC<ChapterNavigationProp> = ({ chapter }) => {
       setNextChapter(chapters[currentIndex - 1])
     }
   }, [chaptersQuery])
+
+  useEffect(() => {
+    queryClient.invalidateQueries({
+      queryKey: [ChapterKey, storySlug, Number(storyId)],
+    })
+  }, [])
 
   return (
     <HelmetProvider>
@@ -110,89 +119,91 @@ const ChapterNavigation: FC<ChapterNavigationProp> = ({ chapter }) => {
       </div>
       <div className="fixed bottom-0 left-0 right-0 h-fit z-50 bg-black">
         <div className="w-full h-full flex flex-col items-center p-2">
-          <div className="flex justify-center gap-4 items-center">
-            {prevChapter ? (
-              <Link
-                to={`/stories/${story.slug}.${story.id}/chapter-${prevChapter.id}`}
-              >
-                <ChevronLeftCircle />
-              </Link>
-            ) : (
-              ''
-            )}
+          {storyQuery.isSuccess && (
+            <div className="flex justify-center gap-4 items-center">
+              {prevChapter ? (
+                <Link
+                  to={`/stories/${story.slug}.${story.id}/chapter-${prevChapter.id}`}
+                >
+                  <ChevronLeftCircle />
+                </Link>
+              ) : (
+                ''
+              )}
 
-            {chaptersQuery.isSuccess && (
-              <Popover>
-                <PopoverTrigger asChild>
-                  <Button
-                    variant="outline"
-                    size={'sm'}
-                    role="combobox"
-                    className={'w-[180px] justify-between font-normal'}
-                  >
-                    <span className="flex gap-1">
-                      <span>{t('cms:chapters.number')}</span>
-                      <span>
-                        {
-                          chapters.find(
-                            (chapterItem) => chapterItem.id === chapter.id
-                          )?.number
-                        }
+              {chaptersQuery.isSuccess && (
+                <Popover>
+                  <PopoverTrigger asChild>
+                    <Button
+                      variant="outline"
+                      size={'sm'}
+                      role="combobox"
+                      className={'w-[180px] justify-between font-normal'}
+                    >
+                      <span className="flex gap-1">
+                        <span>{t('cms:chapters.number')}</span>
+                        <span>
+                          {
+                            chapters.find(
+                              (chapterItem) => chapterItem.id === chapter.id
+                            )?.number
+                          }
+                        </span>
                       </span>
-                    </span>
 
-                    <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
-                  </Button>
-                </PopoverTrigger>
-                <PopoverContent className="w-full p-0">
-                  <Command>
-                    <CommandInput placeholder="Nhập số chương" />
-                    <CommandList>
-                      <CommandEmpty>No results found.</CommandEmpty>
+                      <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+                    </Button>
+                  </PopoverTrigger>
+                  <PopoverContent className="w-full p-0">
+                    <Command>
+                      <CommandInput placeholder="Nhập số chương" />
+                      <CommandList>
+                        <CommandEmpty>No results found.</CommandEmpty>
 
-                      <CommandGroup>
-                        {chapters.map((chapterItem) => (
-                          <CommandItem
-                            key={chapterItem.id}
-                            asChild
-                            value={`${chapterItem.number}`}
-                          >
-                            <Link
-                              to={`/stories/${story.slug}.${story.id}/chapter-${chapterItem.id}`}
-                              className="flex justify-between w-full h-full"
+                        <CommandGroup>
+                          {chapters.map((chapterItem) => (
+                            <CommandItem
+                              key={chapterItem.id}
+                              asChild
+                              value={`${chapterItem.number}`}
                             >
-                              <span className="flex gap-1">
-                                <span>{t('cms:chapters.number')}</span>
-                                <span>{chapterItem.number}</span>
-                              </span>
-                              <CheckIcon
-                                className={cn(
-                                  'ml-auto h-4 w-4',
-                                  chapterItem.id === chapter.id
-                                    ? 'opacity-100'
-                                    : 'opacity-0'
-                                )}
-                              />
-                            </Link>
-                          </CommandItem>
-                        ))}
-                      </CommandGroup>
-                    </CommandList>
-                  </Command>
-                </PopoverContent>
-              </Popover>
-            )}
+                              <Link
+                                to={`/stories/${story.slug}.${story.id}/chapter-${chapterItem.id}`}
+                                className="flex justify-between w-full h-full"
+                              >
+                                <span className="flex gap-1">
+                                  <span>{t('cms:chapters.number')}</span>
+                                  <span>{chapterItem.number}</span>
+                                </span>
+                                <CheckIcon
+                                  className={cn(
+                                    'ml-auto h-4 w-4',
+                                    chapterItem.id === chapter.id
+                                      ? 'opacity-100'
+                                      : 'opacity-0'
+                                  )}
+                                />
+                              </Link>
+                            </CommandItem>
+                          ))}
+                        </CommandGroup>
+                      </CommandList>
+                    </Command>
+                  </PopoverContent>
+                </Popover>
+              )}
 
-            {nextChapter ? (
-              <Link
-                to={`/stories/${story.slug}.${story.id}/chapter-${nextChapter.id}`}
-              >
-                <ChevronRightCircle />
-              </Link>
-            ) : (
-              ''
-            )}
-          </div>
+              {nextChapter ? (
+                <Link
+                  to={`/stories/${story.slug}.${story.id}/chapter-${nextChapter.id}`}
+                >
+                  <ChevronRightCircle />
+                </Link>
+              ) : (
+                ''
+              )}
+            </div>
+          )}
         </div>
       </div>
     </HelmetProvider>

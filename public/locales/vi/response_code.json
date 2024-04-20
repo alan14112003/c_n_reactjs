@@ -34,7 +34,8 @@
     "not_found": "Truyện không tồn tại"
   },
   "purchase": {
-    "balance_not_enough": "Số dư trong tài khoản không dủ"
+    "balance_not_enough": "Số dư trong tài khoản không dủ",
+    "success": "Mua chương thành công"
   },
   "chapter": {
     "need_purchase": "Cần phải mua chương này trước khi xem",
