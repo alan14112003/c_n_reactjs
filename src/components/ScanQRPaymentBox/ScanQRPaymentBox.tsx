@@ -19,13 +19,11 @@ const ScanQRPaymentBox: FC<ScanQRPaymentBoxProp> = ({ transactionHistory }) => {
   return (
     <div className="fixed top-0 bottom-0 left-0 right-0 bg-secondary/50 z-50 flex justify-center items-center p-10">
       {urlImage && (
-        <>
-          <Image
-            src={urlImage}
-            alt={`for transaction ${transactionHistory.id}`}
-            className="h-full"
-          />
-        </>
+        <Image
+          src={urlImage}
+          alt={`for transaction ${transactionHistory.id}`}
+          className="h-full"
+        />
       )}
     </div>
   )

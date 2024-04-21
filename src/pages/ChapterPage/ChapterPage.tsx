@@ -1,4 +1,5 @@
 import { useAppSelector } from '@/app/hooks'
+import ChapterContentImage from '@/components/ChapterPage/ChapterContentImage'
 import ChapterContentText from '@/components/ChapterPage/ChapterContentText'
 import ChapterNavigation from '@/components/ChapterPage/ChapterNavigation'
 import PurchaseAlert from '@/components/PurchaseAlert'
@@ -8,7 +9,7 @@ import ChapterServices, { ChapterKey } from '@/services/chapterServices'
 import { ChapterResponse } from '@/types/chapterType'
 import { useQuery } from '@tanstack/react-query'
 import { isAxiosError } from 'axios'
-import { useParams } from 'react-router-dom'
+import { Navigate, useParams } from 'react-router-dom'
 
 const ChapterPage = () => {
   const { chapterId: chapterIdString } = useParams()
@@ -37,7 +38,7 @@ const ChapterPage = () => {
             <PurchaseAlert chapterId={chapterId} price={responseData.price} />
           )
         } else {
-          console.log('thiếu tiền')
+          return <Navigate to={'/auth/coin/in'} replace />
         }
       }
     }
@@ -52,6 +53,9 @@ const ChapterPage = () => {
           <ChapterNavigation chapter={chapter} />
           {chapter.type === StoryTypeEnum.WORD && (
             <ChapterContentText content={chapter.content} />
+          )}
+          {chapter.type === StoryTypeEnum.COMIC && (
+            <ChapterContentImage content={chapter.content} />
           )}
         </>
       )}
