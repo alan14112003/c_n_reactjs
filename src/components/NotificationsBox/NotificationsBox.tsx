@@ -1,7 +1,7 @@
 import NotificationServices, {
   NotificationKey,
 } from '@/services/notificationServices'
-import { NotificationPaginate } from '@/types/notificationType'
+import { Notification, NotificationPaginate } from '@/types/notificationType'
 import { useQuery } from '@tanstack/react-query'
 import {
   DropdownMenu,
@@ -12,12 +12,31 @@ import {
 import { Button } from '../ui/button'
 import { Bell } from 'lucide-react'
 import NotificationItem from './NotificationItem'
+import { useEffect } from 'react'
+import { socket } from '@/utils/socket'
+import NotificationEvent from '@/constants/events/NotificationEvent'
+import { toast } from 'react-toastify'
+import NotifyToast from './NotifyToast'
 
 const NotificationsBox = () => {
   const { isSuccess, data: notificationResponse } = useQuery({
     queryKey: [NotificationKey],
     queryFn: NotificationServices.all,
   })
+
+  useEffect(() => {
+    const handleNotificationEventNew = (notification: Notification) => {
+      toast(<NotifyToast notification={notification} />, {
+        className: 'w-fit',
+      })
+    }
+
+    socket.on(NotificationEvent.NEW, handleNotificationEventNew)
+
+    return () => {
+      socket.off(NotificationEvent.NEW, handleNotificationEventNew)
+    }
+  }, [])
 
   const notifications: NotificationPaginate = notificationResponse?.data
 

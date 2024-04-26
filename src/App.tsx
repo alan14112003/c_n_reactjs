@@ -20,7 +20,7 @@ export default function App() {
           <AuthProvider>
             <SocketProvider>
               <QueryClientProvider client={queryClient}>
-                <ToastContainer />
+                <ToastContainer position="bottom-left" />
                 <RouterProvider router={router} />
                 <ReactQueryDevtools />
               </QueryClientProvider>
