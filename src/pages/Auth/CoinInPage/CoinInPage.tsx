@@ -31,7 +31,7 @@ const CoinInPage = () => {
   const { t } = useTranslation(['response_code'])
   const [loading, setLoading] = useState(false)
   const [transactionHisTory, setTransactionHistory] =
-    useState<TransactionHisTory>()
+    useState<TransactionHisTory | null>(null)
 
   // 1. Define your form.
   const form = useForm<z.infer<typeof formSchema>>({
@@ -73,7 +73,7 @@ const CoinInPage = () => {
                 <FormControl>
                   <RadioGroup
                     onValueChange={field.onChange}
-                    defaultValue={field.value}
+                    defaultValue={`${field.value}`}
                     className="gird grid-cols-5 gap-16"
                   >
                     {moneyList.map((moneyItem) => {
@@ -82,7 +82,7 @@ const CoinInPage = () => {
                       return (
                         <FormItem key={moneyItem}>
                           <RadioGroupItem
-                            value={price}
+                            value={`${price}`}
                             id={`money-${moneyItem}`}
                             className="hidden"
                           />

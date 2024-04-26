@@ -1,8 +1,7 @@
-import { Bell } from 'lucide-react'
 import ModeToggle from '@/components/ModeToggle'
-import { Button } from '@/components/ui/button'
 import UserActionBox from '@/components/UserActionBox'
 import SearchBox from '@/components/HomePage/StoryFilterBox/SearchBox'
+import NotificationsBox from '@/components/NotificationsBox'
 
 const Header = () => {
   return (
@@ -14,9 +13,7 @@ const Header = () => {
           <SearchBox />
         </div>
         <div className="flex justify-between items-center gap-4">
-          <Button size="icon" variant="outline" className="rounded-full p-2">
-            <Bell />
-          </Button>
+          <NotificationsBox />
           <UserActionBox />
         </div>
       </div>

@@ -2,7 +2,7 @@ import moment from 'moment'
 
 type GetTimeAgoReturn = { key: string | null; value: number | string | null }
 
-export const getTimeAgo = (time: string): GetTimeAgoReturn => {
+export const getTimeAgo = (time: string | Date): GetTimeAgoReturn => {
   const previousTime = moment(time)
   const currentTime = moment()
   const duration = moment.duration(currentTime.diff(previousTime))

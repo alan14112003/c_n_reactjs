@@ -10,6 +10,7 @@ import { store } from './app/store'
 import { AuthProvider } from './providers/AuthProvider'
 import { Suspense } from 'react'
 import LoaderPage from './components/LoaderPage'
+import SocketProvider from './providers/SocketProvider'
 
 export default function App() {
   return (
@@ -17,11 +18,13 @@ export default function App() {
       <Suspense fallback={<LoaderPage />}>
         <Provider store={store}>
           <AuthProvider>
-            <QueryClientProvider client={queryClient}>
-              <ToastContainer />
-              <RouterProvider router={router} />
-              <ReactQueryDevtools />
-            </QueryClientProvider>
+            <SocketProvider>
+              <QueryClientProvider client={queryClient}>
+                <ToastContainer />
+                <RouterProvider router={router} />
+                <ReactQueryDevtools />
+              </QueryClientProvider>
+            </SocketProvider>
           </AuthProvider>
         </Provider>
       </Suspense>

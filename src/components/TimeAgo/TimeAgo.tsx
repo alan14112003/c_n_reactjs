@@ -2,7 +2,7 @@ import { getTimeAgo } from '@/utils/dateTime'
 import { useTranslation } from 'react-i18next'
 
 type TimeAgoProp = {
-  time: string
+  time: string | Date
 }
 
 const TimeAgo = ({ time }: TimeAgoProp) => {
