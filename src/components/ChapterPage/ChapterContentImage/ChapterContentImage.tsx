@@ -17,7 +17,7 @@ const ChapterContentImage: FC<ChapterContentImageProp> = ({ content }) => {
   }, [])
 
   return (
-    <div>
+    <div id="chapter-content">
       <Images images={imagesList} />
     </div>
   )

@@ -7,6 +7,7 @@ const ChapterContentText: FC<ChapterContentTextProp> = ({ content }) => {
   return (
     <div>
       <div
+        id="chapter-content"
         dangerouslySetInnerHTML={{
           __html: content,
         }}

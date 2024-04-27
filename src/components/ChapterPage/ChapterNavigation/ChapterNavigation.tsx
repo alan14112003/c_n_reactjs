@@ -30,6 +30,8 @@ import {
   ChevronRightCircle,
 } from 'lucide-react'
 import { cn, toTitleCase } from '@/utils/utils'
+import StoryTypeEnum from '@/constants/stories/StoryTypeEnum'
+import SpeechContentBox from '../SpeechContentBox'
 
 type ChapterNavigationProp = {
   chapter: ChapterResponse
@@ -202,6 +204,8 @@ const ChapterNavigation: FC<ChapterNavigationProp> = ({ chapter }) => {
               ) : (
                 ''
               )}
+
+              {chapter.type === StoryTypeEnum.WORD && <SpeechContentBox />}
             </div>
           )}
         </div>
