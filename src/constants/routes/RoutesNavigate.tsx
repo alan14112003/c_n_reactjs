@@ -1,4 +1,10 @@
-import { Home, LayoutList, MessageCircleMore, ScrollText } from 'lucide-react'
+import {
+  Heart,
+  Home,
+  LayoutList,
+  MessageCircleMore,
+  ScrollText,
+} from 'lucide-react'
 
 export const CREATOR_ROUTES_NAVIGATE = [
   {
@@ -21,5 +27,19 @@ export const CREATOR_ROUTES_NAVIGATE = [
     icon: <MessageCircleMore />,
     name: 'creator_navigation.comments',
     link: '/creator-center/comments',
+  },
+]
+
+export const ROOT_ROUTES_NAVIGATE = [
+  {
+    icon: <Home />,
+    name: 'root_navigation.home',
+    link: '/',
+    isIndex: true,
+  },
+  {
+    icon: <Heart />,
+    name: 'root_navigation.favorite',
+    link: '/favorite',
   },
 ]

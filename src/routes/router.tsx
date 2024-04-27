@@ -1,24 +1,25 @@
 import { createBrowserRouter } from 'react-router-dom'
 import RootLayout from '@/layouts/RootLayout'
-import HomePage from '@/pages/HomePage'
-import CreatorHomePage from '@/pages/CreatorCenter/HomePage'
 import AuthenticationLayout from '@/layouts/AuthenticationLayout'
-import LoginPage from '@/pages/LoginPage'
-import NotFoundPage from '@/pages/NotFoundPage'
-import { AuthEvent, AuthGuard } from '@/providers/AuthProvider'
-import RegisterPage from '@/pages/RegisterPage'
-import ActiveAccountPage from '@/pages/ActiveAccountPage'
 import HandleAccountLayout from '@/layouts/HandleAccountLayout'
 import CreatorCenterLayout from '@/layouts/CreatorCenterLayout'
+import LoginPage from '@/pages/LoginPage'
+import RegisterPage from '@/pages/RegisterPage'
+import NotFoundPage from '@/pages/NotFoundPage'
+import ActiveAccountPage from '@/pages/ActiveAccountPage'
+import { AuthEvent, AuthGuard } from '@/providers/AuthProvider'
+import CreatorHomePage from '@/pages/CreatorCenter/HomePage'
 import CreatorStoriesPage from '@/pages/CreatorCenter/StoriesPage'
 import CreatorCreateStoryPage from '@/pages/CreatorCenter/CreateStoryPage'
 import CreatorUpdateStoryPage from '@/pages/CreatorCenter/UpdateStoryPage'
 import CreatorChaptersPage from '@/pages/CreatorCenter/ChaptersPage'
 import CreatorCreateChapterPage from '@/pages/CreatorCenter/CreateChapterPage'
 import CreatorUpdateChapterPage from '@/pages/CreatorCenter/UpdateChapterPage'
-import StoryPage from '@/pages/StoryPage'
-import ChapterPage from '@/pages/ChapterPage'
-import CoinInPage from '@/pages/Auth/CoinInPage'
+import HomePage from '@/pages/Root/HomePage'
+import StoryPage from '@/pages/Root/StoryPage'
+import ChapterPage from '@/pages/Root/ChapterPage'
+import CoinInPage from '@/pages/Root/Auth/CoinInPage'
+import FavoritePage from '@/pages/Root/FavoritePage'
 
 const router = createBrowserRouter([
   {
@@ -38,6 +39,10 @@ const router = createBrowserRouter([
           {
             index: true,
             element: <HomePage />,
+          },
+          {
+            path: 'favorite',
+            element: <FavoritePage />,
           },
           {
             path: 'stories',

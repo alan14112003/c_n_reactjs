@@ -72,7 +72,9 @@ const CoinInPage = () => {
               <FormItem>
                 <FormControl>
                   <RadioGroup
-                    onValueChange={field.onChange}
+                    onValueChange={(value) => {
+                      form.setValue('money', +value)
+                    }}
                     defaultValue={`${field.value}`}
                     className="gird grid-cols-5 gap-16"
                   >

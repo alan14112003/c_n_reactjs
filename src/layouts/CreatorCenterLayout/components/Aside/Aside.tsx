@@ -1,20 +1,8 @@
-import {
-  Command,
-  CommandEmpty,
-  CommandItem,
-  CommandList,
-} from '@/components/ui/command'
+import { Command, CommandItem, CommandList } from '@/components/ui/command'
 import { CREATOR_ROUTES_NAVIGATE } from '@/constants/routes/RoutesNavigate'
+import { checkActiveRoute } from '@/utils/utils'
 import { useTranslation } from 'react-i18next'
-import { Link, useLocation } from 'react-router-dom'
-
-const checkActiveRoute = (route: string, isIndex?: boolean) => {
-  const location = useLocation()
-  if (!isIndex) {
-    return location.pathname.includes(route)
-  }
-  return location.pathname + location.hash === route
-}
+import { Link } from 'react-router-dom'
 
 const Aside = () => {
   const { t } = useTranslation(['cms'])
@@ -27,7 +15,6 @@ const Aside = () => {
     >
       <Command>
         <CommandList>
-          <CommandEmpty>No results found.</CommandEmpty>
           {CREATOR_ROUTES_NAVIGATE.map((routeNavigate) => {
             let isActive = checkActiveRoute(
               routeNavigate.link,

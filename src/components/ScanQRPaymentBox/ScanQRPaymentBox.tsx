@@ -12,7 +12,7 @@ const ScanQRPaymentBox: FC<ScanQRPaymentBoxProp> = ({ transactionHistory }) => {
   useEffect(() => {
     const money = (transactionHistory.money / 2) * 1000
     const content = `II${transactionHistory.code}${transactionHistory.id}OO`
-    const url = `https://api.vieqr.com/vietqr/Vietcombank/1023048373/${money}/qr_only.jpg?NDck=${content}&FullName=Nguyen%20Ngoc%20Son`
+    const url = `https://api.vieqr.com/vietqr/Vietcombank/1023048373/${money}/compact2.jpg?NDck=${content}&FullName=Nguyen%20Ngoc%20Son`
     setUrlImage(url)
   }, [])
 
