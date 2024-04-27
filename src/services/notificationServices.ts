@@ -7,6 +7,9 @@ const NotificationServices = {
   all: () => {
     return http.get(PREV_URL)
   },
+  checked: (id: number) => {
+    return http.put(`${PREV_URL}/${id}/checked`)
+  },
 }
 
 export default NotificationServices
