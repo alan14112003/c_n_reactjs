@@ -32,6 +32,7 @@ import {
 import { cn, toTitleCase } from '@/utils/utils'
 import StoryTypeEnum from '@/constants/stories/StoryTypeEnum'
 import SpeechContentBox from '../SpeechContentBox'
+import AutoScrollBox from '../AutoScrollBox'
 
 type ChapterNavigationProp = {
   chapter: ChapterResponse
@@ -204,6 +205,8 @@ const ChapterNavigation: FC<ChapterNavigationProp> = ({ chapter }) => {
               ) : (
                 ''
               )}
+
+              <AutoScrollBox />
 
               {chapter.type === StoryTypeEnum.WORD && <SpeechContentBox />}
             </div>

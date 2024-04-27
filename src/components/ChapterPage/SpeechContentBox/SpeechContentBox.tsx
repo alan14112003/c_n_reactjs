@@ -18,27 +18,40 @@ import {
   TooltipTrigger,
 } from '@/components/ui/tooltip'
 
-import { Pause, Play, RefreshCcw, StepBack, StepForward } from 'lucide-react'
+import {
+  Pause,
+  Play,
+  RefreshCcw,
+  Speech,
+  StepBack,
+  StepForward,
+} from 'lucide-react'
 import { useEffect, useState } from 'react'
+import { useParams } from 'react-router-dom'
 
 const RATE_LIST = [0.5, 0.75, 1, 1.25, 1.5, 1.75, 2]
 
 const SpeechContentBox = () => {
-  const [index, setIndex] = useState(0)
+  const { chapterId } = useParams()
+
   const [isPaused, setIsPaused] = useState(false)
   const [isStoped, setIsStoped] = useState(true)
-  const [utterance, setUtterance] = useState<SpeechSynthesisUtterance | null>(
-    null
-  )
+  const [isFirstPlay, setIsFirstPlay] = useState(true) // Cờ kiểm tra lần chạy đầu tiên
   const [chapterContentTagsName, setChapterContentTagsName] = useState<
     Element[]
   >([])
-  const [isFirstPlay, setIsFirstPlay] = useState(true) // Cờ kiểm tra lần chạy đầu tiên
+  const [index, setIndex] = useState(0)
+  const [utterance, setUtterance] = useState<SpeechSynthesisUtterance | null>(
+    null
+  )
   const [pitch, setPitch] = useState(1)
   const [rate, setRate] = useState(1)
   const [volume, setVolume] = useState(1)
 
   useEffect(() => {
+    setIsStoped(true)
+    setIsFirstPlay(true)
+
     const chapterContentTags = document.querySelectorAll('#chapter-content *')
     if (chapterContentTags) {
       const filteredElements = Array.from(chapterContentTags).filter(
@@ -47,7 +60,7 @@ const SpeechContentBox = () => {
 
       setChapterContentTagsName(filteredElements)
     }
-  }, [])
+  }, [chapterId])
 
   const unActiveText = () => {
     const className = 'bg-primary/50 font-semibold'
@@ -170,7 +183,9 @@ const SpeechContentBox = () => {
   return (
     <Popover>
       <PopoverTrigger asChild>
-        <Button variant="outline">Đọc</Button>
+        <Button variant="outline">
+          <Speech />
+        </Button>
       </PopoverTrigger>
       <PopoverContent className=" text-primary-foreground w-full">
         <div className="grid gap-4">

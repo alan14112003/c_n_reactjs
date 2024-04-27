@@ -51,12 +51,14 @@ const ChapterPage = () => {
       {isSuccess && (
         <>
           <ChapterNavigation chapter={chapter} />
-          {chapter.type === StoryTypeEnum.WORD && (
-            <ChapterContentText content={chapter.content} />
-          )}
-          {chapter.type === StoryTypeEnum.COMIC && (
-            <ChapterContentImage content={chapter.content} />
-          )}
+          <div className="pb-16">
+            {chapter.type === StoryTypeEnum.WORD && (
+              <ChapterContentText content={chapter.content} />
+            )}
+            {chapter.type === StoryTypeEnum.COMIC && (
+              <ChapterContentImage content={chapter.content} />
+            )}
+          </div>
         </>
       )}
     </div>
