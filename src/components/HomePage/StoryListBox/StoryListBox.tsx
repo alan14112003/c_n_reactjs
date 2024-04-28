@@ -14,6 +14,7 @@ import CategoryServices, { CategoryKey } from '@/services/categoryServices'
 import { Helmet, HelmetProvider } from 'react-helmet-async'
 import { Category } from '@/types/categoryType'
 import { useTranslation } from 'react-i18next'
+import StoryItem from '@/components/StoryGrid/StoryItem'
 
 const StoryListBox = () => {
   const { t } = useTranslation(['cms'])
@@ -71,12 +72,14 @@ const StoryListBox = () => {
           <title>Truyện chữ và truyện tranh</title>
         )}
       </Helmet>
-      {(isLoading || isPending) && (
-        <StoryGrid stories={StoriesPaginate?.data} isLoad={true} />
-      )}
+      {(isLoading || isPending) && <StoryGrid isLoad />}
       {isSuccess && (
         <>
-          <StoryGrid stories={StoriesPaginate.data} />
+          <StoryGrid>
+            {StoriesPaginate.data.map((story) => (
+              <StoryItem key={story.id} story={story} />
+            ))}
+          </StoryGrid>
           <div>
             <Pagination
               total={StoriesPaginate.total}

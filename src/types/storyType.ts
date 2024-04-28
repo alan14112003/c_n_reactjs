@@ -66,6 +66,11 @@ export interface StoriesQuery {
   key: string
 }
 
+export interface FollowStoriesQuery {
+  page?: number
+  perPage?: number
+}
+
 export interface StoryCreate {
   name: string
   descriptions: string

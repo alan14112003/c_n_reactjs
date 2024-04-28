@@ -6,6 +6,10 @@
       "job_detail": "ZenZobs - Chi tiết công việc"
     }
   },
+  "root_navigation": {
+    "home": "Trang chủ",
+    "favorite": "Truyện đã theo dõi"
+  },
   "creator_navigation": {
     "home": "Trang chủ",
     "stories": "Truyện",

@@ -11,15 +11,19 @@ const delay = (ms: number): Promise<void> =>
 
 const StoryServices = {
   all: async (options: any) => {
-    await delay(2000)
     return http.get(PREV_URL, {
       params: options,
     })
   },
 
   allByAuth: async (options: any) => {
-    await delay(2000)
     return http.get(PREV_URL + '/auth', {
+      params: options,
+    })
+  },
+
+  follow: async (options: any) => {
+    return http.get(PREV_URL + '/follow', {
       params: options,
     })
   },

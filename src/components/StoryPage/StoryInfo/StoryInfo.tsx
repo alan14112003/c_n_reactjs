@@ -15,6 +15,7 @@ import FollowStoryServices, {
 } from '@/services/followStoryServices'
 import { alertErrorAxios } from '@/utils/alert'
 import { NoImage } from '@/assets/images'
+import { StoryKey } from '@/services/storyServices'
 
 type StoryInfoProp = {
   story: Story
@@ -61,6 +62,10 @@ const StoryInfo: FC<StoryInfoProp> = ({ story }) => {
 
       queryClient.invalidateQueries({
         queryKey: [FollowStoryKey, story.id],
+      })
+
+      queryClient.refetchQueries({
+        queryKey: [StoryKey, 'follow'],
       })
     } catch (error) {
       alertErrorAxios(error, t)

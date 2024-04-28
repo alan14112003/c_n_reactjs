@@ -2,6 +2,7 @@ import CategoriesList from '@/components/CategoriesList'
 import Image from '@/components/Image'
 import TimeAgo from '@/components/TimeAgo'
 import { Badge } from '@/components/ui/badge'
+import { Button } from '@/components/ui/button'
 import {
   Card,
   CardContent,
@@ -15,23 +16,66 @@ import {
   HoverCardTrigger,
 } from '@/components/ui/hover-card'
 import StoryStatusEnum from '@/constants/stories/StoryStatusEnum'
+import FollowStoryServices, {
+  FollowStoryKey,
+} from '@/services/followStoryServices'
+import { StoryKey } from '@/services/storyServices'
 
 import { StoriesResponse } from '@/types/storyType'
-import { Eye, Heart, ThumbsUp } from 'lucide-react'
+import { alertErrorAxios } from '@/utils/alert'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
+import { Eye, Heart, HeartOff, ThumbsUp } from 'lucide-react'
 import { FC, memo } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
 
 type StoryItemProp = {
   story: StoriesResponse
+  favorite?: boolean
 }
 
-const StoryItem: FC<StoryItemProp> = memo(({ story }) => {
+const StoryItem: FC<StoryItemProp> = memo(({ story, favorite }) => {
   const { t } = useTranslation(['cms'])
+
+  const followStoryMutation = useMutation({
+    mutationFn: () => FollowStoryServices.update(story.id),
+  })
+
+  const queryClient = useQueryClient()
+
+  const handleUnfollow = async (
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) => {
+    e.preventDefault()
+    try {
+      await followStoryMutation.mutateAsync()
+
+      queryClient.refetchQueries({
+        queryKey: [FollowStoryKey, story.id],
+      })
+
+      queryClient.invalidateQueries({
+        queryKey: [StoryKey, 'follow'],
+      })
+    } catch (error) {
+      alertErrorAxios(error, t)
+    }
+  }
+
   return (
     <Card className="">
       <Link to={`/stories/${story.slug}.${story.id}`}>
         <CardContent className="relative h-[220px] border-b">
+          {favorite && (
+            <Button
+              variant={'outline'}
+              size={'icon'}
+              className="absolute top-1 right-1 z-10 rounded-full"
+              onClick={handleUnfollow}
+            >
+              <HeartOff />
+            </Button>
+          )}
           <Badge variant="success" className="absolute top-3 left-2">
             <TimeAgo time={story.updatedAt.toString()} />
           </Badge>
