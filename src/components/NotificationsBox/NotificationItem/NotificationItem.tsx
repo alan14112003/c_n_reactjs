@@ -13,6 +13,7 @@ import NotificationServices, {
 } from '@/services/notificationServices'
 import { alertErrorAxios } from '@/utils/alert'
 import { useTranslation } from 'react-i18next'
+import NotifyBankIn from './NotifyBankIn'
 
 type NotificationItemProp = {
   notification: Notification
@@ -87,6 +88,13 @@ const NotificationItem: FC<NotificationItemProp> = ({ notification }) => {
                 <TimeAgo time={notification.createdAt} />
               </p>
             </NotifyCommentReply>
+          )}
+          {content.type === NotificationTypeEnum.TRANSACTION_HISTORY_IN && (
+            <NotifyBankIn notification={notification} content={content}>
+              <p className="flex gap-1">
+                <TimeAgo time={notification.createdAt} />
+              </p>
+            </NotifyBankIn>
           )}
         </>
       )}

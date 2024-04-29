@@ -12,7 +12,7 @@ namespace NotificationTypeEnum {
       [NotificationTypeEnum.COMMENT_NEW]: 'bình luận',
       [NotificationTypeEnum.COMMENT_REPLY]: 'trả lời bình luận',
       [NotificationTypeEnum.LIKE_STORY]: 'thích truyện',
-      [NotificationTypeEnum.TRANSACTION_HISTORY_IN]: 'nạp tiền',
+      [NotificationTypeEnum.TRANSACTION_HISTORY_IN]: 'xác nhận nạp tiền',
       [NotificationTypeEnum.FOLLOW_STORY]: 'theo dõi truyện',
     }
   }

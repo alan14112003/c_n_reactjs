@@ -6,7 +6,7 @@ const AUTH_LS_KEY = {
 }
 
 export const getTokenLS = () => {
-  return localStorage.getItem(AUTH_LS_KEY.accessToken) || ''
+  return localStorage.getItem(AUTH_LS_KEY.accessToken) ?? ''
 }
 
 export const setTokenLS = (accessToken: string) => {
