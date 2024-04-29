@@ -45,11 +45,11 @@ http.interceptors.response.use(
             return axios.request(error.config)
           }
         } catch (err) {
-          return Promise.reject(new Error(`${err}`))
+          return Promise.reject(err)
         }
       }
     }
-    return Promise.reject(new Error(error))
+    return Promise.reject(error)
   }
 )
 

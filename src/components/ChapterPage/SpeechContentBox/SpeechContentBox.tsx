@@ -27,11 +27,14 @@ import {
   StepForward,
 } from 'lucide-react'
 import { useEffect, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import { useParams } from 'react-router-dom'
 
 const RATE_LIST = [0.5, 0.75, 1, 1.25, 1.5, 1.75, 2]
 
 const SpeechContentBox = () => {
+  const { t } = useTranslation(['chapter_page'])
+
   const { chapterId } = useParams()
 
   const [isPaused, setIsPaused] = useState(false)
@@ -48,14 +51,16 @@ const SpeechContentBox = () => {
   const [rate, setRate] = useState(1)
   const [volume, setVolume] = useState(1)
 
+  // reset all state
   useEffect(() => {
     setIsStoped(true)
     setIsFirstPlay(true)
+    setIndex(0)
 
     const chapterContentTags = document.querySelectorAll('#chapter-content *')
     if (chapterContentTags) {
       const filteredElements = Array.from(chapterContentTags).filter(
-        (element) => element.textContent !== ''
+        (element) => element.children.length === 0 && element.textContent !== ''
       )
 
       setChapterContentTagsName(filteredElements)
@@ -81,16 +86,13 @@ const SpeechContentBox = () => {
   }
 
   useEffect(() => {
-    if (index < chapterContentTagsName.length) {
+    if (
+      index < chapterContentTagsName.length &&
+      chapterContentTagsName.length > 0
+    ) {
       const u = new SpeechSynthesisUtterance(
         chapterContentTagsName[index].textContent ?? ''
       )
-
-      u.lang = 'vi-VN'
-      u.pitch = pitch
-      u.rate = rate
-      u.volume = volume
-      u.onend = handleNextUtterance
 
       setUtterance(u)
 
@@ -100,8 +102,8 @@ const SpeechContentBox = () => {
       }
     }
 
-    const synth = window.speechSynthesis
     return () => {
+      const synth = window.speechSynthesis
       synth.cancel()
     }
   }, [chapterContentTagsName, index])
@@ -123,10 +125,18 @@ const SpeechContentBox = () => {
     }
 
     if (u) {
+      u.lang = 'vi-VN'
+      u.pitch = pitch
+      u.rate = rate
+      u.volume = volume
+      u.onend = handleNextUtterance
       synth.speak(u)
-    }
-
-    if (utterance) {
+    } else if (utterance) {
+      utterance.lang = 'vi-VN'
+      utterance.pitch = pitch
+      utterance.rate = rate
+      utterance.volume = volume
+      utterance.onend = handleNextUtterance
       synth.speak(utterance)
     }
 
@@ -187,18 +197,22 @@ const SpeechContentBox = () => {
           <Speech />
         </Button>
       </PopoverTrigger>
-      <PopoverContent className=" text-primary-foreground w-full">
+      <PopoverContent className="dark:text-primary-foreground w-full">
         <div className="grid gap-4">
           <div className="space-y-2">
-            <h4 className="font-medium leading-none">Đọc truyện</h4>
-            <p className="text-sm text-muted-foreground">cài đặt chế độ đọc</p>
+            <h4 className="font-medium leading-none">
+              {t('chapter_page:speech_content.title')}
+            </h4>
+            <p className="text-sm text-muted-foreground">
+              {t('chapter_page:speech_content.descriptions')}
+            </p>
           </div>
           <div className="flex items-center gap-2">
             {isPaused || isStoped ? (
               <Button
                 variant={'link'}
                 size={'icon'}
-                className="rounded-full text-primary-foreground"
+                className="rounded-full dark:text-primary-foreground"
                 onClick={() => {
                   handlePlay()
                 }}
@@ -209,7 +223,7 @@ const SpeechContentBox = () => {
               <Button
                 variant={'link'}
                 size="icon"
-                className="rounded-full text-primary-foreground"
+                className="rounded-full dark:text-primary-foreground"
                 onClick={handlePause}
               >
                 <Pause />
@@ -218,7 +232,7 @@ const SpeechContentBox = () => {
             <Button
               variant={'link'}
               size="icon"
-              className="rounded-full text-primary-foreground"
+              className="rounded-full dark:text-primary-foreground"
               onClick={() => {
                 handleStop(true)
               }}
@@ -228,7 +242,7 @@ const SpeechContentBox = () => {
             <Button
               variant={'link'}
               size="icon"
-              className="rounded-full text-primary-foreground"
+              className="rounded-full dark:text-primary-foreground"
               onClick={handlePrev}
             >
               <StepBack />
@@ -236,7 +250,7 @@ const SpeechContentBox = () => {
             <Button
               variant={'link'}
               size="icon"
-              className="rounded-full text-primary-foreground"
+              className="rounded-full dark:text-primary-foreground"
               onClick={handleNext}
             >
               <StepForward />
@@ -267,7 +281,9 @@ const SpeechContentBox = () => {
                     onChange={handlePitchChange}
                   />
                 </TooltipTrigger>
-                <TooltipContent>Cao độ</TooltipContent>
+                <TooltipContent>
+                  {t('chapter_page:speech_content.pitch')}
+                </TooltipContent>
               </Tooltip>
             </TooltipProvider>
 
@@ -283,7 +299,9 @@ const SpeechContentBox = () => {
                     onChange={handleVolumeChange}
                   />
                 </TooltipTrigger>
-                <TooltipContent>Âm lượng</TooltipContent>
+                <TooltipContent>
+                  {t('chapter_page:speech_content.volume')}
+                </TooltipContent>
               </Tooltip>
             </TooltipProvider>
           </div>

@@ -7,12 +7,7 @@ import { Link } from 'react-router-dom'
 const Aside = () => {
   const { t } = useTranslation(['cms'])
   return (
-    <div
-      className="w-[300px] border shadow-md pt-6 p-2"
-      style={{
-        height: 'calc(100vh - 4rem)',
-      }}
-    >
+    <div className="w-[300px] border shadow-md pt-6 p-2 h-full">
       <Command>
         <CommandList>
           {CREATOR_ROUTES_NAVIGATE.map((routeNavigate) => {

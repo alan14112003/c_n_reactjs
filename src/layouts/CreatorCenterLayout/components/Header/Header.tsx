@@ -5,7 +5,7 @@ import UserActionBox from '@/components/UserActionBox'
 
 const Header = () => {
   return (
-    <header className="h-16 p-2 border-b">
+    <header className="h-16 p-2 border-b fixed left-0 right-0 top-0 bg-background z-50">
       <div className="flex justify-between items-center">
         <div className="flex justify-between items-center gap-10">
           <h1>Logo</h1>

@@ -1,0 +1,12 @@
+{
+  "speech_content": {
+    "title": "Read story",
+    "descriptions": "Set reading mode",
+    "pitch": "Pitch",
+    "volume": "Volume"
+  },
+  "auto_scrool": {
+    "title": "Auto scroll",
+    "descriptions": "Set scrolling mode"
+  }
+}

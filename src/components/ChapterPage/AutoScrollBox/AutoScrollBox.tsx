@@ -13,10 +13,13 @@ import {
 } from '@/components/ui/select'
 import { Pause, Play, ScrollText } from 'lucide-react'
 import { useState } from 'react'
+import { useTranslation } from 'react-i18next'
 
 const RATE_LIST = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 
 const AutoScrollBox = () => {
+  const { t } = useTranslation(['chapter_page'])
+
   const [isPaused, setIsPaused] = useState(true)
   const [rate, setRate] = useState(1)
   const [intervalId, setIntervalId] = useState<NodeJS.Timeout>()
@@ -59,18 +62,22 @@ const AutoScrollBox = () => {
           <ScrollText />
         </Button>
       </PopoverTrigger>
-      <PopoverContent className=" text-primary-foreground w-full">
+      <PopoverContent className="dark:text-primary-foreground w-full">
         <div className="grid gap-4">
           <div className="space-y-2">
-            <h4 className="font-medium leading-none">Tự động cuộn</h4>
-            <p className="text-sm text-muted-foreground">cài đặt chế độ cuộn</p>
+            <h4 className="font-medium leading-none">
+              {t('chapter_page:auto_scrool.title')}
+            </h4>
+            <p className="text-sm text-muted-foreground">
+              {t('chapter_page:auto_scrool.descriptions')}
+            </p>
           </div>
           <div className="flex items-center gap-2">
             {isPaused ? (
               <Button
                 variant={'link'}
                 size={'icon'}
-                className="rounded-full text-primary-foreground"
+                className="rounded-full dark:text-primary-foreground"
                 onClick={() => {
                   handlePlay()
                 }}
@@ -81,7 +88,7 @@ const AutoScrollBox = () => {
               <Button
                 variant={'link'}
                 size="icon"
-                className="rounded-full text-primary-foreground"
+                className="rounded-full dark:text-primary-foreground"
                 onClick={() => {
                   handlePause()
                 }}

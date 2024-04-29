@@ -4,11 +4,10 @@ import StoryServices, { StoryKey } from '@/services/storyServices'
 import { ChapterResponse, ChaptersResponse } from '@/types/chapterType'
 import { Story } from '@/types/storyType'
 import { useQuery, useQueryClient } from '@tanstack/react-query'
-import { id } from 'date-fns/locale'
 import { FC, useEffect, useState } from 'react'
 import { Helmet, HelmetProvider } from 'react-helmet-async'
 import { useTranslation } from 'react-i18next'
-import { Link, useParams } from 'react-router-dom'
+import { Link, useNavigate, useParams } from 'react-router-dom'
 import {
   Command,
   CommandEmpty,
@@ -46,8 +45,10 @@ const ChapterNavigation: FC<ChapterNavigationProp> = ({ chapter }) => {
 
   const [storySlug, storyId] = slugId!.split('.')
 
+  const navigate = useNavigate()
+
   const storyQuery = useQuery({
-    queryKey: [StoryKey, 'get', id],
+    queryKey: [StoryKey, 'get', storyId],
     queryFn: () => {
       return StoryServices.get(storySlug, storyId)
     },
@@ -81,6 +82,35 @@ const ChapterNavigation: FC<ChapterNavigationProp> = ({ chapter }) => {
       setNextChapter(chapters[currentIndex - 1])
     }
   }, [chaptersQuery])
+
+  useEffect(() => {
+    const handleKeyListener = (e: KeyboardEvent) => {
+      switch (e.key) {
+        case 'ArrowLeft':
+          if (prevChapter) {
+            navigate(
+              `/stories/${story.slug}.${story.id}/chapter-${prevChapter.id}`
+            )
+          }
+          break
+        case 'ArrowRight':
+          if (nextChapter) {
+            navigate(
+              `/stories/${story.slug}.${story.id}/chapter-${nextChapter.id}`
+            )
+          }
+          break
+        default:
+          break
+      }
+    }
+
+    window.addEventListener('keydown', handleKeyListener)
+
+    return () => {
+      window.removeEventListener('keydown', handleKeyListener)
+    }
+  }, [prevChapter, nextChapter])
 
   useEffect(() => {
     queryClient.invalidateQueries({
@@ -120,7 +150,7 @@ const ChapterNavigation: FC<ChapterNavigationProp> = ({ chapter }) => {
           )}
         </h2>
       </div>
-      <div className="fixed bottom-0 left-0 right-0 h-fit z-50 bg-black">
+      <div className="fixed bottom-0 left-0 right-0 h-fit z-50 bg-background">
         <div className="w-full h-full flex flex-col items-center p-2">
           {storyQuery.isSuccess && (
             <div className="flex justify-center gap-4 items-center">

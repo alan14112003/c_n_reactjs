@@ -24,6 +24,18 @@ interface Resources {
     "need_login": "Bạn cần đăng nhập",
     "repass_not_match": "Mật khẩu nhập lại không khớp"
   },
+  "chapter_page": {
+    "speech_content": {
+      "title": "Đọc truyện",
+      "descriptions": "Cài đặt chế độ đọc",
+      "pitch": "Cao độ",
+      "volume": "Âm lượng"
+    },
+    "auto_scrool": {
+      "title": "Tự động cuộn",
+      "descriptions": "cài đặt chế độ cuộn"
+    }
+  },
   "cms": {
     "page": {
       "title": {
@@ -31,6 +43,10 @@ interface Resources {
         "jobs": "ZenZobs - Tìm kiếm công việc",
         "job_detail": "ZenZobs - Chi tiết công việc"
       }
+    },
+    "root_navigation": {
+      "home": "Trang chủ",
+      "favorite": "Truyện đã theo dõi"
     },
     "creator_navigation": {
       "home": "Trang chủ",
@@ -202,7 +218,8 @@ interface Resources {
       "not_found": "Truyện không tồn tại"
     },
     "purchase": {
-      "balance_not_enough": "Số dư trong tài khoản không dủ"
+      "balance_not_enough": "Số dư trong tài khoản không dủ",
+      "success": "Mua chương thành công"
     },
     "chapter": {
       "need_purchase": "Cần phải mua chương này trước khi xem",

@@ -10,7 +10,7 @@ const CreatorCenterLayout = () => {
   return (
     <div className="h-screen">
       <Header />
-      <main className="flex justify-between h-full">
+      <main className="flex justify-between h-full mt-16">
         <Aside />
         <section
           className={`flex-1 bg-secondary 

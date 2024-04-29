@@ -1,0 +1,12 @@
+{
+  "speech_content": {
+    "title": "Đọc truyện",
+    "descriptions": "Cài đặt chế độ đọc",
+    "pitch": "Cao độ",
+    "volume": "Âm lượng"
+  },
+  "auto_scrool": {
+    "title": "Tự động cuộn",
+    "descriptions": "cài đặt chế độ cuộn"
+  }
+}
