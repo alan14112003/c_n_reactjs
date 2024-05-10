@@ -28,9 +28,8 @@ const NotifyBankIn: FC<NotifyBankInProp> = ({
       </div>
       <div className="text-base">
         <p>
-          <span className="ml-1">
-            {NotificationTypeEnum.getNameByValue(content.type)}
-          </span>
+          <span>{NotificationTypeEnum.getNameByValue(content.type)}</span>
+          <span className="ml-1">{content.transactionHistory.money * 2}</span>
         </p>
         {children}
       </div>
