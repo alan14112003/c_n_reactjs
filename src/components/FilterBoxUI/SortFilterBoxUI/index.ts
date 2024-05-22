@@ -1,1 +1,1 @@
-export { default } from './SortFilterBoxUI'
+export { default } from './SortFilterBoxUi'
