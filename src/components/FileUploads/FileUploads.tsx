@@ -122,6 +122,7 @@ export const SingleFileUpload: FC<SingleFileUploadProp> = memo(
               'tiff',
               'heif',
               'heic',
+              'jpg',
             ]}
           >
             <div className="p-4">{children ?? 'upload file here'}</div>
