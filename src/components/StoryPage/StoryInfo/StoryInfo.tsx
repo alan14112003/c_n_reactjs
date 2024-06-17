@@ -74,7 +74,7 @@ const StoryInfo: FC<StoryInfoProp> = ({ story }) => {
 
   return (
     <div className="flex gap-10">
-      <div className="w-[190px] h-[250px] shadow-slate-700 shadow-md rounded-sm">
+      <div className="min-w-[190px] w-[190px] h-[250px] shadow-slate-700 shadow-md rounded-sm overflow-hidden">
         <Image
           src={story.avatar ? JSON.parse(story.avatar).url : NoImage}
           alt={`for ${story.name}`}

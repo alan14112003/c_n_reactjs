@@ -17,7 +17,7 @@ const NotifyFollow: FC<NotifyFollowProp> = ({
 }) => {
   return (
     <>
-      <div className="w-12 h-12 rounded-full overflow-hidden">
+      <div className="min-w-12 w-12 h-12 rounded-full overflow-hidden">
         <Image
           className="w-full h-full"
           src={

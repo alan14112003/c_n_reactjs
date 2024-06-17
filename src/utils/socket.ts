@@ -1,6 +1,6 @@
 import { io } from 'socket.io-client'
 
-const URL = 'https://1a69-115-76-54-12.ngrok-free.app'
+const URL = 'http://222.255.117.238:8082'
 
 export const socket = io(URL, {
   transports: ['websocket', 'polling'],

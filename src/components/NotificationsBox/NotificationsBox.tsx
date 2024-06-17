@@ -2,7 +2,7 @@ import NotificationServices, {
   NotificationKey,
 } from '@/services/notificationServices'
 import { Notification, NotificationPaginate } from '@/types/notificationType'
-import { useQuery } from '@tanstack/react-query'
+import { useQuery, useQueryClient } from '@tanstack/react-query'
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -24,10 +24,15 @@ const NotificationsBox = () => {
     queryFn: NotificationServices.all,
   })
 
+  const queryClient = useQueryClient()
+
   useEffect(() => {
     const handleNotificationEventNew = (notification: Notification) => {
       toast(<NotifyToast notification={notification} />, {
         className: 'w-fit',
+      })
+      queryClient.refetchQueries({
+        queryKey: [NotificationKey],
       })
     }
 
