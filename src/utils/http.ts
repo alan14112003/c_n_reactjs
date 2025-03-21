@@ -4,7 +4,7 @@ import { toast } from 'react-toastify'
 import { getTokenLS, setTokenLS } from './authLS'
 import { sendEvent } from './event'
 
-const BASE_URL = 'http://222.255.117.238:8082/v1'
+const BASE_URL = `${import.meta.env.VITE_API_URL}/v1`
 
 const http = axios.create({
   baseURL: BASE_URL,

@@ -60,8 +60,7 @@ const LoginWithGoogle = () => {
   }
 
   const googleLoginButton = useGoogleLogin({
-    clientId:
-      '784916241478-silgai1j4pgok93fhfdlc0hg7rf50un0.apps.googleusercontent.com',
+    clientId: import.meta.env.VITE_GOOGLE_CLIENT_ID,
     callback: callback,
   })
 

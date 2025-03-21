@@ -1,6 +1,6 @@
 import { io } from 'socket.io-client'
 
-const URL = 'http://222.255.117.238:8082'
+const URL = `${import.meta.env.VITE_API_URL}`
 
 export const socket = io(URL, {
   transports: ['websocket', 'polling'],
